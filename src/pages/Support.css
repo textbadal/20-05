@@ -1,0 +1,94 @@
+.support-container {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: auto;
+    background: #fff;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .support-hero {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .support-hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    color: #00796b;
+  }
+  
+  .support-hero p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .support-contact h2,
+  .support-form-section h2,
+  .support-faq h2 {
+    color: #00796b;
+    margin-top: 40px;
+  }
+  
+  .support-contact ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .support-contact li {
+    margin-bottom: 10px;
+  }
+  
+  .support-contact a {
+    color: #009688;
+    text-decoration: none;
+  }
+  
+  .support-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .support-form input,
+  .support-form textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .support-form textarea {
+    resize: vertical;
+    height: 120px;
+  }
+  
+  .support-form button {
+    background-color: #00796b;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .support-form button:hover {
+    background-color: #004d40;
+  }
+  
+  .faq-item {
+    margin-top: 20px;
+  }
+  
+  .faq-item h4 {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .faq-item p {
+    color: #666;
+  }
+  
