@@ -151,7 +151,7 @@ const Home = () => {
             >
               <div className="visual-container">
                 <img 
-                  src="/hero-visual.svg" 
+                  src="/hero-image.png" 
                   alt="Digital solutions illustration" 
                 />
               </div>

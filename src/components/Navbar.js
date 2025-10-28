@@ -58,6 +58,7 @@ export default function Navbar() {
           <li><Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link></li>
           <li><Link to="/services" className={`nav-link ${location.pathname === '/services' ? 'active' : ''}`}>Services</Link></li>
           <li><Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>Projects</Link></li>
+          <li><Link to="/internship" className={`nav-link ${location.pathname === '/internship' ? 'active' : ''}`}>Internship</Link></li>
           <li><Link to="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}>Contact</Link></li>
         </ul>
 
@@ -86,6 +87,7 @@ export default function Navbar() {
           <li><Link to="/about" className={`mobile-link ${location.pathname === '/about' ? 'active' : ''}`} onClick={toggleMenu}>About</Link></li>
           <li><Link to="/services" className={`mobile-link ${location.pathname === '/services' ? 'active' : ''}`} onClick={toggleMenu}>Services</Link></li>
           <li><Link to="/projects" className={`mobile-link ${location.pathname === '/projects' ? 'active' : ''}`} onClick={toggleMenu}>Projects</Link></li>
+          <li><Link to="/internship" className={`mobile-link ${location.pathname === '/internship' ? 'active' : ''}`} onClick={toggleMenu}>Internship</Link></li>
          
           <li><Link to="/contact" className="mobile-cta" onClick={toggleMenu}>Contact Us</Link></li>
         </ul>

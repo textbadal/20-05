@@ -17,6 +17,7 @@ import DigitalMarketing from './pages/services/DigitalMarketing';
 import BusinessConsulting from './pages/services/BusinessConsulting';
 
 import Projects from './pages/Projects';
+import Internship from './pages/Internship';
 
 import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTop from './components/ScrollToTop';
@@ -31,6 +32,7 @@ function App() {
   <Route path="/about" element={<About />} />
   <Route path="/services" element={<Services />} />
   <Route path="/projects" element={<Projects />} />
+  <Route path="/internship" element={<Internship />} />
  
   <Route path="/contact" element={<Contact />} />
   <Route path="/career" element={<Career />} />
