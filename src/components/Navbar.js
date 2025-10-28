@@ -59,6 +59,7 @@ export default function Navbar() {
           <li><Link to="/services" className={`nav-link ${location.pathname === '/services' ? 'active' : ''}`}>Services</Link></li>
           <li><Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>Projects</Link></li>
           <li><Link to="/internship" className={`nav-link ${location.pathname === '/internship' ? 'active' : ''}`}>Internship</Link></li>
+          <li><Link to="/certificateverification" className={`nav-link ${location.pathname === '/CertificateVerification' ? 'active' : ''}`}>Certificate Verification</Link></li>
           <li><Link to="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}>Contact</Link></li>
         </ul>
 
@@ -88,6 +89,7 @@ export default function Navbar() {
           <li><Link to="/services" className={`mobile-link ${location.pathname === '/services' ? 'active' : ''}`} onClick={toggleMenu}>Services</Link></li>
           <li><Link to="/projects" className={`mobile-link ${location.pathname === '/projects' ? 'active' : ''}`} onClick={toggleMenu}>Projects</Link></li>
           <li><Link to="/internship" className={`mobile-link ${location.pathname === '/internship' ? 'active' : ''}`} onClick={toggleMenu}>Internship</Link></li>
+          <li><Link to="/certificateverification" className={`mobile-link ${location.pathname === '/certificateverification' ? 'active' : ''}`} onClick={toggleMenu}>Certificate Verification</Link></li>
          
           <li><Link to="/contact" className="mobile-cta" onClick={toggleMenu}>Contact Us</Link></li>
         </ul>
