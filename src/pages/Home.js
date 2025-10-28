@@ -1,84 +1,58 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaLaptopCode, FaPaintBrush, FaBullhorn, FaBusinessTime, FaCog, FaRegFileAlt, FaChartLine, FaUsers, FaBullseye, FaMapMarkedAlt, FaHandshake, FaMobileAlt } from 'react-icons/fa';
+import { 
+  FaLaptopCode, FaPaintBrush, FaBullhorn, FaBusinessTime, 
+  FaCog, FaRegFileAlt, FaChartLine, FaUsers, FaBullseye, 
+  FaMapMarkedAlt, FaHandshake, FaMobileAlt, FaArrowRight,
+  FaCheck, FaPlay, FaQuoteLeft, FaStar
+} from 'react-icons/fa';
 import './Home.css';
 
-
 const Home = () => {
- 
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setIsVisible(true);
+  }, []);
+
   const services = [
     {
-      icon: <FaLaptopCode size={40} color="#00bcd4" />,
+      icon: <FaLaptopCode />,
       title: "Web Development",
-      description: "Modern and responsive websites built to scale your business.",
-      highlights: ["Custom CMS", "E-commerce", "Web Apps"]
+      description: "Custom websites and web applications built with modern technologies.",
+      features: ["React/Next.js", "Responsive Design", "SEO Optimized", "Fast Performance"]
     },
     {
-      icon: <FaPaintBrush size={40} color="#ff5722" />,
+      icon: <FaMobileAlt />,
+      title: "Mobile Apps",
+      description: "Native and cross-platform mobile applications for iOS and Android.",
+      features: ["iOS & Android", "Cross-Platform", "User-Friendly", "App Store Ready"]
+    },
+    {
+      icon: <FaPaintBrush />,
       title: "UI/UX Design",
-      description: "Creative and user-centered designs that drive engagement.",
-      highlights: ["User Research", "Wireframing", "Prototyping"]
+      description: "Beautiful, intuitive designs that enhance user experience.",
+      features: ["User Research", "Wireframing", "Prototyping", "Design Systems"]
     },
     {
-      icon: <FaBullhorn size={40} color="#4caf50" />,
+      icon: <FaBullhorn />,
       title: "Digital Marketing",
-      description: "Grow your audience with SEO, Ads, and content strategy.",
-      highlights: ["SEO", "PPC", "Social Media"]
+      description: "Data-driven marketing strategies to grow your business.",
+      features: ["SEO", "PPC Campaigns", "Social Media", "Content Strategy"]
     },
     {
-      icon: <FaBusinessTime size={40} color="#9c27b0" />,
-      title: "Business Consulting",
-      description: "Turn ideas into strategies with expert business guidance.",
-      highlights: ["Market Analysis", "Strategy", "Implementation"]
+      icon: <FaChartLine />,
+      title: "Analytics",
+      description: "Actionable insights from your data to drive decisions.",
+      features: ["Google Analytics", "Custom Dashboards", "KPI Tracking", "Reports"]
     },
     {
-      icon: <FaCog size={40} color="#00bcd4" />,
-      title: "Automation Services",
-      description: "Streamline your processes with custom automation solutions.",
-      highlights: ["Workflow Automation", "CRM Integration", "Business Process Optimization"]
-    },
-    {
-      icon: <FaRegFileAlt size={40} color="#ff5722" />,
-      title: "Content Strategy",
-      description: "Develop a tailored content plan that resonates with your target audience.",
-      highlights: ["Content Creation", "Brand Messaging", "Content Distribution"]
-    },
-    {
-      icon: <FaChartLine size={40} color="#4caf50" />,
-      title: "Analytics & Insights",
-      description: "Leverage data and analytics to improve business performance and make data-driven decisions.",
-      highlights: ["Google Analytics", "Performance Reporting", "Data-Driven Strategy"]
-    },
-    {
-      icon: <FaUsers size={40} color="#9c27b0" />,
-      title: "Community Management",
-      description: "Engage with your audience and foster a loyal community.",
-      highlights: ["Social Media Engagement", "Brand Advocacy", "User Interaction"]
-    },
-    {
-      icon: <FaBullseye size={40} color="#00bcd4" />,
-      title: "Paid Advertising",
-      description: "Maximize ROI with targeted ad campaigns on platforms like Google Ads and Facebook.",
-      highlights: ["PPC Campaigns", "Google Ads", "Facebook/Instagram Ads"]
-    },
-    {
-      icon: <FaMapMarkedAlt size={40} color="#ff5722" />,
-      title: "Local SEO",
-      description: "Optimize your business for local search to attract nearby customers.",
-      highlights: ["Google My Business", "Local Listings", "Map Optimization"]
-    },
-    {
-      icon: <FaHandshake size={40} color="#4caf50" />,
-      title: "Partnership Development",
-      description: "Build and maintain strong partnerships to expand your business network.",
-      highlights: ["Strategic Partnerships", "Networking", "Affiliate Marketing"]
-    },
-    {
-      icon: <FaMobileAlt size={40} color="#ff5722" />,
-      title: "App Development",
-      description: "Create innovative mobile applications tailored to your business needs.",
-      highlights: ["Android Apps", "iOS Apps", "Cross-Platform Apps"]
+      icon: <FaCog />,
+      title: "Automation",
+      description: "Streamline processes with smart automation solutions.",
+      features: ["Workflow Automation", "CRM Integration", "AI Solutions", "API Integration"]
     }
   ];
 
@@ -89,189 +63,196 @@ const Home = () => {
     { number: "24/7", label: "Support Available" }
   ];
 
-  useEffect(() => {
-    // Scroll to top on mount
-    window.scrollTo(0, 0);
-  }, []);
+  const testimonials = [
+    {
+      quote: "Averiqo transformed our digital presence and helped us achieve 3x growth in just 6 months.",
+      author: "Sarah Chen",
+      role: "CEO, TechInnovate",
+      rating: 5
+    },
+    {
+      quote: "Professional, reliable, and delivered beyond our expectations. Highly recommended!",
+      author: "Michael Rodriguez",
+      role: "Marketing Director, GrowthCo",
+      rating: 5
+    }
+  ];
+
+  const process = [
+    {
+      step: "01",
+      title: "Discovery",
+      description: "We learn about your business and goals"
+    },
+    {
+      step: "02",
+      title: "Strategy",
+      description: "We create a customized plan"
+    },
+    {
+      step: "03",
+      title: "Development",
+      description: "We build your solution"
+    },
+    {
+      step: "04",
+      title: "Launch & Support",
+      description: "We deploy and maintain"
+    }
+  ];
 
   return (
     <div className="home">
-      {/* Hero Section */}
-      <section className="hero" aria-labelledby="hero-heading">
-        <div className="hero-background"></div>
+      {/* Clean Hero Section */}
+      <section className="hero">
         <div className="container">
           <div className="hero-content">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
+              className="hero-text"
             >
-              <h1 id="hero-heading">
-                <span className="gradient-text">Innovative Solutions</span> for Your Digital Transformation
+              <h1>
+                Digital Solutions for <span className="highlight">Modern Businesses</span>
               </h1>
-              <p className="hero-subtitle">
-                Averiqo delivers cutting-edge technology, design, and strategy services to propel your business forward in the digital landscape.
+              <p className="hero-description">
+                We create beautiful, functional digital experiences that drive growth and engage your audience. 
+                From web development to digital marketing, we've got you covered.
               </p>
-              <div className="hero-cta">
-                <Link to="/contact" className="btn btn-primary" aria-label="Get started with Averiqo">
-                  Get Started
+              <div className="hero-actions">
+                <Link to="/contact" className="btn btn-primary">
+                  Start Your Project
                 </Link>
-                <Link to="/projects" className="btn btn-secondary" aria-label="View our portfolio">
-                  View Portfolio
+                <Link to="/projects" className="btn btn-secondary">
+                  View Our Work
                 </Link>
+              </div>
+              <div className="hero-features">
+                <div className="feature">
+                  <FaCheck className="feature-icon" />
+                  <span>No upfront costs</span>
+                </div>
+                <div className="feature">
+                  <FaCheck className="feature-icon" />
+                  <span>Free consultation</span>
+                </div>
+                <div className="feature">
+                  <FaCheck className="feature-icon" />
+                  <span>14-day delivery</span>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="hero-visual"
+            >
+              <div className="visual-container">
+                <img 
+                  src="/hero-visual.svg" 
+                  alt="Digital solutions illustration" 
+                />
               </div>
             </motion.div>
           </div>
-          <motion.div 
-            className="hero-visual"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <img 
-              src="/hero-image.png" 
-              alt="Digital transformation illustration" 
-              loading="eager"
-            />
-          </motion.div>
         </div>
       </section>
 
-      {/* Trust Badges */}
-      <div className="trust-badges">
+      {/* Trust Bar */}
+      <section className="trust-bar">
         <div className="container">
-          <p>Trusted by innovative companies worldwide</p>
-          <div className="badges-grid">
+          <p className="trust-title">Trusted by innovative companies</p>
+          <div className="logos">
             {[1, 2, 3, 4, 5].map((item) => (
-              <img 
-                key={item}
-                src={`/logos/company-${item}.svg`} 
-                alt="Trusted company logo" 
-                loading="lazy"
-              />
+              <div key={item} className="logo">
+                <img 
+                  src={`/client-${item}.svg`} 
+                  alt={`Client ${item}`} 
+                />
+              </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Services Overview */}
-      <section className="services" aria-labelledby="services-heading">
+      {/* Services Section */}
+      <section className="services-section">
         <div className="container">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <div className="section-header">
-              <h2 id="services-heading">Our Expertise</h2>
-              <p className="section-subtitle">
-                Comprehensive digital solutions tailored to your business needs
-              </p>
-            </div>
-            
-            <div className="services-grid">
-  {services.map((service, index) => (
-    <motion.div 
-      className="service-card"
-      key={index}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <div className="service-icon-container">
-        {service.icon}
-      </div>
-      <h3>{service.title}</h3>
-      <p>{service.description}</p>
-      <ul className="service-highlights">
-        {service.highlights.map((highlight, i) => (
-          <li key={i}>• {highlight}</li>
-        ))}
-      </ul>
-      <Link 
-        to={`/services#${service.title.toLowerCase().replace(/\s+/g, '-')}`} 
-        className="service-link"
-      >
-        Learn more →
-      </Link>
-    </motion.div>
-  ))}
-</div>
-
-          </motion.div>
+          <div className="section-header">
+            <h2>Our Services</h2>
+            <p>Comprehensive digital solutions to grow your business</p>
+          </div>
+          <div className="services-grid">
+            {services.map((service, index) => (
+              <motion.div
+                key={index}
+                className="service-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="service-icon">
+                  {service.icon}
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <ul className="service-features">
+                  {service.features.map((feature, i) => (
+                    <li key={i}>
+                      <FaCheck className="check-icon" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Link to={`/services#${service.title.toLowerCase()}`} className="service-link">
+                  Learn more <FaArrowRight />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* About Us Teaser */}
-      <section className="about-teaser">
+      {/* Process Section */}
+      <section className="process-section">
         <div className="container">
-          <div className="about-content">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 id="about-heading">Why Choose Averiqo</h2>
-              <p className="about-description">
-                We combine technical excellence with business acumen to deliver solutions that drive measurable results. Our approach is built on three core principles:
-              </p>
-              <ul className="about-features">
-                <li>
-                  <h4>Strategic Thinking</h4>
-                  <p>Aligning technology with business objectives</p>
-                </li>
-                <li>
-                  <h4>Technical Excellence</h4>
-                  <p>Cutting-edge solutions with robust architecture</p>
-                </li>
-                <li>
-                  <h4>User-Centric Design</h4>
-                  <p>Intuitive interfaces that drive engagement</p>
-                </li>
-              </ul>
-              <div className="about-cta">
-                <Link to="/about" className="btn btn-outline" aria-label="Learn more about our approach">
-                  Our Methodology
-                </Link>
-                <Link to="/case-studies" className="btn btn-text" aria-label="View our case studies">
-                  View Case Studies →
-                </Link>
-              </div>
-            </motion.div>
+          <div className="section-header">
+            <h2>How We Work</h2>
+            <p>Our proven process ensures success</p>
           </div>
-          <motion.div 
-            className="about-visual"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <img 
-              src="/AI-Collaboration-Tools.jpg" 
-              alt="Averiqo team collaborating" 
-              loading="lazy"
-            />
-            <div className="experience-badge">
-              <span>10+</span>
-              <p>Years Experience</p>
-            </div>
-          </motion.div>
+          <div className="process-steps">
+            {process.map((step, index) => (
+              <motion.div
+                key={index}
+                className="process-step"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="step-number">{step.step}</div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="stats">
+      <section className="stats-section">
         <div className="container">
           <div className="stats-grid">
             {stats.map((stat, index) => (
-              <motion.div 
-                className="stat-card"
+              <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                className="stat-card"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
                 <div className="stat-number">{stat.number}</div>
@@ -282,24 +263,57 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="testimonials-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>What Our Clients Say</h2>
+            <p>Don't just take our word for it</p>
+          </div>
+          <div className="testimonials-grid">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                className="testimonial-card"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+              >
+                <FaQuoteLeft className="quote-icon" />
+                <p>"{testimonial.quote}"</p>
+                <div className="rating">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <FaStar key={i} className="star" />
+                  ))}
+                </div>
+                <div className="author">
+                  <strong>{testimonial.author}</strong>
+                  <span>{testimonial.role}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="cta" aria-labelledby="cta-heading">
+      <section className="cta-section">
         <div className="container">
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="cta-content"
           >
-            <h2 id="cta-heading">Ready to Transform Your Business?</h2>
-            <p className="cta-subtitle">
-              Schedule a free consultation with our experts to discuss your project requirements and how we can help.
-            </p>
-            <div className="cta-buttons">
-              <Link to="/contact" className="btn btn-primary" aria-label="Contact us for a consultation">
-                Book a Consultation
+            <h2>Ready to Get Started?</h2>
+            <p>Let's discuss your project and see how we can help your business grow.</p>
+            <div className="cta-actions">
+              <Link to="/contact" className="btn btn-primary">
+                Get Free Consultation
               </Link>
-              <Link to="/pricing" className="btn btn-secondary" aria-label="View our pricing plans">
-                View Pricing
+              <Link to="/projects" className="btn btn-secondary">
+                See Our Work
               </Link>
             </div>
           </motion.div>
