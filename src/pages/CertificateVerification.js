@@ -1,643 +1,244 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Helmet } from 'react-helmet';
-import { 
-  FaCertificate, 
-  FaCheckCircle, 
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet";
+import {
+  FaCertificate,
+  FaCheckCircle,
   FaTimesCircle,
-  FaShare,
   FaUserGraduate,
-  FaCalendarAlt,
   FaAward,
-  FaShieldAlt,
-  FaLink,
-  FaCopy,
-  FaQrcode,
+  FaCalendarAlt,
   FaIdCard,
-  FaLock,
-  FaDatabase,
-  FaClock,
-  FaUniversity,
-  FaSignature,
-  FaChartLine,
-  FaRibbon
-} from 'react-icons/fa';
-import './CertificateVerification.css';
+  FaShieldAlt,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
+import "./CertificateVerification.css";
 
 const CertificateVerification = () => {
-  const [certificateCode, setCertificateCode] = useState('');
-  const [verificationResult, setVerificationResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [searchHistory, setSearchHistory] = useState([]);
+  const [code, setCode] = useState("");
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [openFAQ, setOpenFAQ] = useState(null);
 
-  // Certificate database with provided details
-  const certificateDatabase = {
-    'AVQ-2024-001': {
-      id: 'AVQ-2024-001',
-      studentName: 'Sarah Johnson',
-      course: 'Frontend Development Internship',
-      issueDate: '2024-04-15',
-      startingDate: '2024-01-15',
-      completionDate: '2024-04-15',
-      duration: '3 months',
-      skills: ['React', 'JavaScript', 'CSS3', 'Git', 'Responsive Design', 'TypeScript'],
-      status: 'Completed',
-      grade: 'A+',
-      verified: true,
-      issuer: 'Averiqo Technologies',
-      issuerSignature: 'Dr. Emily Chen, CEO',
-      performance: 'Excellent',
-      project: 'E-commerce Platform Redesign',
-      digitalSeal: true,
-      verificationCount: 47,
-      lastVerified: '2024-06-20'
-    }
+  const certificates = {
+    "AVQ-2024-001": {
+      id: "AVQ-2024-001",
+      studentName: "Sarah Johnson",
+      course: "Frontend Development Internship",
+      issueDate: "2024-04-15",
+      duration: "3 months",
+      grade: "A+",
+      performance: "Excellent",
+      issuer: "Averiqo Technologies",
+    },
   };
 
-  // Auto-verify if certificate code is in URL
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const codeFromUrl = urlParams.get('code');
-    if (codeFromUrl) {
-      setCertificateCode(codeFromUrl);
-      verifyCertificate(codeFromUrl);
+    const urlCode = new URLSearchParams(window.location.search).get("code");
+    if (urlCode) {
+      setCode(urlCode);
+      handleVerify(urlCode);
     }
   }, []);
 
-  // Load search history from localStorage
-  useEffect(() => {
-    const savedHistory = localStorage.getItem('certificateSearchHistory');
-    if (savedHistory) {
-      setSearchHistory(JSON.parse(savedHistory));
-    }
-  }, []);
-
-  const verifyCertificate = useCallback((code) => {
-    setIsLoading(true);
-    
+  const handleVerify = (c) => {
+    setLoading(true);
+    setResult(null);
     setTimeout(() => {
-      const certificate = certificateDatabase[code.toUpperCase()];
-      
-      // Update search history
-      const newSearch = {
-        code: code.toUpperCase(),
-        timestamp: new Date().toISOString(),
-        valid: !!certificate
-      };
-      
-      const updatedHistory = [newSearch, ...searchHistory.filter(item => item.code !== code.toUpperCase())].slice(0, 5);
-      setSearchHistory(updatedHistory);
-      localStorage.setItem('certificateSearchHistory', JSON.stringify(updatedHistory));
-
-      if (certificate) {
-        setVerificationResult({
-          valid: true,
-          certificate: {
-            ...certificate,
-            verificationCount: certificate.verificationCount + 1,
-            lastVerified: new Date().toISOString()
-          },
-          message: 'Certificate authenticity confirmed. This is a valid Averiqo certificate.',
-          timestamp: new Date().toISOString(),
-          verificationId: `VER-${Date.now()}`
-        });
-        
-        // Update URL without page reload
-        const newUrl = `${window.location.origin}${window.location.pathname}?code=${code}`;
-        window.history.pushState({ path: newUrl }, '', newUrl);
-        
+      const cert = certificates[c.toUpperCase()];
+      if (cert) {
+        setResult({ valid: true, data: cert });
+        window.history.pushState({}, "", `?code=${c}`);
       } else {
-        setVerificationResult({
-          valid: false,
-          message: 'Certificate not found in our database. Please verify the certificate ID and try again.',
-          timestamp: new Date().toISOString(),
-          suggestions: [
-            'Check for typos in the certificate ID',
-            'Ensure you are using the correct format: AVQ-YYYY-NNN',
-            'Contact our support team if the issue persists'
-          ]
-        });
+        setResult({ valid: false });
       }
-      setIsLoading(false);
-    }, 1500);
-  }, [searchHistory]);
+      setLoading(false);
+    }, 1000);
+  };
 
-  const handleVerify = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    if (certificateCode.trim()) {
-      verifyCertificate(certificateCode.trim());
-    }
+    if (code.trim()) handleVerify(code.trim());
   };
 
-  const handleReset = () => {
-    setCertificateCode('');
-    setVerificationResult(null);
-    setCopied(false);
-    const newUrl = `${window.location.origin}${window.location.pathname}`;
-    window.history.pushState({ path: newUrl }, '', newUrl);
+  const reset = () => {
+    setCode("");
+    setResult(null);
+    window.history.pushState({}, "", window.location.pathname);
   };
 
-  const getCertificateUrl = (id) => `${window.location.origin}${window.location.pathname}?code=${id}`;
-
-  const copyCertificateUrl = (id) => {
-    navigator.clipboard.writeText(getCertificateUrl(id)).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-    });
-  };
-
-
-
-  const shareCertificate = (certificate) => {
-    const url = getCertificateUrl(certificate.id);
-    const text = `Verify ${certificate.studentName}'s ${certificate.course} certificate issued by Averiqo Technologies`;
-    
-    if (navigator.share) {
-      navigator.share({ 
-        title: 'Averiqo Certificate Verification', 
-        text, 
-        url 
-      });
-    } else {
-      copyCertificateUrl(certificate.id);
-    }
-  };
-
-  // Animations
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.8,
-        ease: "easeOut"
-      } 
-    }
-  };
-
-  const scaleIn = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut"
-      } 
-    }
-  };
-
-  const staggerChildren = {
-    visible: {
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
+  const faqs = [
+    {
+      question: "How do I find my certificate ID?",
+      answer:
+        "Your certificate ID is printed at the bottom of your certificate. It usually looks like AVQ-YYYY-XXX.",
+    },
+    {
+      question: "What if my certificate is not showing up?",
+      answer:
+        "Ensure the ID you entered matches exactly as printed on your certificate. If it still doesn’t work, contact Averiqo support.",
+    },
+    {
+      question: "Can I verify someone else’s certificate?",
+      answer:
+        "Yes. You can verify any Averiqo-issued certificate using the ID provided on it.",
+    },
+    {
+      question: "How secure is this verification?",
+      answer:
+        "Each certificate is stored in a secure database and verified through unique IDs that cannot be duplicated.",
+    },
+  ];
 
   return (
     <>
       <Helmet>
-        <title>Certificate Verification - Averiqo Technologies</title>
-        <meta name="description" content="Official Averiqo certificate verification portal. Verify your certificate authenticity with our secure verification system." />
+        <title>Verify Certificate | Averiqo</title>
       </Helmet>
 
-      <div className="certificate-verification-page">
-        {/* Main Verification Section */}
-        <section className="verification-section">
-          <div className="container">
-            <motion.div
-              className="verification-container"
-              initial="hidden"
-              whileInView="visible"
-              variants={scaleIn}
-              viewport={{ once: true, margin: "-50px" }}
-            >
+      <div className="verify-container">
+        <motion.div
+          className="verify-header"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <FaCertificate className="header-icon" />
+          <h1>Certificate Verification</h1>
+          <p>Powered by Averiqo Technologies</p>
+        </motion.div>
+
+        <motion.div
+          className="verify-card"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {!result && (
+            <form onSubmit={onSubmit} className="verify-form">
+              <label>
+                <FaIdCard /> Enter Certificate ID
+              </label>
+              <input
+                type="text"
+                placeholder="AVQ-2024-001"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
+              />
+              <button type="submit" disabled={loading}>
+                {loading ? "Verifying..." : "Verify Certificate"}
+              </button>
+              <small>Format: AVQ-YYYY-NNN</small>
+            </form>
+          )}
+
+          <AnimatePresence>
+            {result && (
               <motion.div
-                className="verification-card"
-                initial={{ opacity: 0, y: 20 }}
+                key="result"
+                className={`verify-result ${result.valid ? "valid" : "invalid"}`}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, y: 30 }}
               >
-                <div className="card-header">
-                  <div className="header-main">
-                    <div className="header-icon-container">
-                      <FaCertificate className="header-icon" />
-                    </div>
-                    <div>
-                      <h2>Verify Certificate Authenticity</h2>
-                      <p>Enter your certificate ID to verify authenticity</p>
-                    </div>
-                  </div>
-                  <div className="header-stats">
-                    <div className="stat">
-                      <FaDatabase />
-                      <span>{Object.keys(certificateDatabase).length} Certificates</span>
-                    </div>
-                    <div className="stat">
-                      <FaCheckCircle />
-                      <span>100% Secure</span>
-                    </div>
-                  </div>
-                </div>
+                {result.valid ? (
+                  <>
+                    <FaCheckCircle className="result-icon success" />
+                    <h2>Certificate Verified</h2>
+                    <p>This certificate is authentic and issued by Averiqo.</p>
 
-                {/* Verification Form */}
-                <form onSubmit={handleVerify} className="verification-form">
-                  <div className="form-group">
-                    <label htmlFor="certificateCode">
-                      <FaIdCard /> Certificate Identification Number
-                    </label>
-                    <div className="input-with-button">
-                      <input
-                        id="certificateCode"
-                        type="text"
-                        placeholder="AVQ-2024-001"
-                        value={certificateCode}
-                        onChange={(e) => setCertificateCode(e.target.value)}
-                        required
-                        pattern="AVQ-\d{4}-\d{3}"
-                        title="Format: AVQ-YYYY-NNN (e.g., AVQ-2024-001)"
-                        className="certificate-input"
-                      />
-                      <button 
-                        type="submit" 
-                        className="btn btn-primary verify-btn"
-                        disabled={isLoading || !certificateCode.trim()}
-                      >
-                        {isLoading ? (
-                          <>
-                            <div className="spinner"></div> 
-                            <span>Verifying...</span>
-                          </>
-                        ) : (
-                          <>
-                            <FaCheckCircle /> 
-                            <span>Verify Authenticity</span>
-                          </>
-                        )}
-                      </button>
+                    <div className="details">
+                      <div>
+                        <FaUserGraduate /> <strong>Student:</strong>{" "}
+                        {result.data.studentName}
+                      </div>
+                      <div>
+                        <FaAward /> <strong>Program:</strong>{" "}
+                        {result.data.course}
+                      </div>
+                      <div>
+                        <FaCalendarAlt /> <strong>Duration:</strong>{" "}
+                        {result.data.duration}
+                      </div>
+                      <div>
+                        <FaCheckCircle /> <strong>Grade:</strong>{" "}
+                        {result.data.grade}
+                      </div>
+                      <div>
+                        <FaCertificate /> <strong>Issued By:</strong>{" "}
+                        {result.data.issuer}
+                      </div>
+                      <div>
+                        <FaCalendarAlt /> <strong>Issue Date:</strong>{" "}
+                        {new Date(result.data.issueDate).toLocaleDateString()}
+                      </div>
                     </div>
-                    <div className="input-help">
-                      <FaLink /> Required format: AVQ-YYYY-NNN (e.g., AVQ-2024-001)
-                    </div>
-                  </div>
-                </form>
 
-                {/* Search History */}
-                {searchHistory.length > 0 && (
-                  <div className="search-history">
-                    <h4>Recent Verifications</h4>
-                    <div className="history-list">
-                      {searchHistory.map((item, index) => (
-                        <div 
-                          key={index} 
-                          className={`history-item ${item.valid ? 'valid' : 'invalid'}`}
-                          onClick={() => {
-                            setCertificateCode(item.code);
-                            verifyCertificate(item.code);
-                          }}
-                        >
-                          <span className="history-code">{item.code}</span>
-                          <span className="history-status">
-                            {item.valid ? 'Valid' : 'Invalid'}
-                          </span>
-                          <span className="history-time">
-                            {new Date(item.timestamp).toLocaleDateString()}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                    <button onClick={reset} className="reset-btn">
+                      Verify Another
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <FaTimesCircle className="result-icon error" />
+                    <h2>Verification Failed</h2>
+                    <p>No certificate found with the provided ID.</p>
+                    <button onClick={reset} className="reset-btn">
+                      Try Again
+                    </button>
+                  </>
                 )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
-                {/* Verification Result */}
+        {/* FAQ Section */}
+        <motion.section
+          className="faq-section"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <h2>Frequently Asked Questions</h2>
+          <div className="faq-list">
+            {faqs.map((item, index) => (
+              <motion.div
+                key={index}
+                className={`faq-item ${openFAQ === index ? "open" : ""}`}
+                onClick={() =>
+                  setOpenFAQ(openFAQ === index ? null : index)
+                }
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="faq-question">
+                  <span>{item.question}</span>
+                  {openFAQ === index ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
                 <AnimatePresence>
-                  {verificationResult && (
-                    <motion.div
-                      className={`result-container ${verificationResult.valid ? 'valid' : 'invalid'}`}
+                  {openFAQ === index && (
+                    <motion.p
+                      className="faq-answer"
                       initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
+                      animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <div className="result-header">
-                        <div className="result-status">
-                          {verificationResult.valid ? (
-                            <>
-                              <FaCheckCircle className="status-icon valid" />
-                              <div>
-                                <h3>Certificate Verified Successfully</h3>
-                                <p>{verificationResult.message}</p>
-                              </div>
-                            </>
-                          ) : (
-                            <>
-                              <FaTimesCircle className="status-icon invalid" />
-                              <div>
-                                <h3>Verification Failed</h3>
-                                <p>{verificationResult.message}</p>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                        <div className="verification-meta">
-                          <div className="verification-timestamp">
-                            <FaClock />
-                            Verified: {new Date(verificationResult.timestamp).toLocaleString()}
-                          </div>
-                          {verificationResult.verificationId && (
-                            <div className="verification-id">
-                              Ref: {verificationResult.verificationId}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {verificationResult.valid && verificationResult.certificate && (
-                        <motion.div 
-                          className="certificate-details"
-                          variants={staggerChildren}
-                          initial="hidden"
-                          animate="visible"
-                        >
-                          {/* Certificate Overview */}
-                          <div className="certificate-overview">
-                            <motion.div className="overview-card" variants={fadeInUp}>
-                              <div className="overview-icon">
-                                <FaUserGraduate />
-                              </div>
-                              <div>
-                                <span className="label">Certificate Holder</span>
-                                <span className="value">{verificationResult.certificate.studentName}</span>
-                              </div>
-                            </motion.div>
-                            <motion.div className="overview-card" variants={fadeInUp}>
-                              <div className="overview-icon">
-                                <FaAward />
-                              </div>
-                              <div>
-                                <span className="label">Program Completed</span>
-                                <span className="value">{verificationResult.certificate.course}</span>
-                              </div>
-                            </motion.div>
-                            <motion.div className="overview-card" variants={fadeInUp}>
-                              <div className="overview-icon">
-                                <FaCalendarAlt />
-                              </div>
-                              <div>
-                                <span className="label">Program Duration</span>
-                                <span className="value">{verificationResult.certificate.duration}</span>
-                              </div>
-                            </motion.div>
-                            <motion.div className="overview-card" variants={fadeInUp}>
-                              <div className="overview-icon">
-                                <FaRibbon />
-                              </div>
-                              <div>
-                                <span className="label">Final Grade</span>
-                                <span className={`value grade-${verificationResult.certificate.grade.toLowerCase()}`}>
-                                  {verificationResult.certificate.grade}
-                                </span>
-                              </div>
-                            </motion.div>
-                          </div>
-
-                          {/* Detailed Information */}
-                          <div className="detailed-information">
-                            <div className="info-grid">
-                              <motion.div className="info-section" variants={fadeInUp}>
-                                <h4>
-                                  <FaUniversity />
-                                  Program Details
-                                </h4>
-                                <div className="info-content">
-                                  <div className="info-row">
-                                    <strong>Certificate ID:</strong>
-                                    <code>{verificationResult.certificate.id}</code>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Starting Date:</strong>
-                                    <span>{new Date(verificationResult.certificate.startingDate).toLocaleDateString('en-US', { 
-                                      year: 'numeric', 
-                                      month: 'long', 
-                                      day: 'numeric' 
-                                    })}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Completion Date:</strong>
-                                    <span>{new Date(verificationResult.certificate.completionDate).toLocaleDateString('en-US', { 
-                                      year: 'numeric', 
-                                      month: 'long', 
-                                      day: 'numeric' 
-                                    })}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Issue Date:</strong>
-                                    <span>{new Date(verificationResult.certificate.issueDate).toLocaleDateString('en-US', { 
-                                      year: 'numeric', 
-                                      month: 'long', 
-                                      day: 'numeric' 
-                                    })}</span>
-                                  </div>
-                                </div>
-                              </motion.div>
-
-                              <motion.div className="info-section" variants={fadeInUp}>
-                                <h4>
-                                  <FaChartLine />
-                                  Performance Metrics
-                                </h4>
-                                <div className="info-content">
-                                  <div className="info-row">
-                                    <strong>Overall Grade:</strong>
-                                    <span className={`grade grade-${verificationResult.certificate.grade.toLowerCase()}`}>
-                                      {verificationResult.certificate.grade}
-                                    </span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Performance Rating:</strong>
-                                    <span className={`performance ${verificationResult.certificate.performance.toLowerCase()}`}>
-                                      {verificationResult.certificate.performance}
-                                    </span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Capstone Project:</strong>
-                                    <span>{verificationResult.certificate.project}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Status:</strong>
-                                    <span className="status-completed">{verificationResult.certificate.status}</span>
-                                  </div>
-                                </div>
-                              </motion.div>
-
-                              <motion.div className="info-section" variants={fadeInUp}>
-                                <h4>
-                                  <FaSignature />
-                                  Issuing Authority
-                                </h4>
-                                <div className="info-content">
-                                  <div className="info-row">
-                                    <strong>Issuing Organization:</strong>
-                                    <span>{verificationResult.certificate.issuer}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Authorized Signature:</strong>
-                                    <span>{verificationResult.certificate.issuerSignature}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Digital Seal:</strong>
-                                    <span className={verificationResult.certificate.digitalSeal ? 'security-active' : 'security-inactive'}>
-                                      {verificationResult.certificate.digitalSeal ? 'Active' : 'Inactive'}
-                                    </span>
-                                  </div>
-                                </div>
-                              </motion.div>
-
-                              <motion.div className="info-section" variants={fadeInUp}>
-                                <h4>
-                                  <FaShieldAlt />
-                                  Verification Data
-                                </h4>
-                                <div className="info-content">
-                                  <div className="info-row">
-                                    <strong>Verification Count:</strong>
-                                    <span>{verificationResult.certificate.verificationCount}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Last Verified:</strong>
-                                    <span>{new Date(verificationResult.certificate.lastVerified).toLocaleDateString()}</span>
-                                  </div>
-                                  <div className="info-row">
-                                    <strong>Certificate Status:</strong>
-                                    <span className="status-completed">Active and Valid</span>
-                                  </div>
-                                </div>
-                              </motion.div>
-                            </div>
-
-                            {/* Skills Section */}
-                            <motion.div className="info-section skills-section" variants={fadeInUp}>
-                              <h4>Acquired Skills & Competencies</h4>
-                              <div className="skills-grid">
-                                {verificationResult.certificate.skills.map((skill, index) => (
-                                  <motion.div 
-                                    key={index} 
-                                    className="skill-item"
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ type: "spring", stiffness: 300 }}
-                                  >
-                                    <FaCheckCircle className="skill-icon" />
-                                    <span>{skill}</span>
-                                  </motion.div>
-                                ))}
-                              </div>
-                            </motion.div>
-                          </div>
-    {/* Action Buttons */}
-                          <motion.div className="certificate-actions" variants={fadeInUp}>
-               
-                           
-                             
-                             
-                       
-                          </motion.div>
-                        </motion.div>
-                      )}
-                      {/* Invalid Certificate Suggestions */}
-                      {!verificationResult.valid && verificationResult.suggestions && (
-                        <div className="suggestions-container">
-                          <h4>Suggestions:</h4>
-                          <ul className="suggestions-list">
-                            {verificationResult.suggestions.map((suggestion, index) => (
-                              <li key={index}>{suggestion}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
-                      <div className="result-footer">
-                        <button className="btn btn-ghost" onClick={handleReset}>
-                          Verify Another Certificate
-                        </button>
-                      </div>
-                    </motion.div>
+                      {item.answer}
+                    </motion.p>
                   )}
                 </AnimatePresence>
               </motion.div>
-            </motion.div>
+            ))}
           </div>
-        </section>
+        </motion.section>
 
-        {/* Security Section */}
-        <section className="security-section">
-          <div className="container">
-            <motion.div
-              className="security-content"
-              initial="hidden"
-              whileInView="visible"
-              variants={fadeInUp}
-              viewport={{ once: true, margin: "-50px" }}
-            >
-              <div className="security-badge">
-                <FaLock />
-                Enterprise Security
-              </div>
-              <h2>Secure & Trusted Verification System</h2>
-              <p className="security-description">
-                Our verification system employs multiple layers of security to ensure 
-                the authenticity and integrity of every certificate issued by Averiqo Technologies.
-              </p>
-              
-              <div className="security-features-grid">
-                <div className="security-feature">
-                  <div className="feature-icon">
-                    <FaShieldAlt />
-                  </div>
-                  <h4>Digital Seal</h4>
-                  <p>Every certificate includes a secure digital seal for authenticity verification</p>
-                </div>
-                <div className="security-feature">
-                  <div className="feature-icon">
-                    <FaCheckCircle />
-                  </div>
-                  <h4>Instant Validation</h4>
-                  <p>Real-time verification against our secure database with immediate results</p>
-                </div>
-                <div className="security-feature">
-                  <div className="feature-icon">
-                    <FaLink />
-                  </div>
-                  <h4>Unique Verification Links</h4>
-                  <p>Each certificate has a unique, shareable verification URL for easy access</p>
-                </div>
-                <div className="security-feature">
-                  <div className="feature-icon">
-                    <FaDatabase />
-                  </div>
-                  <h4>Secure Database</h4>
-                  <p>Enterprise-grade database with encryption and regular security audits</p>
-                </div>
-                <div className="security-feature">
-                  <div className="feature-icon">
-                    <FaClock />
-                  </div>
-                  <h4>Audit Trail</h4>
-                  <p>Complete history of all verification attempts with timestamps and metadata</p>
-                </div>
-                <div className="security-feature">
-                  <div className="feature-icon">
-                    <FaAward />
-                  </div>
-                  <h4>Professional Standards</h4>
-                  <p>All certificates meet industry standards for digital credential verification</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <footer className="verify-footer">
+          <FaShieldAlt /> <p>Secure Verification by Averiqo Technologies</p>
+        </footer>
       </div>
     </>
   );
