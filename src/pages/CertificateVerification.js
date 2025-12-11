@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
+
 import {
   FaCertificate,
   FaCheckCircle,
@@ -13,6 +14,7 @@ import {
   FaChevronDown,
   FaChevronUp,
 } from "react-icons/fa";
+
 import "./CertificateVerification.css";
 
 const CertificateVerification = () => {
@@ -45,6 +47,7 @@ const CertificateVerification = () => {
   const handleVerify = (c) => {
     setLoading(true);
     setResult(null);
+
     setTimeout(() => {
       const cert = certificates[c.toUpperCase()];
       if (cert) {
@@ -97,7 +100,7 @@ const CertificateVerification = () => {
         <title>Verify Certificate | Averiqo</title>
       </Helmet>
 
-      <div className="verify-container">
+      <div className="verify-container beautiful-bg">
         <motion.div
           className="verify-header"
           initial={{ opacity: 0, y: -20 }}
@@ -109,8 +112,8 @@ const CertificateVerification = () => {
         </motion.div>
 
         <motion.div
-          className="verify-card"
-          initial={{ opacity: 0, scale: 0.95 }}
+          className="verify-card elegant-card"
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
@@ -119,6 +122,7 @@ const CertificateVerification = () => {
               <label>
                 <FaIdCard /> Enter Certificate ID
               </label>
+
               <input
                 type="text"
                 placeholder="AVQ-2024-001"
@@ -126,9 +130,11 @@ const CertificateVerification = () => {
                 onChange={(e) => setCode(e.target.value)}
                 required
               />
-              <button type="submit" disabled={loading}>
+
+              <button type="submit" disabled={loading} className="beautiful-btn">
                 {loading ? "Verifying..." : "Verify Certificate"}
               </button>
+
               <small>Format: AVQ-YYYY-NNN</small>
             </form>
           )}
@@ -137,7 +143,9 @@ const CertificateVerification = () => {
             {result && (
               <motion.div
                 key="result"
-                className={`verify-result ${result.valid ? "valid" : "invalid"}`}
+                className={`verify-result ${
+                  result.valid ? "valid" : "invalid"
+                }`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 30 }}
@@ -146,36 +154,24 @@ const CertificateVerification = () => {
                   <>
                     <FaCheckCircle className="result-icon success" />
                     <h2>Certificate Verified</h2>
-                    <p>This certificate is authentic and issued by Averiqo.</p>
+                    <p className="fade-text">
+                      This certificate is authentic and issued by Averiqo.
+                    </p>
 
-                    <div className="details">
-                      <div>
-                        <FaUserGraduate /> <strong>Student:</strong>{" "}
-                        {result.data.studentName}
-                      </div>
-                      <div>
-                        <FaAward /> <strong>Program:</strong>{" "}
-                        {result.data.course}
-                      </div>
-                      <div>
-                        <FaCalendarAlt /> <strong>Duration:</strong>{" "}
-                        {result.data.duration}
-                      </div>
-                      <div>
-                        <FaCheckCircle /> <strong>Grade:</strong>{" "}
-                        {result.data.grade}
-                      </div>
-                      <div>
-                        <FaCertificate /> <strong>Issued By:</strong>{" "}
-                        {result.data.issuer}
-                      </div>
-                      <div>
-                        <FaCalendarAlt /> <strong>Issue Date:</strong>{" "}
-                        {new Date(result.data.issueDate).toLocaleDateString()}
-                      </div>
+                    <div className="details smooth-details">
+                      <Detail icon={<FaUserGraduate />} label="Student" value={result.data.studentName} />
+                      <Detail icon={<FaAward />} label="Program" value={result.data.course} />
+                      <Detail icon={<FaCalendarAlt />} label="Duration" value={result.data.duration} />
+                      <Detail icon={<FaCheckCircle />} label="Grade" value={result.data.grade} />
+                      <Detail icon={<FaCertificate />} label="Issued By" value={result.data.issuer} />
+                      <Detail
+                        icon={<FaCalendarAlt />}
+                        label="Issue Date"
+                        value={new Date(result.data.issueDate).toLocaleDateString()}
+                      />
                     </div>
 
-                    <button onClick={reset} className="reset-btn">
+                    <button onClick={reset} className="reset-btn beautiful-btn">
                       Verify Another
                     </button>
                   </>
@@ -184,7 +180,7 @@ const CertificateVerification = () => {
                     <FaTimesCircle className="result-icon error" />
                     <h2>Verification Failed</h2>
                     <p>No certificate found with the provided ID.</p>
-                    <button onClick={reset} className="reset-btn">
+                    <button onClick={reset} className="reset-btn beautiful-btn">
                       Try Again
                     </button>
                   </>
@@ -194,30 +190,33 @@ const CertificateVerification = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* FAQ Section */}
+        {/* FAQ */}
         <motion.section
           className="faq-section"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
         >
           <h2>Frequently Asked Questions</h2>
+
           <div className="faq-list">
             {faqs.map((item, index) => (
               <motion.div
                 key={index}
-                className={`faq-item ${openFAQ === index ? "open" : ""}`}
+                className={`faq-item glass-faq ${
+                  openFAQ === index ? "open" : ""
+                }`}
                 onClick={() =>
                   setOpenFAQ(openFAQ === index ? null : index)
                 }
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
               >
                 <div className="faq-question">
                   <span>{item.question}</span>
                   {openFAQ === index ? <FaChevronUp /> : <FaChevronDown />}
                 </div>
+
                 <AnimatePresence>
                   {openFAQ === index && (
                     <motion.p
@@ -225,7 +224,6 @@ const CertificateVerification = () => {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
                     >
                       {item.answer}
                     </motion.p>
@@ -243,5 +241,12 @@ const CertificateVerification = () => {
     </>
   );
 };
+
+// Sub-component for cleaner repetitive UI
+const Detail = ({ icon, label, value }) => (
+  <div className="detail-item">
+    {icon} <strong>{label}:</strong> {value}
+  </div>
+);
 
 export default CertificateVerification;
