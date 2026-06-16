@@ -13,8 +13,8 @@ const Support = () => {
         <h2>Contact Support</h2>
         <p>If you have any questions or need support, please reach out via:</p>
         <ul>
-          <li><strong>Email:</strong> <a href="mailto:support@averiqo.com">support@averiqo.com</a></li>
-          <li><strong>Phone:</strong> <a href="tel:+919876543210">+91 98765 43210</a></li>
+          <li><strong>Email:</strong> <a href="mailto:support@averiqotech.com">support@averiqotech.com</a></li>
+          <li><strong>Phone:</strong> <a href="tel:+919334991688">+91 93349 1688</a></li>
           <li><strong>Business Hours:</strong> Monday – Friday, 9 AM – 6 PM IST</li>
         </ul>
       </div>

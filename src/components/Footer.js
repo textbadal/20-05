@@ -43,8 +43,8 @@ const Footer = () => {
         {/* Section 4: Contact Info */}
         <div className="footer-corp-column">
           <h4>Contact</h4>
-          <p>Email: <a href="mailto:contact@averiqo.com">contact@averiqo.com</a></p>
-          <p>Phone: <a href="tel:+919876543210">+91 98765 43210</a></p>
+          <p>Email: <a href="mailto:contact@averiqotech.com">contact@averiqotech.com</a></p>
+          <p>Phone: <a href="tel:+919334991688">+91 93349 91688</a></p>
           <div className="footer-corp-socials">
             <a href="https://linkedin.com" target="_blank" rel="noreferrer"><i className="fab fa-linkedin-in"></i></a>
             <a href="https://twitter.com" target="_blank" rel="noreferrer"><i className="fab fa-twitter"></i></a>

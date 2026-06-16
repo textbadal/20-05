@@ -492,7 +492,7 @@ const Internship = () => {
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://averiqo.com/internships" />
+        <meta property="og:url" content="https://averiqotech.com/internships" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
@@ -1212,7 +1212,7 @@ const Internship = () => {
                 }}>
                   Submit General Application <FaArrowRight />
                 </button>
-                <a href="mailto:careers@averiqo.com" className="btn-secondary">
+                <a href="mailto:careers@averiqotech.com" className="btn-secondary">
                   <FaEnvelope /> Contact Our Team
                 </a>
               </div>

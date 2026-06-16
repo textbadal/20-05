@@ -80,7 +80,7 @@ const PrivacyPolicy = () => {
           <h2>9. Contact Us</h2>
           <p>
             If you have questions about this Privacy Policy, please contact us at: <br />
-            <strong>Email:</strong> contact@averiqo.com
+            <strong>Email:</strong> contact@averiqotech.com
           </p>
         </section>
       </div>

@@ -95,7 +95,7 @@ const Terms = () => {
           <p>
             If you have any questions about these Terms & Conditions, please
             contact us at: <br />
-            <strong>Email:</strong> contact@averiqo.com
+            <strong>Email:</strong> contact@averiqotech.com
           </p>
         </section>
       </div>

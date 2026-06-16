@@ -53,9 +53,9 @@ const Contact = () => {
     {
       icon: <FaEnvelope />,
       title: "Email Us",
-      details: ["info@averiqo.com", "support@averiqo.com"],
+      details: ["info@averiqotech.com", "support@averiqotech.com"],
       action: "Send Email",
-      actionLink: "mailto:info@averiqo.com",
+      actionLink: "mailto:info@averiqotech.com",
     },
     {
       icon: <FaClock />,
@@ -480,7 +480,7 @@ const Contact = () => {
                 <FaPhoneAlt />
                 Call Us Now
               </a>
-              <a href="mailto:info@averiqo.com" className="btn-secondary">
+              <a href="mailto:info@averiqotech.com" className="btn-secondary">
                 <FaEnvelope />
                 Email Us
               </a>
