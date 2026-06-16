@@ -1,29 +1,41 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './Navbar.css';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./Navbar.css";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
   const navbarRef = useRef(null);
   const location = useLocation();
 
+  const navLinks = [
+    { path: "/", label: "Home" },
+    { path: "/about", label: "About" },
+    { path: "/services", label: "Services" },
+    { path: "/projects", label: "Projects" },
+    { path: "/internship", label: "Internship" },
+    { path: "/certificateverification", label: "Verify Certificate" },
+    { path: "/contact", label: "Contact" },
+  ];
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+    const handleOutsideClick = (e) => {
+      if (navbarRef.current && !navbarRef.current.contains(e.target)) {
         setMenuOpen(false);
       }
     };
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 30);
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    window.addEventListener('scroll', handleScroll);
+    document.addEventListener("mousedown", handleOutsideClick);
+    window.addEventListener("scroll", handleScroll);
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener("mousedown", handleOutsideClick);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -31,69 +43,85 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location]);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
   return (
-    <nav 
-      className={`navbar ${scrolled ? 'scrolled' : ''} ${menuOpen ? 'open' : ''}`} 
+    <header
       ref={navbarRef}
+      className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}
     >
       <div className="navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
-          <img 
-            src="/Averiqo.logo.png" 
-            alt="Averiqo Logo" 
-            className="logo-img" 
-            width="180" 
-            height="50"
+          <img
+            src="/Averiqo Technologies logo.jpeg"
+            alt="Averiqo Technologies"
+            className="logo-img"
           />
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Menu */}
         <ul className="navbar-menu">
-          <li><Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link></li>
-          <li><Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link></li>
-          <li><Link to="/services" className={`nav-link ${location.pathname === '/services' ? 'active' : ''}`}>Services</Link></li>
-          <li><Link to="/projects" className={`nav-link ${location.pathname === '/projects' ? 'active' : ''}`}>Projects</Link></li>
-          <li><Link to="/internship" className={`nav-link ${location.pathname === '/internship' ? 'active' : ''}`}>Internship</Link></li>
-          <li><Link to="/certificateverification" className={`nav-link ${location.pathname === '/CertificateVerification' ? 'active' : ''}`}>Certificate Verification</Link></li>
-          <li><Link to="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}>Contact</Link></li>
+          {navLinks.map((link) => (
+            <li key={link.path}>
+              <Link
+                to={link.path}
+                className={`nav-link ${
+                  location.pathname.toLowerCase() ===
+                  link.path.toLowerCase()
+                    ? "active"
+                    : ""
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
         </ul>
 
         {/* CTA */}
-        <div className="navbar-cta">
-          <Link to="/contact" className="cta-button">Get in Touch</Link>
+        <div className="navbar-actions">
+          <Link to="/contact" className="cta-button">
+            Start a Project
+          </Link>
         </div>
 
-        {/* Hamburger */}
-        <button 
-          className={`hamburger ${menuOpen ? 'open' : ''}`} 
-          onClick={toggleMenu}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
+        {/* Mobile Toggle */}
+        <button
+          className={`hamburger ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Menu"
         >
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${menuOpen ? 'show' : ''}`}>
-        <ul>
-          <li><Link to="/" className={`mobile-link ${location.pathname === '/' ? 'active' : ''}`} onClick={toggleMenu}>Home</Link></li>
-          <li><Link to="/about" className={`mobile-link ${location.pathname === '/about' ? 'active' : ''}`} onClick={toggleMenu}>About</Link></li>
-          <li><Link to="/services" className={`mobile-link ${location.pathname === '/services' ? 'active' : ''}`} onClick={toggleMenu}>Services</Link></li>
-          <li><Link to="/projects" className={`mobile-link ${location.pathname === '/projects' ? 'active' : ''}`} onClick={toggleMenu}>Projects</Link></li>
-          <li><Link to="/internship" className={`mobile-link ${location.pathname === '/internship' ? 'active' : ''}`} onClick={toggleMenu}>Internship</Link></li>
-          <li><Link to="/certificateverification" className={`mobile-link ${location.pathname === '/certificateverification' ? 'active' : ''}`} onClick={toggleMenu}>Certificate Verification</Link></li>
-         
-          <li><Link to="/contact" className="mobile-cta" onClick={toggleMenu}>Contact Us</Link></li>
-        </ul>
+      <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
+        {navLinks.map((link) => (
+          <Link
+            key={link.path}
+            to={link.path}
+            className={`mobile-link ${
+              location.pathname.toLowerCase() ===
+              link.path.toLowerCase()
+                ? "active"
+                : ""
+            }`}
+            onClick={() => setMenuOpen(false)}
+          >
+            {link.label}
+          </Link>
+        ))}
+
+        <Link
+          to="/contact"
+          className="mobile-cta"
+          onClick={() => setMenuOpen(false)}
+        >
+          Start a Project
+        </Link>
       </div>
-    </nav>
+    </header>
   );
 }
