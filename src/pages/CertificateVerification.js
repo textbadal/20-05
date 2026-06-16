@@ -1,4 +1,4 @@
-// CertificateVerification.jsx - Alternate Design
+// CertificateVerification.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
@@ -14,7 +14,6 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaSearch,
-  FaArrowRight,
   FaEnvelope,
   FaLock,
   FaStar,
@@ -28,8 +27,6 @@ import {
   FaCopy,
   FaCheck,
   FaArrowLeft,
-  FaBuilding,
-  FaGlobe,
   FaUsers,
 } from "react-icons/fa";
 import "./CertificateVerification.css";
@@ -100,6 +97,7 @@ const CertificateVerification = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Load recent verifications
@@ -209,7 +207,7 @@ const CertificateVerification = () => {
       </Helmet>
 
       <div className="cert-verify-page">
-        {/* Minimal Background */}
+        {/* Background Elements */}
         <div className="bg-elements">
           <div className="bg-dot dot-1"></div>
           <div className="bg-dot dot-2"></div>
@@ -221,9 +219,7 @@ const CertificateVerification = () => {
         </div>
 
         <div className="container">
-       
-
-          {/* Hero Section - Clean */}
+          {/* Hero Section */}
           <motion.div
             className="hero-section"
             initial={{ opacity: 0, y: 30 }}
@@ -231,8 +227,8 @@ const CertificateVerification = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <div className="hero-badge">
-         
-             
+              <FaShieldAlt />
+              <span>Secure Verification</span>
             </div>
             <h1>Verify Your Certificate</h1>
             <p>
@@ -253,7 +249,7 @@ const CertificateVerification = () => {
             </div>
           </motion.div>
 
-          {/* Main Verification Card - Minimal Design */}
+          {/* Main Verification Card */}
           <motion.div
             className="verify-card"
             initial={{ opacity: 0, y: 30 }}
@@ -390,7 +386,7 @@ const CertificateVerification = () => {
                           <p>This certificate is authentic and issued by Averiqo</p>
                         </div>
 
-                        {/* Certificate Details - Clean Grid */}
+                        {/* Certificate Details */}
                         <div className="cert-details">
                           <div className="detail-row">
                             <div className="detail-label">Student Name</div>
@@ -465,6 +461,9 @@ const CertificateVerification = () => {
                           <button onClick={handlePrint} className="btn-outline">
                             <FaPrint /> Print
                           </button>
+                          <button onClick={handleDownload} className="btn-outline">
+                            <FaDownload /> Download
+                          </button>
                           <button
                             onClick={() => handleCopy(result.data.verificationUrl)}
                             className="btn-primary"
@@ -515,7 +514,7 @@ const CertificateVerification = () => {
             </div>
           </motion.div>
 
-          {/* FAQ Section - Minimal */}
+          {/* FAQ Section */}
           <motion.section
             className="faq-section"
             initial={{ opacity: 0, y: 30 }}
@@ -564,8 +563,6 @@ const CertificateVerification = () => {
               ))}
             </div>
           </motion.section>
-
-        
         </div>
       </div>
     </>
