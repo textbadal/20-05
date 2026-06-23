@@ -1,289 +1,398 @@
-// Home.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaLaptopCode,
-  FaPaintBrush,
+  FaPalette,
   FaBullhorn,
-  FaCog,
-  FaChartLine,
-  FaMobileAlt,
   FaArrowRight,
-  FaCheck,
-  FaQuoteLeft,
-  FaStar,
-  FaArrowUp,
+  FaGlobe,
+  FaRocket,
+  FaUsers,
+  FaChartLine,
+  FaChevronDown,
 } from "react-icons/fa";
+
+import SEO from "../components/SEO";
 import "./Home.css";
 
+// --- Static Data Moved Outside Component to Optimize Rendering Performance ---
+const SERVICES = [
+  {
+    icon: <FaLaptopCode />,
+    title: "Web Development",
+    desc: "Custom websites and web applications built for performance, security, and global scalability.",
+  },
+  {
+    icon: <FaPalette />,
+    title: "UI/UX Design",
+    desc: "Modern, research-driven user experiences designed to maximize engagement and conversions.",
+  },
+  {
+    icon: <FaBullhorn />,
+    title: "Digital Marketing",
+    desc: "Data-backed SEO, social media, and marketing strategies engineered to drive organic growth.",
+  },
+];
+
+const PROCESS_STEPS = [
+  {
+    step: "01",
+    title: "Discover",
+    desc: "We analyze your business goals, target audience, and engineering requirements.",
+  },
+  {
+    step: "02",
+    title: "Plan & Strategy",
+    desc: "Creating an agile roadmap, wireframes, and architectural strategy for success.",
+  },
+  {
+    step: "03",
+    title: "Develop",
+    desc: "Engineering modern, scalable, and secure production-ready solutions.",
+  },
+  {
+    step: "04",
+    title: "Launch & Support",
+    desc: "Continuous deployment, rigorous QA testing, and reliable post-launch maintenance.",
+  },
+];
+
+const VALUES = [
+  {
+    icon: <FaRocket />,
+    title: "Innovative Solutions",
+    desc: "Leveraging cutting-edge tech stacks and modular architectures for long-term scalability.",
+  },
+  {
+    icon: <FaUsers />,
+    title: "Client-Centric Approach",
+    desc: "We function as your extended team, ensuring every feature directly maps to commercial success.",
+  },
+  {
+    icon: <FaGlobe />,
+    title: "Digital Expertise",
+    desc: "A multidisciplinary agency offering cohesive engineering and creative services under one roof.",
+  },
+  {
+    icon: <FaChartLine />,
+    title: "Growth-Driven Engineering",
+    desc: "We build with speed and analytics instrumentation to track and deliver measurable metrics.",
+  },
+];
+
+const STATS = [
+  { number: "50+", label: "Projects Delivered" },
+  { number: "20+", label: "Enterprise & Startup Clients" },
+  { number: "100%", label: "Client Success Rate" },
+  { number: "24/7", label: "SLA Support & Monitoring" },
+];
+
+const FAQ_DATA = [
+  {
+    question: "What core services does Averiqo Technologies provide?",
+    answer: "We specialize in custom web development, bespoke UI/UX design architectures, high-performance digital marketing funnels, tailored software product consulting, and professional industry tech internships.",
+  },
+  {
+    question: "Do you collaborate with early-stage startups?",
+    answer: "Absolutely. We routinely partner with early-stage startups to build modern MVPs, as well as mid-market enterprises looking to optimize and scale their legacy software infrastructures.",
+  },
+];
+
+// --- Animation Variants for Uniform Scroll Revelations ---
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
 const Home = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
   };
 
-  const services = [
-    {
-      icon: <FaLaptopCode />,
-      title: "Web Development",
-      description: "Custom websites and web applications built with modern technologies.",
-      features: ["React/Next.js", "Responsive Design", "SEO Optimized", "Fast Performance"],
-    },
-    {
-      icon: <FaMobileAlt />,
-      title: "Mobile Apps",
-      description: "Native and cross-platform mobile applications for iOS and Android.",
-      features: ["iOS & Android", "Cross-Platform", "User-Friendly", "App Store Ready"],
-    },
-    {
-      icon: <FaPaintBrush />,
-      title: "UI/UX Design",
-      description: "Beautiful, intuitive designs that enhance user experience.",
-      features: ["User Research", "Wireframing", "Prototyping", "Design Systems"],
-    },
-    {
-      icon: <FaBullhorn />,
-      title: "Digital Marketing",
-      description: "Data-driven marketing strategies to grow your business.",
-      features: ["SEO", "PPC Campaigns", "Social Media", "Content Strategy"],
-    },
-    {
-      icon: <FaChartLine />,
-      title: "Analytics",
-      description: "Actionable insights from your data to drive decisions.",
-      features: ["Google Analytics", "Custom Dashboards", "KPI Tracking", "Reports"],
-    },
-    {
-      icon: <FaCog />,
-      title: "Automation",
-      description: "Streamline processes with smart automation solutions.",
-      features: ["Workflow Automation", "CRM Integration", "AI Solutions", "API Integration"],
-    },
-  ];
-
-  const stats = [
-    { number: "150+", label: "Projects Completed" },
-    { number: "98%", label: "Client Satisfaction" },
-    { number: "50+", label: "Enterprise Clients" },
-    { number: "24/7", label: "Support Available" },
-  ];
-
-  const testimonials = [
-    {
-      quote: "Averiqo transformed our digital presence and helped us achieve 3x growth in just 6 months.",
-      author: "Sarah Chen",
-      role: "CEO, TechInnovate",
-      rating: 5,
-    },
-    {
-      quote: "Professional, reliable, and delivered beyond our expectations. Highly recommended!",
-      author: "Michael Rodriguez",
-      role: "Marketing Director, GrowthCo",
-      rating: 5,
-    },
-  ];
-
   return (
-    <div className="home">
-      {/* HERO SECTION */}
-      <section className="hero">
-        <div className="container">
-          <div className="hero-content">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="hero-text"
+    <>
+      <SEO
+        title="Averiqo Technologies | Enterprise Web Development & Digital Engineering"
+        description="Transforming visions into high-performance digital architectures. Leading-edge Web Development, UI/UX Design, and Strategy built for scalability."
+        keywords="web development company, software company, UI UX design agency, digital enterprise solutions, Averiqo Technologies"
+        url="https://averiqotech.com/"
+      />
+
+      <main className="home-page">
+        {/* HERO SECTION */}
+        <section className="hero-section" aria-label="Introduction">
+          <div className="container hero-grid">
+            <motion.div 
+              className="hero-content"
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
+              <span className="hero-badge">
+                Technology • Innovation • Growth
+              </span>
               <h1>
-                Digital Solutions for <br />
-                <span className="highlight">Modern Businesses</span>
+                Building Digital Solutions <br />
+                <span className="gradient-text">That Drive Business Growth</span>
               </h1>
-              <p className="hero-description">
-                We create beautiful, functional digital experiences that drive
-                growth and engage your audience. From web development to digital
-                marketing, we've got you covered.
+              <p>
+                Averiqo Technologies bridges the gap between vision and execution. We build powerful, 
+                scalable web applications, optimized user interfaces, and technical marketing environments 
+                to capture market share for modern brands.
               </p>
-              <div className="hero-actions">
+              <div className="hero-buttons">
                 <Link to="/contact" className="btn-primary">
                   Start Your Project
-                  <FaArrowRight />
+                  <FaArrowRight className="btn-icon-right" />
                 </Link>
-                <Link to="/projects" className="btn-secondary">
-                  View Our Work
+                <Link to="/services" className="btn-secondary">
+                  Explore Services
                 </Link>
-              </div>
-              <div className="hero-features">
-                <span>
-                  <FaCheck /> No upfront costs
-                </span>
-                <span>
-                  <FaCheck /> Free consultation
-                </span>
-                <span>
-                  <FaCheck /> 14-day delivery
-                </span>
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="hero-image"
+            <motion.div 
+              className="hero-image-wrapper"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
-              <img src="/hero-image.png" alt="Digital solutions" />
+              <img
+                src="/hero-image.png"
+                alt="Digital transformation concept showing interface metrics dashboard"
+                loading="eager"
+              />
             </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* TRUST BAR */}
-      <section className="trust-bar">
-        <div className="container">
-          <p className="trust-title">Trusted by innovative companies</p>
-          <div className="logos">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div key={item} className="logo">
-                <img src={`/client-${item}.svg`} alt={`Client ${item}`} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section className="services">
-        <div className="container">
-          <div className="section-header">
-            <h2>Our Services</h2>
-            <p>Comprehensive digital solutions to grow your business</p>
-          </div>
-          <div className="services-grid">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="service-card"
-              >
-                <div className="service-icon">{service.icon}</div>
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-                <ul>
-                  {service.features.map((feature, idx) => (
-                    <li key={idx}>
-                      <FaCheck /> {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link to={`/services#${service.title.toLowerCase()}`} className="service-link">
-                  Learn More <FaArrowRight />
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* STATS */}
-      <section className="stats">
-        <div className="container">
-          <div className="stats-grid">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="stat-card"
-              >
-                <div className="stat-number">{stat.number}</div>
-                <div className="stat-label">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="testimonials">
-        <div className="container">
-          <div className="section-header">
-            <h2>What Our Clients Say</h2>
-            <p>Don't just take our word for it</p>
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="testimonial-card"
-              >
-                <FaQuoteLeft className="quote-icon" />
-                <p>{testimonial.quote}</p>
-                <div className="rating">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <FaStar key={i} />
-                  ))}
-                </div>
-                <div className="author">
-                  <strong>{testimonial.author}</strong>
-                  <span>{testimonial.role}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="cta-content"
-          >
-            <h2>Ready to Get Started?</h2>
-            <p>Let's discuss your project and see how we can help your business grow.</p>
-            <div className="cta-actions">
-              <Link to="/contact" className="btn-primary">
-                Get Free Consultation
-                <FaArrowRight />
-              </Link>
-              <Link to="/projects" className="btn-secondary">
-                See Our Work
-              </Link>
+        {/* SERVICES SECTION */}
+        <section className="services-section" aria-labelledby="services-heading">
+          <div className="container">
+            <div className="section-header text-center">
+              <h2 id="services-heading">Our Core Services</h2>
+              <p>End-to-end engineered capabilities constructed to expand your digital market share.</p>
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* SCROLL TO TOP */}
-      {showScrollTop && (
-        <button className="scroll-top" onClick={scrollToTop}>
-          <FaArrowUp />
-        </button>
-      )}
-    </div>
+            <motion.div 
+              className="services-grid"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              {SERVICES.map((service, index) => (
+                <motion.div
+                  key={index}
+                  variants={fadeInUp}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  className="service-card"
+                >
+                  <div className="service-icon" aria-hidden="true">
+                    {service.icon}
+                  </div>
+                  <h3>{service.title}</h3>
+                  <p>{service.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* VALUE PROPOSITION (WHY CHOOSE US) */}
+        <section className="why-section" aria-labelledby="why-heading">
+          <div className="container">
+            <div className="section-header text-center">
+              <h2 id="why-heading">Why Choose Averiqo Technologies</h2>
+            </div>
+
+            <motion.div 
+              className="why-grid"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              {VALUES.map((value, index) => (
+                <motion.div key={index} variants={fadeInUp} className="why-card">
+                  <div className="why-icon-wrapper" aria-hidden="true">{value.icon}</div>
+                  <h3>{value.title}</h3>
+                  <p>{value.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* METRICS & STATS */}
+        <section className="stats-section" aria-label="Performance Metrics">
+          <div className="container">
+            <motion.div 
+              className="stats-grid"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              {STATS.map((stat, index) => (
+                <motion.div key={index} variants={fadeInUp} className="stat-card">
+                  <span className="stat-number">{stat.number}</span>
+                  <p className="stat-label">{stat.label}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* PROCESS FLOW SECTION */}
+        <section className="process-section" aria-labelledby="process-heading">
+          <div className="container">
+            <div className="section-header text-center">
+              <h2 id="process-heading">Our Engineering Process</h2>
+              <p>A rigorous, collaborative development workflow structured for precision delivery.</p>
+            </div>
+
+            <motion.div 
+              className="process-grid"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              {PROCESS_STEPS.map((item, index) => (
+                <motion.div key={index} variants={fadeInUp} className="process-card">
+                  <span className="process-step-num" aria-hidden="true">{item.step}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* PORTFOLIO SHOWCASE */}
+        <section className="projects-section" aria-labelledby="projects-heading">
+          <div className="container">
+            <div className="section-header text-center">
+              <h2 id="projects-heading">Featured Deployments</h2>
+              <p>Explore real-world case studies demonstrating our commitment to quality execution.</p>
+            </div>
+
+            <motion.div 
+              className="projects-grid"
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+            >
+              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+                <div className="project-meta">Enterprise Stack</div>
+                <h3>Next-Gen Corporate Platform</h3>
+                <p>High-speed headless CMS system with tailored user telemetry configurations.</p>
+              </motion.div>
+              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+                <div className="project-meta">EdTech Systems</div>
+                <h3>E-Learning Hub Architecture</h3>
+                <p>Interactive platform with low latency real-time asset delivery management.</p>
+              </motion.div>
+              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+                <div className="project-meta">Performance Marketing</div>
+                <h3>Data-Driven Growth Campaign</h3>
+                <p>Scalable dynamic landing operations optimized for hyper-converting conversion funnels.</p>
+              </motion.div>
+            </motion.div>
+
+            <motion.div 
+              className="center-btn-wrapper"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link to="/projects" className="btn-secondary-outline">
+                View Case Studies
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* FAQ ACCORDION */}
+        <section className="faq-section" aria-labelledby="faq-heading">
+          <div className="container compact-container">
+            <div className="section-header text-center">
+              <h2 id="faq-heading">Frequently Asked Questions</h2>
+            </div>
+
+            <div className="faq-list">
+              {FAQ_DATA.map((faq, index) => {
+                const isOpen = activeFaq === index;
+                const panelId = `faq-panel-${index}`;
+                return (
+                  <div key={index} className={`faq-item ${isOpen ? "active" : ""}`}>
+                    <button 
+                      className="faq-trigger" 
+                      onClick={() => toggleFaq(index)}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                    >
+                      <span>{faq.question}</span>
+                      <FaChevronDown className={`faq-icon ${isOpen ? "rotate" : ""}`} />
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          id={panelId}
+                          role="region"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="faq-content-wrapper"
+                        >
+                          <p className="faq-answer">{faq.answer}</p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* CALL TO ACTION */}
+        <section className="cta-section" aria-label="Call to Action">
+          <motion.div 
+            className="container text-center"
+            initial={{ opacity: 0, scale: 0.98 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2>Ready to Build Your Next Digital Solution?</h2>
+            <p>Connect with our technical strategy engineers today to structure your product architecture blueprint.</p>
+            <Link to="/contact" className="btn-primary btn-large">
+              Get A Free Consultation
+            </Link>
+          </motion.div>
+        </section>
+      </main>
+    </>
   );
 };
 

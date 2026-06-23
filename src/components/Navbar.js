@@ -15,7 +15,7 @@ export default function Navbar() {
     { path: "/services", label: "Services" },
     { path: "/projects", label: "Projects" },
     { path: "/internship", label: "Internship" },
-    { path: "/certificateverification", label: "Verify Certificate" },
+    { path: "/certificate-verification", label: "Verify Certificate" },
     { path: "/contact", label: "Contact" },
   ];
 
@@ -27,7 +27,7 @@ export default function Navbar() {
     };
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 20);
     };
 
     document.addEventListener("mousedown", handleOutsideClick);
@@ -46,10 +46,10 @@ export default function Navbar() {
   return (
     <header
       ref={navbarRef}
-      className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}
+      className={`navbar-wrapper ${scrolled ? "navbar-scrolled" : ""}`}
     >
       <div className="navbar-container">
-        {/* Logo */}
+        {/* Logo Section */}
         <Link to="/" className="navbar-logo">
           <img
             src="/Averiqo Technologies logo.jpeg"
@@ -58,69 +58,67 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Menu */}
-        <ul className="navbar-menu">
-          {navLinks.map((link) => (
-            <li key={link.path}>
-              <Link
-                to={link.path}
-                className={`nav-link ${
-                  location.pathname.toLowerCase() ===
-                  link.path.toLowerCase()
-                    ? "active"
-                    : ""
-                }`}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* Desktop Navigation Links */}
+        <nav className="navbar-navigation">
+          <ul className="navbar-menu">
+            {navLinks.map((link) => (
+              <li key={link.path}>
+                <Link
+                  to={link.path}
+                  className={`nav-link ${
+                    location.pathname === link.path ? "active" : ""
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        {/* CTA */}
+        {/* Desktop Call To Action */}
         <div className="navbar-actions">
           <Link to="/contact" className="cta-button">
-            Start a Project
+            Start Project
+            <span className="btn-arrow">→</span>
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Hamburger Mobile Menu Toggle */}
         <button
           className={`hamburger ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle Menu"
+          aria-label="Toggle Navigation Menu"
         >
-          <span></span>
-          <span></span>
-          <span></span>
+          <span />
+          <span />
+          <span />
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
-        {navLinks.map((link) => (
+      {/* Mobile Drawer Overlay */}
+      <div className={`mobile-menu-drawer ${menuOpen ? "show" : ""}`}>
+        <div className="mobile-links-container">
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              className={`mobile-link ${
+                location.pathname === link.path ? "active" : ""
+              }`}
+              onClick={() => setMenuOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
           <Link
-            key={link.path}
-            to={link.path}
-            className={`mobile-link ${
-              location.pathname.toLowerCase() ===
-              link.path.toLowerCase()
-                ? "active"
-                : ""
-            }`}
+            to="/contact"
+            className="mobile-cta"
             onClick={() => setMenuOpen(false)}
           >
-            {link.label}
+            Start Project →
           </Link>
-        ))}
-
-        <Link
-          to="/contact"
-          className="mobile-cta"
-          onClick={() => setMenuOpen(false)}
-        >
-          Start a Project
-        </Link>
+        </div>
       </div>
     </header>
   );
