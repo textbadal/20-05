@@ -81,12 +81,7 @@ const VALUES = [
   },
 ];
 
-const STATS = [
-  { number: "50+", label: "Projects Delivered" },
-  { number: "20+", label: "Enterprise & Startup Clients" },
-  { number: "100%", label: "Client Success Rate" },
-  { number: "24/7", label: "SLA Support & Monitoring" },
-];
+
 
 const FAQ_DATA = [
   {
@@ -143,9 +138,7 @@ const Home = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <span className="hero-badge">
-                Technology • Innovation • Growth
-              </span>
+              
               <h1>
                 Building Digital Solutions <br />
                 <span className="gradient-text">That Drive Business Growth</span>
@@ -239,25 +232,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* METRICS & STATS */}
-        <section className="stats-section" aria-label="Performance Metrics">
-          <div className="container">
-            <motion.div 
-              className="stats-grid"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {STATS.map((stat, index) => (
-                <motion.div key={index} variants={fadeInUp} className="stat-card">
-                  <span className="stat-number">{stat.number}</span>
-                  <p className="stat-label">{stat.label}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+       
 
         {/* PROCESS FLOW SECTION */}
         <section className="process-section" aria-labelledby="process-heading">

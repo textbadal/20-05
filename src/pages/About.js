@@ -131,7 +131,7 @@ const About = () => {
               variants={fadeInUp}
               className="hero-content"
             >
-              <span className="section-badge">Our Legacy</span>
+             
               <h1>
                 Engineering Next-Gen <span className="gradient-text">Digital Architectures</span>
               </h1>
