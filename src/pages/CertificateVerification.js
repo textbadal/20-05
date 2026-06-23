@@ -37,9 +37,20 @@ const CertificateVerification = () => {
   const [loading, setLoading] = useState(false);
   const [openFAQ, setOpenFAQ] = useState(null);
   const [copied, setCopied] = useState(false);
-  const [recentVerifications, setRecentVerifications] = useState([]);
   const [showHistory, setShowHistory] = useState(false);
+  const timeoutRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Lazy initialization of recent verifications directly from localStorage
+  const [recentVerifications, setRecentVerifications] = useState(() => {
+    try {
+      const saved = localStorage.getItem("recentVerifications");
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      console.error("Failed to load recent verifications", e);
+      return [];
+    }
+  });
 
   // Sample certificate data
   const certificates = {
@@ -87,46 +98,32 @@ const CertificateVerification = () => {
     },
   };
 
-  // Auto-verify from URL
-  useEffect(() => {
-    const urlCode = new URLSearchParams(window.location.search).get("code");
-    if (urlCode) {
-      setCode(urlCode);
-      handleVerify(urlCode);
-    }
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Load recent verifications
-  useEffect(() => {
-    const saved = localStorage.getItem("recentVerifications");
-    if (saved) {
-      try {
-        setRecentVerifications(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to load recent verifications");
-      }
-    }
-  }, []);
-
   const handleVerify = (c) => {
+    if (!c.trim()) return;
     setLoading(true);
     setResult(null);
 
-    setTimeout(() => {
-      const cert = certificates[c.toUpperCase()];
+    // Clear any previous active timeout before starting a new one
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      const targetCode = c.trim().toUpperCase();
+      const cert = certificates[targetCode];
+
       if (cert) {
         setResult({ valid: true, data: cert });
-        const updated = [
-          { id: cert.id, name: cert.studentName, date: new Date().toISOString() },
-          ...recentVerifications.filter(item => item.id !== cert.id)
-        ].slice(0, 5);
-        setRecentVerifications(updated);
-        localStorage.setItem("recentVerifications", JSON.stringify(updated));
-        window.history.pushState({}, "", `?code=${c}`);
+        
+        // Use functional state updates to avoid stale closure issues with asynchronous code
+        setRecentVerifications((prev) => {
+          const updated = [
+            { id: cert.id, name: cert.studentName, date: new Date().toISOString() },
+            ...prev.filter((item) => item.id !== cert.id),
+          ].slice(0, 5);
+          localStorage.setItem("recentVerifications", JSON.stringify(updated));
+          return updated;
+        });
+
+        window.history.pushState({}, "", `?code=${targetCode}`);
       } else {
         setResult({ valid: false });
       }
@@ -134,12 +131,27 @@ const CertificateVerification = () => {
     }, 1500);
   };
 
+  // Auto-verify from URL parameters on mount
+  useEffect(() => {
+    const urlCode = new URLSearchParams(window.location.search).get("code");
+    if (urlCode) {
+      setCode(urlCode.toUpperCase());
+      handleVerify(urlCode);
+    }
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    // Cleanup timeouts if component unmounts mid-verification
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    const trimmedCode = code.trim();
-    if (trimmedCode) {
-      handleVerify(trimmedCode);
-    }
+    handleVerify(code);
   };
 
   const reset = () => {
@@ -147,9 +159,9 @@ const CertificateVerification = () => {
     setResult(null);
     setCopied(false);
     window.history.pushState({}, "", window.location.pathname);
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    setTimeout(() => {
+      if (inputRef.current) inputRef.current.focus();
+    }, 50);
   };
 
   const handleCopy = (text) => {
@@ -170,23 +182,19 @@ const CertificateVerification = () => {
   const faqs = [
     {
       question: "How do I find my certificate ID?",
-      answer:
-        "Your certificate ID is printed at the bottom-right corner of your certificate. It follows the format AVQ-YYYY-NNN (e.g., AVQ-2024-001).",
+      answer: "Your certificate ID is printed at the bottom-right corner of your certificate. It follows the format AVQ-YYYY-NNN (e.g., AVQ-2024-001).",
     },
     {
       question: "What if my certificate is not showing up?",
-      answer:
-        "Double-check that you've entered the ID exactly as printed on your certificate. If the issue persists, please contact our support team.",
+      answer: "Double-check that you've entered the ID exactly as printed on your certificate. If the issue persists, please contact our support team.",
     },
     {
       question: "Can I verify someone else's certificate?",
-      answer:
-        "Yes! Anyone can verify an Averiqo-issued certificate using the unique ID provided on the certificate.",
+      answer: "Yes! Anyone can verify an Averiqo-issued certificate using the unique ID provided on the certificate.",
     },
     {
       question: "How secure is this verification system?",
-      answer:
-        "Our verification system uses blockchain-inspired technology to ensure each certificate is unique and cannot be forged.",
+      answer: "Our verification system uses blockchain-inspired technology to ensure each certificate is unique and cannot be forged.",
     },
   ];
 
@@ -316,13 +324,17 @@ const CertificateVerification = () => {
                   <div className="quick-actions">
                     <button
                       className="quick-btn"
-                      onClick={() => setCode("AVQ-2024-001")}
+                      onClick={() => {
+                        setCode("AVQ-2024-001");
+                        handleVerify("AVQ-2024-001");
+                      }}
                     >
                       <FaCertificate /> Sample ID
                     </button>
                     <button
                       className="quick-btn"
                       onClick={() => setShowHistory(!showHistory)}
+                      disabled={recentVerifications.length === 0}
                     >
                       <FaClock /> Recent
                     </button>
@@ -336,6 +348,7 @@ const CertificateVerification = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
                       >
                         <div className="recent-list">
                           {recentVerifications.map((item) => (
@@ -368,7 +381,7 @@ const CertificateVerification = () => {
               ) : (
                 <AnimatePresence mode="wait">
                   <motion.div
-                    key="result"
+                    key={result.valid ? "success" : "error"}
                     className="result-container"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}

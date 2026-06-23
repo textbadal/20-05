@@ -16,6 +16,7 @@ export default function Navbar() {
     { path: "/projects", label: "Projects" },
     { path: "/internship", label: "Internship" },
     { path: "/certificate-verification", label: "Verify Certificate" },
+    { path: "/enroll", label: "Enroll Now" },
     { path: "/contact", label: "Contact" },
   ];
 
