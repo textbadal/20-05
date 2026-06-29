@@ -129,50 +129,60 @@ const Home = () => {
       />
 
       <main className="home-page">
-        {/* HERO SECTION */}
-        <section className="hero-section" aria-label="Introduction">
-          <div className="container hero-grid">
-            <motion.div 
-              className="hero-content"
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              
-              <h1>
-                Building Digital Solutions <br />
-                <span className="gradient-text">That Drive Business Growth</span>
-              </h1>
-              <p>
-                Averiqo Technologies bridges the gap between vision and execution. We build powerful, 
-                scalable web applications, optimized user interfaces, and technical marketing environments 
-                to capture market share for modern brands.
-              </p>
-              <div className="hero-buttons">
-                <Link to="/contact" className="btn-primary">
-                  Start Your Project
-                  <FaArrowRight className="btn-icon-right" />
-                </Link>
-                <Link to="/services" className="btn-secondary">
-                  Explore Services
-                </Link>
-              </div>
-            </motion.div>
+       
 
-            <motion.div 
-              className="hero-image-wrapper"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            >
-              <img
-                src="/hero-image.png"
-                alt="Digital transformation concept showing interface metrics dashboard"
-                loading="eager"
-              />
-            </motion.div>
-          </div>
-        </section>
+
+       {/* HERO SECTION */}
+<section className="hero-section" aria-label="Introduction">
+  <div className="container hero-grid">
+    <motion.div
+      className="hero-content"
+      initial={{ opacity: 0, x: -40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+     
+
+      <h1>
+        Build Your Business. <br />
+        <span className="gradient-text">
+          Build Your Career.
+        </span>
+      </h1>
+
+      <p>
+        Averiqo Technologies helps businesses grow through modern IT
+        solutions while providing students with industry-focused
+        internships to gain real-world experience and build successful
+        careers.
+      </p>
+
+      <div className="hero-buttons">
+        <Link to="/services" className="btn-primary">
+          Our Services
+          <FaArrowRight className="btn-icon-right" />
+        </Link>
+
+        <Link to="/internships" className="btn-secondary">
+          Apply for Internship
+        </Link>
+      </div>
+    </motion.div>
+
+    <motion.div
+      className="hero-image-wrapper"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+    >
+      <img
+        src="/hero-image.png"
+        alt="Averiqo Technologies Services and Internship Programs"
+        loading="eager"
+      />
+    </motion.div>
+  </div>
+</section>
 
         {/* SERVICES SECTION */}
         <section className="services-section" aria-labelledby="services-heading">

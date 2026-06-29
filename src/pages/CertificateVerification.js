@@ -52,54 +52,23 @@ const CertificateVerification = () => {
     }
   });
 
-  // Sample certificate data
+  // Sample certificate data database
   const certificates = {
-    "AVQ-2024-001": {
-      id: "AVQ-2024-001",
-      studentName: "Sarah Johnson",
-      course: "Frontend Development Internship",
-      issueDate: "2024-04-15",
-      duration: "3 months",
-      grade: "A+",
-      performance: "Excellent",
-      issuer: "Averiqo Technologies",
-      signature: "Dr. Alex Johnson",
-      verificationUrl: "https://averiqotech.com/verify/AVQ-2024-001",
-      skills: ["React.js", "JavaScript", "CSS3", "Git", "Responsive Design"],
-      certificateImage: "/certificate-template.jpg",
-    },
-    "AVQ-2024-002": {
-      id: "AVQ-2024-002",
-      studentName: "Michael Chen",
-      course: "UI/UX Design Internship",
-      issueDate: "2024-04-20",
-      duration: "4 months",
-      grade: "A",
-      performance: "Outstanding",
-      issuer: "Averiqo Technologies",
-      signature: "Dr. Alex Johnson",
-      verificationUrl: "https://averiqotech.com/verify/AVQ-2024-002",
-      skills: ["Figma", "User Research", "Prototyping", "Design Systems"],
-      certificateImage: "/certificate-template.jpg",
-    },
-    "AVQ-2024-003": {
-      id: "AVQ-2024-003",
-      studentName: "Priya Sharma",
+    "AT-2709": {
+      id: "AT-2709",
+      studentName: "Risabh Raj",
       course: "Digital Marketing Internship",
-      issueDate: "2024-05-01",
+      issueDate: "2026-04-15",
       duration: "3 months",
       grade: "A+",
-      performance: "Exceptional",
       issuer: "Averiqo Technologies",
-      signature: "Dr. Alex Johnson",
-      verificationUrl: "https://averiqotech.com/verify/AVQ-2024-003",
-      skills: ["SEO", "Content Marketing", "Google Analytics", "Social Media"],
-      certificateImage: "/certificate-template.jpg",
+      signature: "Shivam Singh",
+      verificationUrl: "https://averiqotech.com/verify/AT-2709",
     },
   };
 
   const handleVerify = (c) => {
-    if (!c.trim()) return;
+    if (!c || !c.trim()) return;
     setLoading(true);
     setResult(null);
 
@@ -171,18 +140,10 @@ const CertificateVerification = () => {
     });
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
-  const handleDownload = () => {
-    alert("Certificate download will be available in the full version.");
-  };
-
   const faqs = [
     {
       question: "How do I find my certificate ID?",
-      answer: "Your certificate ID is printed at the bottom-right corner of your certificate. It follows the format AVQ-YYYY-NNN (e.g., AVQ-2024-001).",
+      answer: "Your certificate ID is printed at the bottom-right corner of your certificate.",
     },
     {
       question: "What if my certificate is not showing up?",
@@ -194,14 +155,8 @@ const CertificateVerification = () => {
     },
     {
       question: "How secure is this verification system?",
-      answer: "Our verification system uses blockchain-inspired technology to ensure each certificate is unique and cannot be forged.",
+      answer: "Our verification system uses secure lookup engines to ensure each certificate matches our registry database layout details.",
     },
-  ];
-
-  const stats = [
-    { icon: <FaUsers />, value: "1,200+", label: "Certificates Issued" },
-    { icon: <FaShieldAlt />, value: "99.9%", label: "Verification Accuracy" },
-    { icon: <FaClock />, value: "24/7", label: "Instant Access" },
   ];
 
   return (
@@ -227,36 +182,6 @@ const CertificateVerification = () => {
         </div>
 
         <div className="container">
-          {/* Hero Section */}
-          <motion.div
-            className="hero-section"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <div className="hero-badge">
-              <FaShieldAlt />
-              <span>Secure Verification</span>
-            </div>
-            <h1>Verify Your Certificate</h1>
-            <p>
-              Enter your certificate ID to instantly verify authenticity and view
-              certificate details. Powered by Averiqo Technologies.
-            </p>
-
-            <div className="hero-stats">
-              {stats.map((stat, index) => (
-                <div key={index} className="hero-stat">
-                  <div className="stat-icon">{stat.icon}</div>
-                  <div className="stat-info">
-                    <span className="stat-value">{stat.value}</span>
-                    <span className="stat-label">{stat.label}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
           {/* Main Verification Card */}
           <motion.div
             className="verify-card"
@@ -281,7 +206,7 @@ const CertificateVerification = () => {
                       <input
                         ref={inputRef}
                         type="text"
-                        placeholder="AVQ-2024-001"
+                        placeholder="Enter Certificate ID"
                         value={code}
                         onChange={(e) => setCode(e.target.value.toUpperCase())}
                         className={loading ? "loading" : ""}
@@ -297,9 +222,7 @@ const CertificateVerification = () => {
                         </button>
                       )}
                     </div>
-                    <small className="input-helper">
-                      Format: AVQ-YYYY-NNN (e.g., AVQ-2024-001)
-                    </small>
+                    
 
                     <button
                       type="submit"
@@ -319,59 +242,6 @@ const CertificateVerification = () => {
                       )}
                     </button>
                   </form>
-
-                  {/* Quick Actions */}
-                  <div className="quick-actions">
-                    <button
-                      className="quick-btn"
-                      onClick={() => {
-                        setCode("AVQ-2024-001");
-                        handleVerify("AVQ-2024-001");
-                      }}
-                    >
-                      <FaCertificate /> Sample ID
-                    </button>
-                    <button
-                      className="quick-btn"
-                      onClick={() => setShowHistory(!showHistory)}
-                      disabled={recentVerifications.length === 0}
-                    >
-                      <FaClock /> Recent
-                    </button>
-                  </div>
-
-                  {/* Recent Verifications */}
-                  <AnimatePresence>
-                    {showHistory && recentVerifications.length > 0 && (
-                      <motion.div
-                        className="recent-dropdown"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <div className="recent-list">
-                          {recentVerifications.map((item) => (
-                            <button
-                              key={item.id}
-                              className="recent-item"
-                              onClick={() => {
-                                setCode(item.id);
-                                handleVerify(item.id);
-                                setShowHistory(false);
-                              }}
-                            >
-                              <span className="recent-id">{item.id}</span>
-                              <span className="recent-name">{item.name}</span>
-                              <span className="recent-date">
-                                {new Date(item.date).toLocaleDateString()}
-                              </span>
-                            </button>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
 
                   <div className="trust-footer">
                     <FaLock className="lock-icon" />
@@ -401,12 +271,25 @@ const CertificateVerification = () => {
 
                         {/* Certificate Details */}
                         <div className="cert-details">
+                          <div className="detail-row full">
+    <div className="detail-label">Certificate ID</div>
+    <div className="detail-value id-value">
+      {result.data.id}
+      <button
+        className="copy-btn"
+        onClick={() => handleCopy(result.data.id)}
+      >
+        {copied ? <FaCheck /> : <FaCopy />}
+      </button>
+    </div>
+  </div>
                           <div className="detail-row">
                             <div className="detail-label">Student Name</div>
                             <div className="detail-value">{result.data.studentName}</div>
                           </div>
+                          
                           <div className="detail-row">
-                            <div className="detail-label">Program</div>
+                            <div className="detail-label">Internship Domain</div>
                             <div className="detail-value">{result.data.course}</div>
                           </div>
                           <div className="detail-row">
@@ -431,39 +314,14 @@ const CertificateVerification = () => {
                             <div className="detail-label">Issued By</div>
                             <div className="detail-value">{result.data.issuer}</div>
                           </div>
-                          <div className="detail-row full">
-                            <div className="detail-label">Certificate ID</div>
-                            <div className="detail-value id-value">
-                              {result.data.id}
-                              <button
-                                className="copy-btn"
-                                onClick={() => handleCopy(result.data.id)}
-                              >
-                                {copied ? <FaCheck /> : <FaCopy />}
-                              </button>
-                            </div>
-                          </div>
+                          
                         </div>
-
-                        {/* Skills Tags */}
-                        {result.data.skills && (
-                          <div className="skills-section">
-                            <h4>Skills Acquired</h4>
-                            <div className="skills-tags">
-                              {result.data.skills.map((skill, index) => (
-                                <span key={index} className="skill-tag">
-                                  {skill}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
 
                         {/* Signature */}
                         <div className="signature-block">
-                          <div className="signature-line"></div>
+                        
                           <div className="signature-name">{result.data.signature}</div>
-                          <div className="signature-title">Director, Averiqo Technologies</div>
+                          <div className="signature-title">HR Executive, Averiqo Technologies</div>
                         </div>
 
                         {/* Actions */}
@@ -471,12 +329,7 @@ const CertificateVerification = () => {
                           <button onClick={reset} className="btn-outline">
                             <FaArrowLeft /> Verify Another
                           </button>
-                          <button onClick={handlePrint} className="btn-outline">
-                            <FaPrint /> Print
-                          </button>
-                          <button onClick={handleDownload} className="btn-outline">
-                            <FaDownload /> Download
-                          </button>
+                          
                           <button
                             onClick={() => handleCopy(result.data.verificationUrl)}
                             className="btn-primary"
