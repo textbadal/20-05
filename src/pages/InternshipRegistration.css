@@ -1,0 +1,414 @@
+/* ==========================================================================
+   1. Page Layout & Containers
+   ========================================================================== */
+.internships-page {
+  padding: 80px 20px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.section-header p {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   2. Hero Section
+   ========================================================================== */
+.hero-section {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 10px 20px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #0284c7;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7);
+  animation: pulse 2s infinite;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+.hero-section p.hero-subtitle {
+  max-width: 700px;
+  margin: auto;
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 1.125rem;
+}
+
+/* Hero Button Alignment Group */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* ==========================================================================
+   3. Unified CTA Button Framework
+   ========================================================================== */
+.cta-container {
+  display: inline-block;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Primary Accent Styling */
+.primary-btn {
+  background: #2563eb;
+  color: #fff;
+  border: 2px solid #2563eb;
+}
+
+.primary-btn:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  transform: translateY(-3px);
+}
+
+/* Secondary Neutral Styling */
+.secondary-btn {
+  background-color: transparent;
+  color: #4b5563;
+  border: 2px solid #e5e7eb;
+}
+
+.secondary-btn:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+  transform: translateY(-3px);
+}
+
+.cta-arrow {
+  transition: transform 0.2s ease;
+}
+
+.cta-btn:hover .cta-arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   4. Benefits & Document Layout Grids
+   ========================================================================== */
+.benefits-section,
+.documents-section,
+.closing-cta-section {
+  margin-bottom: 80px;
+}
+
+.closing-cta-section {
+  text-align: center;
+  background: #fff;
+  padding: 50px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.closing-cta-section h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.closing-cta-section p {
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.benefits-grid,
+.document-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* ==========================================================================
+   5. Card Ecosystem (Benefits & Docs)
+   ========================================================================== */
+.benefit-card,
+.doc-card {
+  background: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.benefit-card:hover,
+.doc-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-icon-wrapper {
+  background: #eff6ff;
+  color: #2563eb;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.benefit-card h3,
+.doc-card h3 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  text-align: left;
+}
+
+.benefit-card p {
+  color: #64748b;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  text-align: left;
+  margin: 0;
+}
+
+/* ==========================================================================
+   6. Document Interactivity Button & Wrapper
+   ========================================================================== */
+.doc-card-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  display: block;
+  width: 100%;
+}
+
+.doc-card-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 4px;
+  border-radius: 20px;
+}
+
+.doc-card {
+  padding: 20px; /* Specialized image container sizing */
+}
+
+.image-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+.doc-card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+
+.doc-card:hover img {
+  transform: scale(1.03);
+}
+
+.overlay-msg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.doc-card-btn:hover .overlay-msg,
+.doc-card-btn:focus .overlay-msg {
+  opacity: 1;
+}
+
+.section-notice {
+  margin-top: 35px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ==========================================================================
+   7. Lightbox Modal System
+   ========================================================================== */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  box-sizing: border-box;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 850px;
+  width: 100%;
+  max-height: 85vh;
+  background: #09090b;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-content img {
+  width: 100%;
+  height: auto;
+  max-height: 65vh;
+  object-fit: contain;
+  background: #18181b;
+  display: block;
+}
+
+.close-lightbox {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.close-lightbox:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.lightbox-caption {
+  padding: 24px;
+  background: #18181b;
+  color: #fff;
+  border-top: 1px solid #27272a;
+}
+
+.lightbox-caption h3 {
+  margin: 0 0 6px 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.lightbox-caption p {
+  margin: 0;
+  color: #a1a1aa;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.caption-check-icon {
+  display: inline-block;
+  margin-right: 6px;
+  color: #10b981;
+}
+
+/* ==========================================================================
+   8. Footer & Utility Systems
+   ========================================================================== */
+.trust-footer {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 40px;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 30px;
+}
+
+.footer-icon {
+  color: #64748b;
+}
+
+/* Performance Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(2, 132, 199, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}

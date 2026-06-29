@@ -15,7 +15,7 @@ import Projects from "./pages/Projects";
 import Internship from "./pages/Internship";
 import CertificateVerification from "./pages/CertificateVerification";
 import Contact from "./pages/Contact";
-import EnrollNow from "./pages/EnrollNow";
+import InternshipRegistration from "./pages/InternshipRegistration";
 import Career from "./pages/Career";
 import Terms from "./pages/Terms";
 import Support from "./pages/Support";
@@ -48,7 +48,7 @@ function App() {
             element={<CertificateVerification />}
           />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/enroll" element={<EnrollNow />} />
+          <Route path="/internship-registration" element={<InternshipRegistration />} />
           <Route path="/career" element={<Career />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/support" element={<Support />} />

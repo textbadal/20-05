@@ -33,6 +33,7 @@ const Footer = () => {
         <div className="footer-corp-column">
           <h4>Resources</h4>
           <ul>
+            <li><Link to="/certificate-verification">Verify Certificate</Link></li>
             <li><Link to="/blog">Blog</Link></li>
             <li><Link to="/case-studies">Case Studies</Link></li>
             <li><Link to="/privacypolicy">Privacy Policy</Link></li>

@@ -1,6 +1,6 @@
 // Contact.jsx
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaMapMarkerAlt,
   FaPhoneAlt,
@@ -16,6 +16,7 @@ import {
   FaYoutube,
   FaGlobe,
   FaPaperPlane,
+  FaChevronDown, // Added for the dropdown arrow indicator
 } from "react-icons/fa";
 import "./Contact.css";
 
@@ -36,19 +37,17 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // State to track which FAQ dropdown is open (-1 means all closed)
+  const [openFaqIndex, setOpenFaqIndex] = useState(-1);
 
   const contactInfo = [
     {
-      icon: <FaMapMarkerAlt />,
-      title: "Visit Us",
-      details: ["123 Digital Avenue", "San Francisco, CA 94105", "United States"],
-    },
-    {
       icon: <FaPhoneAlt />,
       title: "Call Us",
-      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+      details: ["+91 93349 91688", "+91 93349 91688"],
       action: "Call Now",
-      actionLink: "tel:+15551234567",
+      actionLink: "tel:+919334991688",
     },
     {
       icon: <FaEnvelope />,
@@ -74,13 +73,17 @@ const Contact = () => {
     "Other",
   ];
 
+  const toggleFaq = (index) => {
+    // If the clicked FAQ is already open, close it; otherwise, open it
+    setOpenFaqIndex(openFaqIndex === index ? -1 : index);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    // Clear error for this field
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -125,7 +128,6 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log("Form submitted:", formData);
@@ -145,6 +147,33 @@ const Contact = () => {
     }
   };
 
+  const faqs = [
+    {
+      q: "What services do you offer?",
+      a: "We offer a comprehensive range of digital services including web development, mobile apps, UI/UX design, digital marketing, analytics, and automation solutions.",
+    },
+    {
+      q: "How long does a project typically take?",
+      a: "Project timelines vary depending on complexity. A typical website takes 4-8 weeks, while larger applications may take 3-6 months. We'll provide a detailed timeline during the planning phase.",
+    },
+    {
+      q: "Do you offer ongoing support?",
+      a: "Yes, we offer ongoing support and maintenance packages to ensure your digital solutions continue to perform optimally after launch.",
+    },
+    {
+      q: "How much does it cost?",
+      a: "Costs vary based on project scope and requirements. We offer free consultations to discuss your needs and provide a detailed quote.",
+    },
+    {
+      q: "Do you work with startups?",
+      a: "Absolutely! We love working with startups and have special packages designed to help early-stage companies establish their digital presence.",
+    },
+    {
+      q: "What's your process?",
+      a: "Our process includes Discovery, Strategy, Development, and Launch & Support phases. We work closely with you at every step to ensure success.",
+    },
+  ];
+
   return (
     <div className="contact-page">
       {/* HERO SECTION */}
@@ -156,7 +185,6 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="contact-hero-content"
           >
-            <span className="hero-badge">Contact Us</span>
             <h1>
               Let's Start a <br />
               <span className="gradient-text">Conversation</span>
@@ -217,19 +245,19 @@ const Contact = () => {
               <div className="social-links">
                 <h3>Follow Us</h3>
                 <div className="social-icons">
-                  <a href="#" className="social-icon" aria-label="Facebook">
+                  <a href="https://www.facebook.com/AveriqoTech/" className="social-icon" aria-label="Facebook">
                     <FaFacebook />
                   </a>
-                  <a href="#" className="social-icon" aria-label="Twitter">
+                  <a href="https://x.com/averiqo" className="social-icon" aria-label="Twitter">
                     <FaTwitter />
                   </a>
-                  <a href="#" className="social-icon" aria-label="LinkedIn">
+                  <a href="https://www.linkedin.com/company/averiqo-technologies" className="social-icon" aria-label="LinkedIn">
                     <FaLinkedin />
                   </a>
-                  <a href="#" className="social-icon" aria-label="Instagram">
+                  <a href="https://www.instagram.com/averiqoofficial/" className="social-icon" aria-label="Instagram">
                     <FaInstagram />
                   </a>
-                  <a href="#" className="social-icon" aria-label="YouTube">
+                  <a href="https://www.youtube.com/@AveriqoTechnologies" className="social-icon" aria-label="YouTube">
                     <FaYoutube />
                   </a>
                 </div>
@@ -405,7 +433,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* FAQ SECTION */}
+      {/* FAQ SECTION (MODIFIED TO DROPDOWN/ACCORDION) */}
       <section className="faq-section">
         <div className="container">
           <motion.div
@@ -419,45 +447,53 @@ const Contact = () => {
             <p>Find answers to common questions about our services</p>
           </motion.div>
 
-          <div className="faq-grid">
-            {[
-              {
-                q: "What services do you offer?",
-                a: "We offer a comprehensive range of digital services including web development, mobile apps, UI/UX design, digital marketing, analytics, and automation solutions.",
-              },
-              {
-                q: "How long does a project typically take?",
-                a: "Project timelines vary depending on complexity. A typical website takes 4-8 weeks, while larger applications may take 3-6 months. We'll provide a detailed timeline during the planning phase.",
-              },
-              {
-                q: "Do you offer ongoing support?",
-                a: "Yes, we offer ongoing support and maintenance packages to ensure your digital solutions continue to perform optimally after launch.",
-              },
-              {
-                q: "How much does it cost?",
-                a: "Costs vary based on project scope and requirements. We offer free consultations to discuss your needs and provide a detailed quote.",
-              },
-              {
-                q: "Do you work with startups?",
-                a: "Absolutely! We love working with startups and have special packages designed to help early-stage companies establish their digital presence.",
-              },
-              {
-                q: "What's your process?",
-                a: "Our process includes Discovery, Strategy, Development, and Launch & Support phases. We work closely with you at every step to ensure success.",
-              },
-            ].map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className="faq-item"
-              >
-                <h3>{faq.q}</h3>
-                <p>{faq.a}</p>
-              </motion.div>
-            ))}
+          {/* Changed grid to a linear accordion layout container */}
+          <div className="faq-accordion">
+            {faqs.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  className={`faq-item ${isOpen ? "active" : ""}`}
+                >
+                  <div 
+                    className="faq-question" 
+                    onClick={() => toggleFaq(index)}
+                    style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}
+                  >
+                    <h3>{faq.q}</h3>
+                    <motion.div
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="faq-icon"
+                    >
+                      <FaChevronDown />
+                    </motion.div>
+                  </div>
+                  
+                  {/* Framer motion handles smooth open/close height animations */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <div className="faq-answer">
+                          <p>{faq.a}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

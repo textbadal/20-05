@@ -14,9 +14,7 @@ export default function Navbar() {
     { path: "/about", label: "About" },
     { path: "/services", label: "Services" },
     { path: "/projects", label: "Projects" },
-    { path: "/internship", label: "Internship" },
-    { path: "/certificate-verification", label: "Verify Certificate" },
-    { path: "/enroll", label: "Enroll Now" },
+     { path: "/internship-registration", label: "Internships" },
     { path: "/contact", label: "Contact" },
   ];
 
@@ -112,13 +110,7 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/contact"
-            className="mobile-cta"
-            onClick={() => setMenuOpen(false)}
-          >
-            Start Project →
-          </Link>
+          
         </div>
       </div>
     </header>
