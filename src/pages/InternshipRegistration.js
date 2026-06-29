@@ -187,7 +187,7 @@ const InternshipRegistration = () => {
 
         {/* Final Retention Segment */}
         <section className="closing-cta-section">
-          <h2>Ready to Launch Your Career?</h2>
+          <h2>Ready to Launch Your Career??</h2>
           <p>Applications are reviewed sequentially. Secure your placement evaluations today.</p>
           <CTAButton href={FORM_URL} text="Submit Your Application" variant="primary" />
         </section>
