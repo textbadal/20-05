@@ -74,15 +74,11 @@
   max-width: 550px;
   margin: 0 auto;
 }
-
-/* Multi-stop High Energy Gradient */
 .home-page .gradient-text {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #996515 !important;
+  background: none !important;
+  -webkit-text-fill-color: #996515 !important;
 }
-
 /* Neo-Brutalist Buttons */
 .home-page .btn-primary,
 .home-page .btn-secondary,
@@ -101,14 +97,14 @@
 }
 
 .home-page .btn-primary {
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-  color: #ffffff;
-  box-shadow: var(--brutal-shadow);
+  background: #8b5cf6 !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important;
 }
-
 .home-page .btn-primary:hover {
-  transform: translate(4px, 4px);
-  box-shadow: var(--brutal-shadow-hover);
+  background: #7c3aed !important;
+  transform: translateY(-2px);
 }
 
 .home-page .btn-icon-right {
@@ -220,7 +216,12 @@
    2. Services Section
    ========================================================================== */
 .services-section {
-  background-color: var(--bg-secondary);
+  background: linear-gradient(to bottom, #ffffff 0%, #c4b5fd 100%) !important;
+  color: #1a1a1a !important;
+}
+
+.services-section .section-header p {
+  color: #4b5563 !important;
 }
 
 .services-grid {
@@ -230,18 +231,24 @@
 }
 
 .service-card {
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 48px 40px;
   border-radius: var(--border-radius);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   transition: var(--transition-smooth);
+  color: #1a1a1a;
 }
 
 .service-card:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.service-card:active {
+  background: #a78bfa; /* Changed to purple on click */
+  transform: scale(0.98);
 }
 
 .service-icon {
@@ -259,7 +266,7 @@
 }
 
 .service-card p {
-  color: var(--text-muted);
+  color: #4b5563;
   font-size: 1rem;
 }
 
@@ -281,7 +288,19 @@
   -webkit-backdrop-filter: blur(8px);
   padding: 36px;
   border-radius: var(--border-radius);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.why-card:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.why-card:active {
+  background: #a78bfa;
+  transform: scale(0.98);
 }
 
 .why-icon-wrapper {
@@ -393,7 +412,8 @@
 }
 
 .project-card {
-  background-color: var(--bg-primary);
+  background-color: #ffffff !important;
+  color: #1a1a1a !important;
   padding: 44px;
   border-radius: var(--border-radius);
   border: var(--brutal-border);
@@ -421,10 +441,31 @@
   font-weight: 800;
   margin-bottom: 14px;
   letter-spacing: -0.02em;
+  color: #1a1a1a;
 }
 
 .project-card p {
-  color: var(--text-muted);
+  color: #4b5563;
+}
+
+/* Gradient background for a specific card and active state for clicked cards */
+.project-card.gradient-bg,
+.project-card.active-card {
+  background: linear-gradient(to bottom, #fdfbf7 0%, #d4a373 100%) !important;
+  border: 1px solid #996515 !important;
+  color: #1a1a1a !important;
+}
+
+.project-card.gradient-bg h3,
+.project-card.active-card h3,
+.project-card.gradient-bg p,
+.project-card.active-card p {
+  color: #1a1a1a !important;
+}
+
+.project-card.gradient-bg .project-meta,
+.project-card.active-card .project-meta {
+  color: #996515 !important;
 }
 
 /* ==========================================================================
@@ -554,4 +595,19 @@
   .cta-section h2 {
     font-size: 2.25rem;
   }
+}
+/* FORCE GOLDEN COLOR */
+.home-page .hero-content .gradient-text {
+  color: #996515 !important;
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #996515 !important;
+}
+/* FORCE PURPLE BUTTON */
+.home-page .hero-buttons .btn-primary {
+  background: #7c3aed !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border: none !important;
 }

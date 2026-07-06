@@ -110,6 +110,7 @@ const staggerContainer = {
 
 const Home = () => {
   const [activeFaq, setActiveFaq] = useState(null);
+  const [activeProject, setActiveProject] = useState(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -285,17 +286,32 @@ const Home = () => {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
             >
-              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+              <motion.div 
+                variants={fadeInUp} 
+                className={`project-card ${activeProject === 0 ? "active-card" : ""}`} 
+                whileHover={{ y: -4 }}
+                onClick={() => setActiveProject(0)}
+              >
                 <div className="project-meta">Enterprise Stack</div>
                 <h3>Next-Gen Corporate Platform</h3>
                 <p>High-speed headless CMS system with tailored user telemetry configurations.</p>
               </motion.div>
-              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+              <motion.div 
+                variants={fadeInUp} 
+                className={`project-card ${activeProject === 1 ? "active-card" : ""}`} 
+                whileHover={{ y: -4 }}
+                onClick={() => setActiveProject(1)}
+              >
                 <div className="project-meta">EdTech Systems</div>
                 <h3>E-Learning Hub Architecture</h3>
                 <p>Interactive platform with low latency real-time asset delivery management.</p>
               </motion.div>
-              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+              <motion.div 
+                variants={fadeInUp} 
+                className={`project-card gradient-bg ${activeProject === 2 ? "active-card" : ""}`} 
+                whileHover={{ y: -4 }}
+                onClick={() => setActiveProject(2)}
+              >
                 <div className="project-meta">Performance Marketing</div>
                 <h3>Data-Driven Growth Campaign</h3>
                 <p>Scalable dynamic landing operations optimized for hyper-converting conversion funnels.</p>
