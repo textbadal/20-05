@@ -3,14 +3,17 @@
    ========================================================================== */
 :root {
   --nav-bg-translucent: #ffffff;
-  --nav-bg-solid: rgba(19, 26, 46, 0.9);
-  --nav-border: rgba(255, 255, 255, 0.08);
-  --nav-text: rgb(187, 77, 187);
-  --nav-muted: #9C6A1A;
-  --nav-accent: #00f2fe;
-  --nav-accent-gradient: linear-gradient(135deg, #8b5cf6, #ff4eb2);
-  
-  --nav-brutal-shadow: 4px 4px 0px #ffffff;
+  --nav-bg-solid: #ffffff;
+  --nav-border: rgba(0, 0, 0, 0.1);
+
+  --nav-text: #000000;
+  --nav-muted: #333333;
+
+  --nav-accent: #8b5cf6;
+  --nav-accent-gradient: linear-gradient(135deg, #8b5cf6, #7c3aed);
+
+  --nav-brutal-shadow: 4px 4px 0px #d1d5db;
+
   --nav-font: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
@@ -27,13 +30,11 @@
   border-bottom: 1px solid var(--nav-border);
   transition: all 0.3s ease;
 }
-
-/* Triggered on scroll down past 20px */
 .navbar-wrapper.navbar-scrolled {
-  background-color: var(--nav-bg-solid);
+  background-color: #ffffff;
   padding: 4px 0;
-  border-bottom-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .navbar-container {
@@ -53,8 +54,8 @@
 }
 
 .logo-img {
-  height: 70px;
-  width:100px;
+  height: 60px; /* logo size increase */
+  width: auto;
   object-fit: contain;
   border-radius: 8px;
   transition: transform 0.2s ease;
@@ -90,8 +91,13 @@
   transition: color 0.2s ease;
 }
 
+.nav-link {
+  color: #333333;
+}
+
+.nav-link.active,
 .nav-link:hover {
-  color: var(--nav-text);
+  color: #000000;
 }
 
 /* Active Page Indicator Underline */
@@ -117,28 +123,25 @@
 .nav-link.active {
   color: var(--nav-text);
 }
-
-/* Brutalist Desktop CTA Button */
 .navbar-actions .cta-button {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--nav-font);
-  background: rgb(209, 56, 209);
-  color: #ffffff;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
   text-decoration: none;
   padding: 10px 24px;
   border-radius: 10px;
   font-weight: 700;
   font-size: 0.9rem;
-  border: 2px solid #ffffff;
-  box-shadow: var(--nav-brutal-shadow);
-  transition: all 0.2s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
 }
 
 .navbar-actions .cta-button:hover {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
 }
 
 .btn-arrow {
@@ -149,9 +152,6 @@
   transform: translateX(3px);
 }
 
-/* ==========================================================================
-   Hamburger Mobile Icon
-   ========================================================================== */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -196,7 +196,7 @@
   right: 0;
   width: 100%;
   height: 100vh;
-  background-color: #0b0f19;
+  background-color: #ffffff;
   z-index: 1005;
   /* Keep it hidden off-screen by default */
   transform: translateY(-100%); 
@@ -220,7 +220,7 @@
 
 .mobile-link {
   font-family: var(--nav-font);
-  color: var(--nav-muted);
+   color: #333333;
   text-decoration: none;
   font-size: 1.4rem;
   font-weight: 700;
@@ -231,7 +231,7 @@
 
 .mobile-link:hover,
 .mobile-link.active {
-  color: var(--nav-text);
+  color:  #8b5cf6;
   background: var(--nav-accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

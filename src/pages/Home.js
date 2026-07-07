@@ -109,7 +109,7 @@ const staggerContainer = {
 };
 const Home = () => {
 const [activeWhy, setActiveWhy] = useState(0);
-
+  const [activeService, setActiveService] = useState(0);
   const [activeFaq, setActiveFaq] = useState(null);
 
   useEffect(() => {
@@ -121,7 +121,6 @@ const [activeWhy, setActiveWhy] = useState(0);
   };
 const [activeProcess, setActiveProcess] = useState(0);
 const [activeProject, setActiveProject] = useState(0);
-const [activeService, setActiveService] = useState(1);
   return (
     <>
       <SEO
@@ -207,10 +206,10 @@ const [activeService, setActiveService] = useState(1);
                   key={index}
                   variants={fadeInUp}
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
-         className={`service-card ${
+                 className={`service-card ${
   activeService === index ? "active-service" : ""
 }`}
-onClick={() => setActiveService(index)}
+onClick={() => setActiveService(index)} 
                 >
                   <div className="service-icon" aria-hidden="true">
                     {service.icon}
@@ -238,15 +237,14 @@ onClick={() => setActiveService(index)}
               viewport={{ once: true, margin: "-100px" }}
             >
               {VALUES.map((value, index) => (
-   <motion.div
+           <motion.div
   key={index}
   variants={fadeInUp}
-  whileHover={{ y: -8, transition: { duration: 0.2 } }}
   className={`why-card ${
     activeWhy === index ? "active-why-card" : ""
   }`}
   onClick={() => setActiveWhy(index)}
->
+>  
                   <div className="why-icon-wrapper" aria-hidden="true">{value.icon}</div>
                   <h3>{value.title}</h3>
                   <p>{value.desc}</p>
