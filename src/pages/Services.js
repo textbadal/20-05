@@ -363,7 +363,7 @@ const Services = () => {
             transition={{ delay: 0.1 }}
             viewport={{ once: true, margin: "-50px" }}
           >
-            <h2 className="cta-heading">Require custom operational configurations?</h2>
+            <h2 className="cta-heading  ">Require custom operational configurations?</h2>
             <p>We specialized in isolated workflow adjustments built directly around complex micro-service operational targets.</p>
             <div className="cta-buttons">
               <Link to="/contact" className="cta-button primary" aria-label="Book a free consultation session with our solution architects">

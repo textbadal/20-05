@@ -79,8 +79,18 @@ const Projects = () => {
             {/* Header Block */}
             <div className="projects-header">
               <h1 id="portfolio-main-heading" className="section-title">
-                Our Proven <span className="gradient-text">Case Studies</span>
-              </h1>
+  Our Proven{" "}
+  <span
+    style={{
+      color: "#9C6A1A",
+      WebkitTextFillColor: "#9C6A1A",
+      background: "none",
+      backgroundImage: "none",
+    }}
+  >
+    Case Studies
+  </span>
+</h1>
               <p className="section-subtitle">
                 Explore real-world software implementations, interactive portal architectures, and user-centric platform assemblies.
               </p>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
@@ -99,7 +99,8 @@ const About = () => {
       twitter: "#"
     }
   ];
-
+const [activeCard, setActiveCard] = useState(0);
+const [activeMission, setActiveMission] = useState(0);
   return (
     <>
       <SEO
@@ -132,9 +133,9 @@ const About = () => {
               className="hero-content"
             >
              
-              <h1>
-                Engineering Next-Gen <span className="gradient-text ">Digital Architectures</span>
-              </h1>
+            <h1>
+  Engineering Next-Gen <span className="hero-title-highlight">Digital Architectures</span>
+</h1>
               <p>
                 Averiqo Technologies is an elite software engineering company delivering high-performance web applications, strategic UI/UX designs, and growth-focused digital marketing ecosystems that transform ambitious concepts into industry leaders.
               </p>
@@ -181,11 +182,16 @@ const About = () => {
                 variants={staggerContainer}
               >
                 {stats.map((stat, i) => (
-                  <motion.div key={i} className="stat-card" variants={cardVariant}>
-                    <h3 className="stat-value gradient-text">{stat.value}</h3>
-                    <p className="stat-label">{stat.label}</p>
-                  </motion.div>
-                ))}
+  <motion.div
+    key={i}
+    variants={cardVariant}
+    onClick={() => setActiveCard(i)}
+    className={`stat-card ${activeCard === i ? "active-stat" : ""}`}
+  >
+    <h3 className="stat-value">{stat.value}</h3>
+    <p className="stat-label">{stat.label}</p>
+  </motion.div>
+))}
               </motion.div>
             </div>
           </div>
@@ -201,17 +207,46 @@ const About = () => {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div className="mission-card" variants={cardVariant}>
-                <div className="icon-wrapper"><FaBullseye className="icon" /></div>
-                <h3>Our Mission</h3>
-                <p>To empower global organizations by deploying robust, cutting-edge software engineering and intelligent user designs that systematically scale visibility and operational efficiency.</p>
-              </motion.div>
+             <motion.div
+  variants={cardVariant}
+  onClick={() => setActiveMission(0)}
+  className={`mission-card ${
+    activeMission === 0 ? "active-mission" : ""
+  }`}
+>
+  <div className="icon-wrapper">
+    <FaBullseye className="icon" />
+  </div>
 
-              <motion.div className="vision-card" variants={cardVariant}>
-                <div className="icon-wrapper"><FaEye className="icon" /></div>
-                <h3>Our Vision</h3>
-                <p>To serve as the definitive tech-stack ecosystem and strategic engineering powerhouse known for turning complex ideas into predictable digital success stories.</p>
-              </motion.div>
+  <h3>Our Mission</h3>
+
+  <p>
+    To empower global organizations by deploying robust,
+    cutting-edge software engineering and intelligent user
+    designs that systematically scale visibility and
+    operational efficiency.
+  </p>
+</motion.div>
+
+<motion.div
+  variants={cardVariant}
+  onClick={() => setActiveMission(1)}
+  className={`vision-card ${
+    activeMission === 1 ? "active-mission" : ""
+  }`}
+>
+  <div className="icon-wrapper">
+    <FaEye className="icon" />
+  </div>
+
+  <h3>Our Vision</h3>
+
+  <p>
+    To serve as the definitive tech-stack ecosystem and
+    strategic engineering powerhouse known for turning
+    complex ideas into predictable digital success stories.
+  </p>
+</motion.div>
             </motion.div>
           </div>
         </section>

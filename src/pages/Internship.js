@@ -62,6 +62,7 @@ const Internship = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [notification, setNotification] = useState(null);
   const fileInputRef = useRef(null);
+  const [activeCard, setActiveCard] = useState(2);
 
   // Scroll to top button
   useEffect(() => {
@@ -618,12 +619,13 @@ const Internship = () => {
               viewport={{ once: true, margin: "-50px" }}
             >
               {benefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  className="benefit-card"
-                  variants={scaleIn}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                >
+               <motion.div
+  key={index}
+  className={`benefit-card ${activeCard === index ? "active-card" : ""}`}
+  variants={scaleIn}
+  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+  onClick={() => setActiveCard(index)}
+>
                   <div className="benefit-icon">
                     {benefit.icon}
                   </div>
