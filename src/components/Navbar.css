@@ -2,11 +2,11 @@
    Navbar Layout Base Variables
    ========================================================================== */
 :root {
-  --nav-bg-translucent: rgba(11, 15, 25, 0.6);
+  --nav-bg-translucent: #ffffff;
   --nav-bg-solid: rgba(19, 26, 46, 0.9);
   --nav-border: rgba(255, 255, 255, 0.08);
-  --nav-text: #ffffff;
-  --nav-muted: #94a3b8;
+  --nav-text: rgb(187, 77, 187);
+  --nav-muted: #9C6A1A;
   --nav-accent: #00f2fe;
   --nav-accent-gradient: linear-gradient(135deg, #8b5cf6, #ff4eb2);
   
@@ -53,8 +53,8 @@
 }
 
 .logo-img {
-  height: 40px;
-  width: auto;
+  height: 70px;
+  width:100px;
   object-fit: contain;
   border-radius: 8px;
   transition: transform 0.2s ease;
@@ -124,7 +124,7 @@
   align-items: center;
   gap: 8px;
   font-family: var(--nav-font);
-  background: var(--nav-accent-gradient);
+  background: rgb(209, 56, 209);
   color: #ffffff;
   text-decoration: none;
   padding: 10px 24px;

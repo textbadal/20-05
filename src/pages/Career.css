@@ -2,14 +2,20 @@
 .career-page {
   font-family: 'Inter', sans-serif;
   color: #1a1a1a;
-  background-color: #fdfdfd;
+  background-color: rgb(253, 208, 253);
   line-height: 1.6;
 }
 
 /* Hero Section */
 .career-hero {
-  background: linear-gradient(135deg, #00bcd4, #009688);
-  color: #ffffff;
+ background: linear-gradient(
+  180deg,
+  #f8ecd2 0%,
+  #e4c992 45%,
+  #c89a43 75%,
+  #9c6a1a 100%
+);
+  color: black;
   padding: 100px 20px;
   text-align: center;
 }
@@ -18,6 +24,7 @@
   font-size: 3.2rem;
   margin-bottom: 12px;
   font-weight: 700;
+  color: purple;
 }
 
 .career-hero p {
@@ -27,8 +34,8 @@
 
 .apply-btn {
   display: inline-block;
-  background-color: #ffffff;
-  color: #00bcd4;
+  background-color: black;
+  color: white;
   padding: 12px 30px;
   font-weight: 600;
   text-decoration: none;
@@ -38,8 +45,8 @@
 }
 
 .apply-btn:hover {
-  background-color: #e0f7fa;
-  color: #00796b;
+  background-color: black;
+  color:white
 }
 
 /* Culture Section */
@@ -63,7 +70,13 @@
 
 .culture-box {
   max-width: 280px;
-  background-color: #ffffff;
+background: linear-gradient(
+  180deg,
+  #f8ecd2 0%,
+  #e4c992 45%,
+  #c89a43 75%,
+  #9c6a1a 100%
+);
   border-radius: 20px;
   padding: 30px 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -78,7 +91,7 @@
   margin-top: 15px;
   font-size: 1.3rem;
   font-weight: 600;
-  color: #009688;
+  color: #9C6A1A;
 }
 
 /* Job Openings */
@@ -102,7 +115,13 @@
 
 .job-card {
   width: 300px;
-  background-color: #ffffff;
+  background: linear-gradient(
+  180deg,
+  #f8f2ff 0%,
+  #ead7ff 40%,
+  #d8b4fe 70%,
+  #c084fc 100%
+);
   border: 1px solid #eeeeee;
   border-radius: 16px;
   padding: 25px;

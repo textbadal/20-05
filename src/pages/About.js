@@ -133,7 +133,7 @@ const About = () => {
             >
              
               <h1>
-                Engineering Next-Gen <span className="gradient-text">Digital Architectures</span>
+                Engineering Next-Gen <span className="gradient-text ">Digital Architectures</span>
               </h1>
               <p>
                 Averiqo Technologies is an elite software engineering company delivering high-performance web applications, strategic UI/UX designs, and growth-focused digital marketing ecosystems that transform ambitious concepts into industry leaders.

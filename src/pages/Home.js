@@ -107,8 +107,9 @@ const staggerContainer = {
     transition: { staggerChildren: 0.15 },
   },
 };
-
 const Home = () => {
+const [activeWhy, setActiveWhy] = useState(0);
+
   const [activeFaq, setActiveFaq] = useState(null);
 
   useEffect(() => {
@@ -118,7 +119,9 @@ const Home = () => {
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
-
+const [activeProcess, setActiveProcess] = useState(0);
+const [activeProject, setActiveProject] = useState(0);
+const [activeService, setActiveService] = useState(1);
   return (
     <>
       <SEO
@@ -204,7 +207,10 @@ const Home = () => {
                   key={index}
                   variants={fadeInUp}
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className="service-card"
+         className={`service-card ${
+  activeService === index ? "active-service" : ""
+}`}
+onClick={() => setActiveService(index)}
                 >
                   <div className="service-icon" aria-hidden="true">
                     {service.icon}
@@ -232,7 +238,15 @@ const Home = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               {VALUES.map((value, index) => (
-                <motion.div key={index} variants={fadeInUp} className="why-card">
+   <motion.div
+  key={index}
+  variants={fadeInUp}
+  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+  className={`why-card ${
+    activeWhy === index ? "active-why-card" : ""
+  }`}
+  onClick={() => setActiveWhy(index)}
+>
                   <div className="why-icon-wrapper" aria-hidden="true">{value.icon}</div>
                   <h3>{value.title}</h3>
                   <p>{value.desc}</p>
@@ -260,7 +274,14 @@ const Home = () => {
               viewport={{ once: true, margin: "-100px" }}
             >
               {PROCESS_STEPS.map((item, index) => (
-                <motion.div key={index} variants={fadeInUp} className="process-card">
+                <motion.div
+  key={index}
+  variants={fadeInUp}
+  className={`process-card ${
+    activeProcess === index ? "active-process-card" : ""
+  }`}
+  onClick={() => setActiveProcess(index)}
+>
                   <span className="process-step-num" aria-hidden="true">{item.step}</span>
                   <h3>{item.title}</h3>
                   <p>{item.desc}</p>
@@ -285,17 +306,38 @@ const Home = () => {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
             >
-              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+              <motion.div
+  variants={fadeInUp}
+  whileHover={{ y: -4 }}
+  className={`project-card ${
+    activeProject === 0 ? "active-project-card" : ""
+  }`}
+  onClick={() => setActiveProject(0)}
+>
                 <div className="project-meta">Enterprise Stack</div>
                 <h3>Next-Gen Corporate Platform</h3>
                 <p>High-speed headless CMS system with tailored user telemetry configurations.</p>
               </motion.div>
-              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+              <motion.div
+  variants={fadeInUp}
+  whileHover={{ y: -4 }}
+  className={`project-card ${
+    activeProject === 1 ? "active-project-card" : ""
+  }`}
+  onClick={() => setActiveProject(1)}
+>
                 <div className="project-meta">EdTech Systems</div>
                 <h3>E-Learning Hub Architecture</h3>
                 <p>Interactive platform with low latency real-time asset delivery management.</p>
               </motion.div>
-              <motion.div variants={fadeInUp} className="project-card" whileHover={{ y: -4 }}>
+            <motion.div
+  variants={fadeInUp}
+  whileHover={{ y: -4 }}
+  className={`project-card ${
+    activeProject === 2 ? "active-project-card" : ""
+  }`}
+  onClick={() => setActiveProject(2)}
+>
                 <div className="project-meta">Performance Marketing</div>
                 <h3>Data-Driven Growth Campaign</h3>
                 <p>Scalable dynamic landing operations optimized for hyper-converting conversion funnels.</p>
