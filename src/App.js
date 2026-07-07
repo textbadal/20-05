@@ -14,6 +14,7 @@ import Services from "./pages/Services";
 import Projects from "./pages/Projects";
 import Internship from "./pages/Internship";
 import CertificateVerification from "./pages/CertificateVerification";
+import QuotationGenerator from "./pages/QuotationGenerator";
 import Contact from "./pages/Contact";
 import InternshipRegistration from "./pages/InternshipRegistration";
 import Career from "./pages/Career";
@@ -46,6 +47,10 @@ function App() {
           <Route
             path="/certificate-verification"
             element={<CertificateVerification />}
+          />
+          <Route
+            path="/quotation-generator"
+            element={<QuotationGenerator />}
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/internship-registration" element={<InternshipRegistration />} />
