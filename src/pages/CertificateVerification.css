@@ -17,7 +17,7 @@
 }
 
 .cert-verify-page {
-  background-color: var(--cert-bg);
+  background-color: rgb(255, 223, 255);
   color: var(--cert-text);
   min-height: 100vh;
   position: relative;
@@ -181,7 +181,7 @@
 .card-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #9C6A1A;
   margin: 0 0 6px 0;
 }
 

@@ -30,7 +30,7 @@
    Global Reset Helpers
    ========================================================================== */
 .home-page {
-  background-color: var(--bg-primary);
+  background-color: rgb(252, 232, 252);
   color: var(--text-main);
   font-family: var(--font-sans);
   line-height: 1.6;
@@ -69,16 +69,20 @@
 }
 
 .home-page .section-header p {
-  color: var(--text-muted);
+  color: #9C6A1A;
   font-size: 1.15rem;
   max-width: 550px;
   margin: 0 auto;
 }
+
+/* Multi-stop High Energy Gradient */
 .home-page .gradient-text {
-  color: #996515 !important;
-  background: none !important;
-  -webkit-text-fill-color: #996515 !important;
+  background: #9C6A1A;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 /* Neo-Brutalist Buttons */
 .home-page .btn-primary,
 .home-page .btn-secondary,
@@ -97,14 +101,14 @@
 }
 
 .home-page .btn-primary {
-  background: #8b5cf6 !important;
-  color: white !important;
-  border: none !important;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4) !important;
+  background: rgb(141, 83, 141);
+  color: #ffffff;
+  box-shadow: var(--brutal-shadow);
 }
+
 .home-page .btn-primary:hover {
-  background: #7c3aed !important;
-  transform: translateY(-2px);
+  transform: translate(4px, 4px);
+  box-shadow: var(--brutal-shadow-hover);
 }
 
 .home-page .btn-icon-right {
@@ -112,8 +116,8 @@
 }
 
 .home-page .btn-secondary {
-  background-color: var(--bg-secondary);
-  color: var(--text-main);
+  background-color: #9C6A1A;
+  color: black;
   box-shadow: var(--brutal-shadow);
 }
 
@@ -123,14 +127,14 @@
 }
 
 .home-page .btn-secondary-outline {
-  background: transparent;
-  color: var(--text-main);
+  background: purple;
+  color: white;
   border-color: rgba(255, 255, 255, 0.4);
 }
 
 .home-page .btn-secondary-outline:hover {
   border-color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgb(163, 86, 163);
 }
 
 .home-page .btn-large {
@@ -207,21 +211,8 @@
 
 
 
-
-
-
-
-
-/* ==========================================================================
-   2. Services Section
-   ========================================================================== */
 .services-section {
-  background: linear-gradient(to bottom, #ffffff 0%, #c4b5fd 100%) !important;
-  color: #1a1a1a !important;
-}
-
-.services-section .section-header p {
-  color: #4b5563 !important;
+  background-color: var(--bg-secondary);
 }
 
 .services-grid {
@@ -231,26 +222,53 @@
 }
 
 .service-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+background: linear-gradient(
+  to bottom,
+  #f9efd8 0%,
+  #edd7a6 30%,
+  #d3ab63 65%,
+  #9c6a1a 100%
+);
   padding: 48px 40px;
-  border-radius: var(--border-radius);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: var(--transition-smooth);
-  color: #1a1a1a;
+  border-radius: 16px;
+  border: 1px solid #d8b4fe;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
+
+
+/* Selected Card */
+.active-service {
+ background: linear-gradient(
+  to bottom,
+
+  #edd7a6 30%,
+  #d3ab63 65%,
+  #9c6a1a 100%
+);
+  border: 2px solid #8b5cf6;
+}
+
+/* Selected Card Icon */
+.active-service .service-icon {
+  color: black;
+}
+
+/* Selected Card Heading */
+.active-service h3 {
+  color: #9C6A1A;
+}
+
+/* Selected Card Paragraph */
+.active-service p {
+  color: #555;
+}
+
+/* Hover */
 .service-card:hover {
-  border-color: rgba(139, 92, 246, 0.5);
-  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-5px);
 }
-
-.service-card:active {
-  background: #a78bfa; /* Changed to purple on click */
-  transform: scale(0.98);
-}
-
 .service-icon {
   font-size: 2.25rem;
   color: var(--accent-pink);
@@ -266,7 +284,7 @@
 }
 
 .service-card p {
-  color: #4b5563;
+  color: var(--text-muted);
   font-size: 1rem;
 }
 
@@ -283,24 +301,18 @@
 }
 
 .why-card {
-  background: var(--bg-card);
+  background: linear-gradient(
+  to bottom,
+  #f9efd8 0%,
+  #edd7a6 30%,
+  #d3ab63 65%,
+  #9c6a1a 100%
+);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 36px;
   border-radius: var(--border-radius);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: var(--transition-smooth);
-  cursor: pointer;
-}
-
-.why-card:hover {
-  border-color: rgba(139, 92, 246, 0.5);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.why-card:active {
-  background: #a78bfa;
-  transform: scale(0.98);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .why-icon-wrapper {
@@ -368,7 +380,13 @@
 }
 
 .process-card {
-  background-color: var(--bg-secondary);
+  background: linear-gradient(
+  180deg,
+  #f8f2ff 0%,
+  #ead7ff 40%,
+  #d8b4fe 70%,
+  #c084fc 100%
+);
   padding: 40px 32px;
   border-radius: var(--border-radius);
   border: var(--brutal-border);
@@ -402,7 +420,7 @@
    6. Portfolio / Projects Showcase
    ========================================================================== */
 .projects-section {
-  background-color: var(--bg-secondary);
+  background-color: black;
 }
 
 .projects-grid {
@@ -412,8 +430,13 @@
 }
 
 .project-card {
-  background-color: #ffffff !important;
-  color: #1a1a1a !important;
+ background: linear-gradient(
+  to bottom,
+  #f9efd8 0%,
+  #edd7a6 30%,
+  #d3ab63 65%,
+  #9c6a1a 100%
+);
   padding: 44px;
   border-radius: var(--border-radius);
   border: var(--brutal-border);
@@ -431,7 +454,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--accent-pink);
+  color: rgb(165, 46, 165);
   font-weight: 800;
   margin-bottom: 16px;
 }
@@ -441,31 +464,10 @@
   font-weight: 800;
   margin-bottom: 14px;
   letter-spacing: -0.02em;
-  color: #1a1a1a;
 }
 
 .project-card p {
-  color: #4b5563;
-}
-
-/* Gradient background for a specific card and active state for clicked cards */
-.project-card.gradient-bg,
-.project-card.active-card {
-  background: linear-gradient(to bottom, #fdfbf7 0%, #d4a373 100%) !important;
-  border: 1px solid #996515 !important;
-  color: #1a1a1a !important;
-}
-
-.project-card.gradient-bg h3,
-.project-card.active-card h3,
-.project-card.gradient-bg p,
-.project-card.active-card p {
-  color: #1a1a1a !important;
-}
-
-.project-card.gradient-bg .project-meta,
-.project-card.active-card .project-meta {
-  color: #996515 !important;
+  color: white;
 }
 
 /* ==========================================================================
@@ -537,10 +539,11 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
+  color:#9c6a1a;
 }
 
 .cta-section p {
-  color: var(--text-muted);
+  color: white;
   font-size: 1.25rem;
   max-width: 600px;
   margin: 0 auto 48px auto;
@@ -595,19 +598,4 @@
   .cta-section h2 {
     font-size: 2.25rem;
   }
-}
-/* FORCE GOLDEN COLOR */
-.home-page .hero-content .gradient-text {
-  color: #996515 !important;
-  background: none !important;
-  background-image: none !important;
-  -webkit-background-clip: initial !important;
-  -webkit-text-fill-color: #996515 !important;
-}
-/* FORCE PURPLE BUTTON */
-.home-page .hero-buttons .btn-primary {
-  background: #7c3aed !important;
-  background-image: none !important;
-  color: #ffffff !important;
-  border: none !important;
 }

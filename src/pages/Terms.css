@@ -2,7 +2,7 @@
     max-width: 900px;
     margin: 0 auto;
     padding: 60px 20px;
-    background: #ffffff;
+    background: rgb(255, 231, 255);
     color: #333;
     line-height: 1.7;
   }
@@ -15,7 +15,7 @@
   .terms-content h2 {
     font-size: 1.5rem;
     margin-top: 30px;
-    color: #009688;
+    color: #9C6A1A;
   }
   
   .terms-content ul {

@@ -15,7 +15,7 @@
 }
 
 .services-page-wrapper {
-  background-color: #f8fafc;
+  background-color:rgb(255, 243, 255);
   color: var(--text-main);
   min-height: 100vh;
   padding: 6rem 1.5rem;
@@ -46,9 +46,8 @@
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: #9C6A1A;
+  
 }
 
 .section-subtitle {
@@ -178,15 +177,17 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--primary-accent);
+  color: black;
+  border: #0f172a ;
   text-decoration: none;
+  background: #9C6A1A;
   font-weight: 600;
   font-size: 0.9rem;
   transition: var(--transition-smooth);
 }
 
 .service-link:hover {
-  color: var(--primary-accent-hover);
+  color: rgb(231, 118, 231)
 }
 
 .service-link svg {
@@ -401,10 +402,11 @@
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 0.75rem;
+  color: #9C6A1A;
 }
 
 .services-cta p {
-  color: #94a3b8;
+  color: white;
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto 2.5rem auto;
@@ -427,10 +429,11 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-smooth);
+  
 }
 
 .cta-button.primary {
-  background-color: var(--primary-accent);
+  background-color: rgb(199, 48, 199);
   color: #ffffff;
 }
 
@@ -440,7 +443,7 @@
 }
 
 .cta-button.secondary {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgb(199, 48, 199);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #ffffff;
 }

@@ -13,7 +13,7 @@
   --accent: #FFD93D;
   --success: #6BCB77;
   --error: #FF6B6B;
-  --bg: #F8F9FE;
+  --bg: #915dd4;
   --bg-card: #FFFFFF;
   --bg-card-hover: #F0F1FF;
   --text-dark: #1A1A2E;
@@ -27,7 +27,7 @@
 }
 
 .internship-page {
-  background: var(--bg);
+  background: rgb(250, 210, 250);
   color: var(--text-dark);
   min-height: 100vh;
   overflow-x: hidden;

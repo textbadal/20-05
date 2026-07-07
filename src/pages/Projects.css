@@ -15,7 +15,7 @@
 }
 
 .projects-page-wrapper {
-  background-color: var(--proj-bg);
+  background-color:rgb(255, 243, 255);
   color: var(--proj-text);
   min-height: 100vh;
   padding: 100px 0;
@@ -47,14 +47,14 @@
 }
 
 .projects-header .gradient-text {
-  background: var(--proj-gradient);
+  background: #9C6A1A;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .projects-header .section-subtitle {
-  color: var(--proj-muted);
+  color: white;
   font-size: 1.15rem;
   line-height: 1.6;
 }

@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Navbar Layout Base Variables
+   ========================================================================== */
+:root {
+  --nav-bg-translucent: #ffffff;
+  --nav-bg-solid: rgba(19, 26, 46, 0.9);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-text: rgb(187, 77, 187);
+  --nav-muted: #9C6A1A;
+  --nav-accent: #00f2fe;
+  --nav-accent-gradient: linear-gradient(135deg, #8b5cf6, #ff4eb2);
+  
+  --nav-brutal-shadow: 4px 4px 0px #ffffff;
+  --nav-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+/* Header Container Wrapper */
+.navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--nav-bg-translucent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--nav-border);
+  transition: all 0.3s ease;
+}
+
+/* Triggered on scroll down past 20px */
+.navbar-wrapper.navbar-scrolled {
+  background-color: var(--nav-bg-solid);
+  padding: 4px 0;
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo Sizing & Fit */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  z-index: 1010;
+}
+
+.logo-img {
+  height: 70px;
+  width:100px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.navbar-logo:hover .logo-img {
+  transform: scale(1.03);
+}
+
+/* ==========================================================================
+   Desktop Menu Styling
+   ========================================================================== */
+.navbar-navigation {
+  display: block;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  font-family: var(--nav-font);
+  color: var(--nav-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  position: relative;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--nav-text);
+}
+
+/* Active Page Indicator Underline */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--nav-accent-gradient);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.nav-link.active {
+  color: var(--nav-text);
+}
+
+/* Brutalist Desktop CTA Button */
+.navbar-actions .cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--nav-font);
+  background: rgb(209, 56, 209);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 2px solid #ffffff;
+  box-shadow: var(--nav-brutal-shadow);
+  transition: all 0.2s ease;
+}
+
+.navbar-actions .cta-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #ffffff;
+}
+
+.btn-arrow {
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover .btn-arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Hamburger Mobile Icon
+   ========================================================================== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1010;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 2.5px;
+  background-color: var(--nav-text);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+}
+
+/* Hamburger Transformations when Menu is Toggled */
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+/* ==========================================================================
+   Mobile Navigation Drawer Overlay (Fixed)
+   ========================================================================== */
+.mobile-menu-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #0b0f19;
+  z-index: 1005;
+  /* Keep it hidden off-screen by default */
+  transform: translateY(-100%); 
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 120px 32px 40px 32px;
+  box-sizing: border-box;
+}
+
+/* Explicitly handles the toggle state properly */
+.mobile-menu-drawer.show {
+  transform: translateY(0);
+}
+
+.mobile-links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto; /* Fallback scroll for tiny phone screens */
+}
+
+.mobile-link {
+  font-family: var(--nav-font);
+  color: var(--nav-muted);
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+  display: block;
+}
+
+.mobile-link:hover,
+.mobile-link.active {
+  color: var(--nav-text);
+  background: var(--nav-accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mobile-cta {
+  font-family: var(--nav-font);
+  text-decoration: none;
+  text-align: center;
+  margin-top: 16px;
+  background: #ffffff;
+  color: #0b0f19;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  border: 2px solid #ffffff;
+  box-shadow: 4px 4px 0px var(--nav-accent);
+  display: block;
+}
+
+/* ==========================================================================
+   Media Queries Breakdown (Fixed Layout Switching)
+   ========================================================================== */
+@media (max-width: 992px) {
+  /* Safely hide desktop-only items */
+  .navbar-navigation,
+  .navbar-actions {
+    display: none !important;
+  }
+  
+  /* Reveal the hamburger element on mobile viewport */
+  .hamburger {
+    display: flex;
+  }
+}
