@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+
 import { 
   Code, 
   Layers, 
@@ -13,125 +14,78 @@ import {
   X, 
   Cpu, 
   KanbanSquare, 
+  Star,
+  Crown,
+  Rocket,
   PackageOpen 
 } from 'lucide-react';
 import './Services.css';
 
+
 // 1. Centralized Services Configuration Schema
 const SERVICE_CATEGORIES = [
   {
-    id: "web-development",
+    id: "custom-website",
     Icon: Code,
-    title: "Web Development",
-    description: "Full-spectrum, enterprise-grade web solutions from raw concept execution to automated global deployment.",
-    highlights: [
-      "Custom headless CMS builds",
-      "Robust architectural E-commerce solutions",
-      "High-performance Progressive Web Apps",
-      "Secure third-party API integrations",
-      "Server-side optimization layers"
-    ],
-    details: {
-      process: ["Discovery & Architecture Planning", "High-Fidelity UI/UX Design", "Component-Driven Development", "Comprehensive Automated Testing", "CI/CD Pipeline Deployment"],
-      techLabel: "Core Stack",
-      technologies: ["React", "Next.js", "Node.js", "GraphQL", "Shopify", "TypeScript"],
-      deliverables: ["Fully fluid, responsive infrastructure", "Secure administrative dash frameworks", "Semantic SEO indexing hierarchy", "Native system performance analytics"]
-    }
+    title: "Custom Website Development",
+    description: "Custom responsive websites built for performance and growth.",
+    highlights: ["Responsive Design", "Fast Loading", "SEO Friendly"]
   },
+
   {
-    id: "ui-ux-design",
+    id: "landing-pages",
     Icon: Layers,
-    title: "UI/UX Design",
-    description: "Human-centered user experiences engineered directly to enhance user task-completion models and conversions.",
-    highlights: [
-      "Quantitative user research & tracking",
-      "Complex information blueprinting",
-      "Highly interactive system prototypes",
-      "Design systems & token setups",
-      "Strict WCAG accessibility auditing"
-    ],
-    details: {
-      process: ["User Context Interviews", "Competitive UX Matrix Audits", "Low-Fi Layout Wireframing", "High-Fidelity Interactive Mockups", "Live Usability Testing Sprints"],
-      techLabel: "Tool Suite",
-      technologies: ["Figma", "Adobe Creative Suite", "Tokens Studio", "Principle", "Webflow"],
-      deliverables: ["Validated behavioral personas", "Interactive user flows maps", "Global centralized style guides", "Atomic design system code handoffs"]
-    }
+    title: "Landing Pages",
+    description: "High-converting landing pages designed to maximize leads.",
+    highlights: ["Lead Generation", "Conversion Focused", "Mobile Friendly"]
   },
+
+  {
+    id: "seo",
+    Icon: TrendingUp,
+    title: "SEO Optimization",
+    description: "Improve search engine rankings and drive organic traffic.",
+    highlights: ["Keyword Research", "On Page SEO", "Technical SEO"]
+  },
+
   {
     id: "digital-marketing",
     Icon: TrendingUp,
     title: "Digital Marketing",
-    description: "Data-driven growth hacking methodologies engineered to maximize client retention matrices and programmatic ROI.",
-    highlights: [
-      "Technical & semantic SEO optimization",
-      "PPC target acquisition campaign management",
-      "Social engagement conversion strategies",
-      "Inbound content engine tracking",
-      "A/B multivariate conversion rate optimizations"
-    ],
-    details: {
-      process: ["Market Segment Research", "Omnichannel Growth Strategy", "Campaign Structural Execution", "Real-time Attribution Tracking", "Continuous Funnel Optimization"],
-      techLabel: "Channels mastered",
-      technologies: ["Google Analytics 4", "Meta Ads Manager", "LinkedIn Ads", "Klaviyo Lifecycle Engine", "Semrush Systems"],
-      deliverables: ["Deep competitor intelligence grids", "High-intent keyword matrix maps", "Dynamic content engine calendars", "Granular performance revenue sheets"]
-    }
+    description: "End-to-end digital marketing strategies for businesses.",
+    highlights: ["Social Media", "Content Marketing", "Campaign Management"]
   },
+
   {
-    id: "business-consulting",
+    id: "google-ads",
+    Icon: Star,
+    title: "Google Ads (PPC)",
+    description: "ROI-focused Google Ads campaigns with full management.",
+    highlights: ["PPC Campaigns", "Keyword Targeting", "Analytics"]
+  },
+
+  {
+    id: "meta-ads",
     Icon: Briefcase,
-    title: "Business Consulting",
-    description: "Strategic engineering consultation designed to update legacy models into high-yield automated business operations.",
-    highlights: [
-      "End-to-end digital business scaling",
-      "Competitive product market positioning",
-      "Agile product strategy design",
-      "Operational pipeline process refinement",
-      "Strategic technical architectural layout"
-    ],
-    details: {
-      process: ["Organizational Audit", "Gap Matrix Disjoint Analysis", "Operational Architecture Drafting", "Deployment Planning Sprints", "Change-Management Operations"],
-      techLabel: "Core Specializations",
-      technologies: ["SaaS Scaling Models", "Startup Seed Acceleration", "Enterprise System Refinement", "Workflow Automation Planning", "Corporate Data Analytics Matrix"],
-      deliverables: ["SWOT market viability reports", "Financial project justification cases", "System implementation roadmap track", "Enterprise KPI tracking protocols"]
-    }
+    title: "Meta Ads",
+    description: "Facebook and Instagram advertising designed for growth.",
+    highlights: ["Facebook Ads", "Instagram Ads", "Retargeting"]
   },
+
   {
-    id: "mobile-development",
+    id: "maintenance",
     Icon: Smartphone,
-    title: "Mobile Development",
-    description: "Cross-platform mobile apps matching zero-latency native performance metrics with fluid interactive layouts.",
-    highlights: [
-      "Native iOS & Android compilation",
-      "Universal codebase React Native builds",
-      "App store optimization optimizations",
-      "Transactional dynamic push engines",
-      "Asynchronous local database offline support"
-    ],
-    details: {
-      process: ["Requirement Structural Mapping", "Interactive Layout Prototyping", "Native Pipeline Code Construction", "Automated Device Matrix QA Testing", "App/Play Store Deployment Sprints"],
-      techLabel: "Ecosystem Stack",
-      technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase Web Services"],
-      deliverables: ["Assembled mobile application builds", "Cloud system dashboard hooks", "RESTful/GraphQL API networks", "Integrated event tracing frameworks"]
-    }
+    title: "Website Maintenance",
+    description: "Regular updates, backups and security monitoring.",
+    highlights: ["Security", "Backups", "Performance"]
   },
+
   {
-    id: "cloud-solutions",
+    id: "hosting",
     Icon: Cloud,
-    title: "Cloud Solutions",
-    description: "Elastic cloud infrastructure setups built for continuous availability configurations and automated microservices.",
-    highlights: [
-      "Zero-downtime legacy systems migration",
-      "Highly scalable serverless processing layers",
-      "Automated GitOps continuous pipeline execution",
-      "Secure container cluster orchestration",
-      "Granular continuous resource spend tuning"
-    ],
-    details: {
-      process: ["System Load Profiling", "Elastic Microservices Architecture", "Migration Pipeline Sequencing", "Infrastructure Implementation Sprints", "Real-time Telemetry Deployments"],
-      techLabel: "Infrastructure Environments",
-      technologies: ["AWS", "Microsoft Azure", "Google Cloud Engine", "Docker Containers", "Kubernetes Clusters"],
-      deliverables: ["Architectural cloud framework plans", "Declarative Infrastructure as Code (IaC)", "Automated GitOps production pipelines", "Hardened infrastructure security policies"]
-    }
+    title: "Hosting & Domains",
+    description: "Reliable hosting and domain setup with SSL.",
+    highlights: ["Hosting", "SSL", "Domain Setup"]
   }
 ];
 
@@ -181,7 +135,51 @@ const Services = () => {
       }))
     }
   };
-
+const PRICING_PLANS = [
+  {
+    title: "Starter",
+    icon: Rocket,
+    price: "₹29,999",
+    subtitle: "Best for Small Businesses",
+    features: [
+      "5 Page Website",
+      "Responsive Design",
+      "Contact Form",
+      "Basic SEO",
+      "WhatsApp Integration"
+    ],
+    button: "Get Started"
+  },
+  {
+    title: "Growth",
+    icon: Star,
+    price: "₹59,999",
+    subtitle: "Most Popular",
+    popular: true,
+    features: [
+      "Everything in Starter",
+      "Premium UI/UX",
+      "Speed Optimization",
+      "Google Analytics",
+      "Lead Capture Forms"
+    ],
+    button: "Choose Growth"
+  },
+  {
+    title: "Premium",
+    icon: Crown,
+    price: "₹99,999+",
+    subtitle: "Enterprise Solution",
+    features: [
+      "Custom Website",
+      "Advanced SEO",
+      "CRM Integration",
+      "Performance Optimization",
+      "3 Months Support"
+    ],
+    button: "Contact Sales"
+  }
+];
   return (
     <main className="services-page-wrapper">
       <script type="application/ld+json">
@@ -199,9 +197,9 @@ const Services = () => {
             variants={fadeInUp}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <h1 id="main-services-heading" className="section-title">
-              Engineered <span className="gradient-text">Digital Ecosystems</span>
-            </h1>
+          <h1 id="main-services-heading" className="section-title">
+  Our Services
+</h1>
             <p className="section-subtitle">
               We engineer scalable, enterprise-ready software frameworks and growth metrics tailored for unique business optimization vectors.
             </p>
@@ -228,40 +226,16 @@ const Services = () => {
                   </div>
                   <h2 className="service-card-title">{title}</h2>
                 </div>
+<p className="service-description">{description}</p>
 
-                <p className="service-description">{description}</p>
-                
-                <div className="service-highlights">
-                  <h3 className="sub-section-title">Operational Core Focus:</h3>
-                  <ul>
-                    {highlights.map((highlight, i) => (
-                      <li key={i}>
-                        <CheckCircle2 className="highlight-check" size={14} aria-hidden="true" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
 
-                <div className="service-card-actions">
-                  <button 
-                    onClick={() => setActiveDetailsId(id)}
-                    className="service-explore-btn"
-                    aria-expanded={activeDetailsId === id}
-                    aria-label={`View interactive specification parameters for ${title}`}
-                  >
-                    Inspect Architecture
-                  </button>
-                  
-                  <Link 
-                    to={`/services/${id}`}
-                    className="service-link"
-                    aria-label={`Maps to dedicated tracking directory page for ${title}`}
-                  >
-                    <span>Full Specification</span>
-                    <ArrowRight size={14} />
-                  </Link>
-                </div>
+<button
+  className="learn-more-btn"
+  onClick={() => setActiveDetailsId(id)}
+>
+  Learn More
+  <ArrowRight size={12} />
+</button>
               </motion.article>
             ))}
           </motion.div>
@@ -374,7 +348,90 @@ const Services = () => {
               </Link>
             </div>
           </motion.div>
-        </div>
+       
+         <section className="pricing-section">
+
+    <div className="pricing-heading">
+
+        <span className="pricing-badge">
+            PRICING PLANS
+        </span>
+
+        <h2>
+            Choose the Right Plan
+            <br />
+            for Your Business
+        </h2>
+
+        <p>
+            Transparent pricing with everything you need
+            to launch and grow your business.
+        </p>
+
+    </div>
+
+    <div className="pricing-grid">
+
+        {PRICING_PLANS.map((plan,index)=>{
+
+            const Icon=plan.icon;
+
+            return(
+
+                <div
+                    key={index}
+                    className={`pricing-card ${
+                        plan.popular ? "popular-plan" : ""
+                    }`}
+                >
+
+                    <div className="plan-icon">
+
+                        <Icon size={30}/>
+
+                    </div>
+
+                    <h4>{plan.title}</h4>
+
+                    <h2>{plan.price}</h2>
+
+                    <p>{plan.subtitle}</p>
+
+                    <hr/>
+
+                    <ul>
+
+                        {plan.features.map((item,i)=>(
+
+                            <li key={i}>
+
+                                <CheckCircle2 size={17}/>
+
+                                {item}
+
+                            </li>
+
+                        ))}
+
+                    </ul>
+
+                    <button>
+
+                        {plan.button}
+
+                        <ArrowRight size={16}/>
+
+                    </button>
+
+                </div>
+
+            )
+
+        })}
+
+    </div>
+
+</section> </div>
       </section>
 
       {/* ===== Bottom Image Banner Section (Tailwind) ===== */}
