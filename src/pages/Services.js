@@ -92,6 +92,7 @@ const SERVICE_CATEGORIES = [
 const Services = () => {
   // Stateful view controller for deeper technical inspection
   const [activeDetailsId, setActiveDetailsId] = useState(null);
+  const [billingCycle, setBillingCycle] = useState('one-time');
 
   const selectedService = SERVICE_CATEGORIES.find(s => s.id === activeDetailsId);
 
@@ -348,95 +349,76 @@ const PRICING_PLANS = [
               </Link>
             </div>
           </motion.div>
-       
-         <section className="pricing-section">
+          <section className="services-pricing-section">
+            <div className="services-pricing-heading">
+              <span className="services-pricing-badge">PRICING PLANS</span>
+              <h2>
+                Choose the Right Plan
+                <br />
+                for Your Business
+              </h2>
+              <p>
+                Transparent pricing with everything you need to launch, grow, and scale your online presence.
+              </p>
+              
+              <div className="billing-toggle-container">
+                <div className="billing-toggle-wrapper">
+                  <button 
+                    type="button"
+                    className={`billing-toggle-btn ${billingCycle === 'monthly' ? 'active' : ''}`}
+                    onClick={() => setBillingCycle('monthly')}
+                  >
+                    Monthly
+                  </button>
+                  <button 
+                    type="button"
+                    className={`billing-toggle-btn ${billingCycle === 'one-time' ? 'active' : ''}`}
+                    onClick={() => setBillingCycle('one-time')}
+                  >
+                    One-Time
+                  </button>
+                </div>
+                <span className="save-badge">Save 20%</span>
+              </div>
+            </div>
 
-    <div className="pricing-heading">
-
-        <span className="pricing-badge">
-            PRICING PLANS
-        </span>
-
-        <h2>
-            Choose the Right Plan
-            <br />
-            for Your Business
-        </h2>
-
-        <p>
-            Transparent pricing with everything you need
-            to launch and grow your business.
-        </p>
-
-    </div>
-
-    <div className="pricing-grid">
-
-        {PRICING_PLANS.map((plan,index)=>{
-
-            const Icon=plan.icon;
-
-            return(
-
-                <div
+            <div className="services-pricing-grid">
+              {PRICING_PLANS.map((plan, index) => {
+                return (
+                  <div
                     key={index}
-                    className={`pricing-card ${
-                        plan.popular ? "popular-plan" : ""
-                    }`}
-                >
-
-                    <div className="plan-icon">
-
-                        <Icon size={30}/>
-
+                    className={`services-pricing-card ${plan.popular ? "services-popular-plan" : ""}`}
+                  >
+                    <div className="services-pricing-card-header">
+                      <span className="plan-title-badge">{plan.title}</span>
+                      <h2>{plan.price}</h2>
+                      <p className="plan-subtitle">{plan.subtitle}</p>
                     </div>
 
-                    <h4>{plan.title}</h4>
+                    <hr />
 
-                    <h2>{plan.price}</h2>
-
-                    <p>{plan.subtitle}</p>
-
-                    <hr/>
-
-                    <ul>
-
-                        {plan.features.map((item,i)=>(
-
-                            <li key={i}>
-
-                                <CheckCircle2 size={17}/>
-
-                                {item}
-
-                            </li>
-
-                        ))}
-
+                    <ul className="plan-features">
+                      {plan.features.map((item, i) => (
+                        <li key={i}>
+                          <CheckCircle2 className="check-icon" size={18} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
                     </ul>
 
-                    <button>
-
-                        {plan.button}
-
-                        <ArrowRight size={16}/>
-
+                    <button className="plan-cta-btn">
+                      <span>{plan.button}</span>
+                      <ArrowRight size={16} />
                     </button>
-
-                </div>
-
-            )
-
-        })}
-
-    </div>
-
-</section> </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section></div>
       </section>
 
-      {/* ===== Bottom Image Banner Section (Tailwind) ===== */}
       <motion.section
-        className="tw-services-banner relative w-full overflow-hidden mt-0 bg-gradient-to-br from-[#0f0a1e] via-[#1a1035] to-[#0d0618]"
+        className="tw-services-banner relative w-full overflow-hidden mt-24 bg-gradient-to-br from-[#0f0a1e] via-[#1a1035] to-[#0d0618]"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
@@ -489,7 +471,7 @@ const PRICING_PLANS = [
                 transition={{ delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                Building <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-400 bg-clip-text text-transparent">Digital Excellence</span> Together
+                Building <span className="text-[#8B4513]">Digital Excellence</span> Together
               </motion.h2>
 
               <motion.p
@@ -535,7 +517,7 @@ const PRICING_PLANS = [
               >
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-sm sm:text-base rounded-xl shadow-lg shadow-purple-900/40 hover:shadow-purple-800/60 transition-all duration-300 hover:-translate-y-0.5 no-underline"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm sm:text-base rounded-xl shadow-lg shadow-purple-900/40 hover:shadow-purple-800/60 transition-all duration-300 hover:-translate-y-0.5 no-underline"
                   aria-label="Start your project with our team"
                 >
                   Start Your Project

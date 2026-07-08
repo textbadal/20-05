@@ -98,13 +98,13 @@ const DocumentCard = ({ src, label, onPreview }) => (
   </button>
 );
 
-const CTAButton = ({ href, text, variant = "primary" }) => (
+const CTAButton = ({ href, text, variant = "primary", className = "" }) => (
   <div className={`cta-container ${variant}-container`}>
     <a 
       href={href} 
       target={href.startsWith("http") ? "_blank" : "_self"} 
       rel={href.startsWith("http") ? "noopener noreferrer" : ""} 
-      className={`cta-btn ${variant}-btn`}
+      className={`cta-btn ${variant}-btn ${className}`}
     >
       <span>{text}</span>
       <ArrowRight size={18} className="cta-arrow" />
@@ -189,7 +189,7 @@ const InternshipRegistration = () => {
         <section className="closing-cta-section">
           <h2>Ready to Launch Your Career??</h2>
           <p>Applications are reviewed sequentially. Secure your placement evaluations today.</p>
-          <CTAButton href={FORM_URL} text="Submit Your Application" variant="primary" />
+          <CTAButton href={FORM_URL} text="Submit Your Application" variant="primary" className="btn-brown" />
         </section>
 
         {/* Standard Compliance Footer */}

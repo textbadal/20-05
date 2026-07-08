@@ -17,7 +17,6 @@ import {
 import SEO from "../components/SEO";
 import "./About.css";
 
-// Animation Variants for orchestrated entrance animations
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -81,8 +80,6 @@ const About = () => {
     { icon: <FaPalette />, title: "UI/UX Design" },
     { icon: <FaBullhorn />, title: "Digital Marketing" },
   ];
-
-  // Consolidated Team Array pulling asset paths directly from your public folder
   const team = [
     {
       name: "Palak Mundhra",
@@ -347,7 +344,7 @@ const [activeMission, setActiveMission] = useState(0);
             >
               <h2>Accelerate Your Engineering Roadmap</h2>
               <p>Let's map out a stable, scalable strategy to build architecture that dominates your industry segment.</p>
-              <Link to="/contact" className="btn-primary heavy">
+              <Link to="/contact" className="btn-primary heavy btn-brown">
                 Initiate Engagement
                 <FaArrowRight />
               </Link>
