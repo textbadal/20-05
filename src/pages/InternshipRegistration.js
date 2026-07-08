@@ -132,24 +132,102 @@ const InternshipRegistration = () => {
     <main className="internships-page">
       <div className="container">
         
-        {/* Hero Banner Area */}
-        <header className="hero-section">
-          <span className="hero-badge" role="status">
-            <span className="pulse-indicator" aria-hidden="true"></span>
-            Limited Cohort Openings Available
-          </span>
-          <h1>Internship Program {COHORT_YEAR}</h1>
-          <p className="hero-subtitle">
-            Bridge the gap between academia and production environments. Join Averiqo Technologies 
-            to engineer practical solutions through structured mentorship, active sprints, 
-            and modern tech stacks.
-          </p>
-          <div className="hero-actions">
-            <CTAButton href={FORM_URL} text="Apply for the Program" variant="primary" />
-            <CTAButton href="/certificate-verification" text="Verify Certificate" variant="secondary" />
-          </div>
-        </header>
+       {/* ================= HERO SECTION ================= */}
 
+<header className="internship-hero">
+
+  <div className="hero-badge">
+    🚀 Applications Open for {COHORT_YEAR}
+  </div>
+
+  <h1>
+    Launch Your Career with
+    <span className="gradient-text"> Averiqo Technologies</span>
+  </h1>
+
+  <p>
+    Work on real industry projects, learn from experienced mentors,
+    build your portfolio, and receive a verified internship certificate
+    to boost your career.
+  </p>
+
+  <div className="hero-actions">
+    <CTAButton
+      href={FORM_URL}
+      text="Apply Now"
+      variant="primary"
+    />
+
+    <CTAButton
+      href="/certificate-verification"
+      text="Verify Certificate"
+      variant="secondary"
+    />
+  </div>
+
+  {/* Internship Information */}
+
+  <div className="internship-info">
+
+    <div className="info-item">
+      <span>⏳</span>
+      <div>
+        <strong>Duration</strong>
+        <p>3 Months</p>
+      </div>
+    </div>
+
+    <div className="info-divider"></div>
+
+    <div className="info-item">
+      <span>🌍</span>
+      <div>
+        <strong>Mode</strong>
+        <p>Remote</p>
+      </div>
+    </div>
+
+    <div className="info-divider"></div>
+
+    <div className="info-item">
+      <span>💻</span>
+      <div>
+        <strong>Projects</strong>
+        <p>Live Industry Work</p>
+      </div>
+    </div>
+
+    <div className="info-divider"></div>
+
+    <div className="info-item">
+      <span>📜</span>
+      <div>
+        <strong>Certificate</strong>
+        <p>Verified</p>
+      </div>
+    </div>
+
+  </div>
+
+  {/* NEW STATUS BAR */}
+
+  <div className="application-status">
+
+    <div className="status-dot"></div>
+
+    <span>Applications Open</span>
+
+    <span className="status-separator">•</span>
+
+    <span>Limited Seats Available</span>
+
+    <span className="status-separator">•</span>
+
+    <span>Remote Internship</span>
+
+  </div>
+
+</header>
         {/* Deliverables Grid */}
         <section className="benefits-section" aria-labelledby="benefits-heading">
           <header className="section-header">
