@@ -3,98 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 import { 
-  Code, 
-  Layers, 
-  TrendingUp, 
-  Briefcase, 
-  Smartphone, 
-  Cloud, 
   ArrowRight, 
   CheckCircle2, 
-  X, 
-  Cpu, 
-  KanbanSquare, 
   Star,
   Crown,
-  Rocket,
-  PackageOpen 
+  Rocket
 } from 'lucide-react';
 import './Services.css';
+import { SERVICE_CATEGORIES } from '../data/servicesData';
 
-
-// 1. Centralized Services Configuration Schema
-const SERVICE_CATEGORIES = [
-  {
-    id: "custom-website",
-    Icon: Code,
-    title: "Custom Website Development",
-    description: "Custom responsive websites built for performance and growth.",
-    highlights: ["Responsive Design", "Fast Loading", "SEO Friendly"]
-  },
-
-  {
-    id: "landing-pages",
-    Icon: Layers,
-    title: "Landing Pages",
-    description: "High-converting landing pages designed to maximize leads.",
-    highlights: ["Lead Generation", "Conversion Focused", "Mobile Friendly"]
-  },
-
-  {
-    id: "seo",
-    Icon: TrendingUp,
-    title: "SEO Optimization",
-    description: "Improve search engine rankings and drive organic traffic.",
-    highlights: ["Keyword Research", "On Page SEO", "Technical SEO"]
-  },
-
-  {
-    id: "digital-marketing",
-    Icon: TrendingUp,
-    title: "Digital Marketing",
-    description: "End-to-end digital marketing strategies for businesses.",
-    highlights: ["Social Media", "Content Marketing", "Campaign Management"]
-  },
-
-  {
-    id: "google-ads",
-    Icon: Star,
-    title: "Google Ads (PPC)",
-    description: "ROI-focused Google Ads campaigns with full management.",
-    highlights: ["PPC Campaigns", "Keyword Targeting", "Analytics"]
-  },
-
-  {
-    id: "meta-ads",
-    Icon: Briefcase,
-    title: "Meta Ads",
-    description: "Facebook and Instagram advertising designed for growth.",
-    highlights: ["Facebook Ads", "Instagram Ads", "Retargeting"]
-  },
-
-  {
-    id: "maintenance",
-    Icon: Smartphone,
-    title: "Website Maintenance",
-    description: "Regular updates, backups and security monitoring.",
-    highlights: ["Security", "Backups", "Performance"]
-  },
-
-  {
-    id: "hosting",
-    Icon: Cloud,
-    title: "Hosting & Domains",
-    description: "Reliable hosting and domain setup with SSL.",
-    highlights: ["Hosting", "SSL", "Domain Setup"]
-  }
-];
 
 const Services = () => {
-  // Stateful view controller for deeper technical inspection
-  const [activeDetailsId, setActiveDetailsId] = useState(null);
   const [billingCycle, setBillingCycle] = useState('one-time');
-
-  const selectedService = SERVICE_CATEGORIES.find(s => s.id === activeDetailsId);
 
   // Animation Variant Configurations
   const fadeInUp = {
@@ -110,7 +30,6 @@ const Services = () => {
     visible: { transition: { staggerChildren: 0.08 } }
   };
 
-  // Safe window parsing for deterministic structured schema builds
   const safeOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://averiqo.com';
 
   const structuredData = {
@@ -216,7 +135,7 @@ const PRICING_PLANS = [
           >
             {SERVICE_CATEGORIES.map(({ id, Icon, title, description, highlights }) => (
               <motion.article
-                className={`service-card ${activeDetailsId === id ? 'active-card-view' : ''}`}
+                className="service-card"
                 key={id}
                 variants={fadeInUp}
                 whileHover={{ y: -8, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
@@ -230,105 +149,18 @@ const PRICING_PLANS = [
 <p className="service-description">{description}</p>
 
 
-<button
+<Link
   className="learn-more-btn"
-  onClick={() => setActiveDetailsId(id)}
+  to={`/service/${id}`}
+  style={{textDecoration: 'none'}}
 >
   Learn More
   <ArrowRight size={12} />
-</button>
+</Link>
               </motion.article>
             ))}
           </motion.div>
 
-          {/* Dynamic contextual inspection modal overlay drawer */}
-          <AnimatePresence>
-            {activeDetailsId && selectedService && (
-              <motion.div 
-                className="inspection-backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setActiveDetailsId(null)}
-              >
-                <motion.div 
-                  className="inspection-drawer"
-                  initial={{ x: "100%" }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "100%" }}
-                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  onClick={(e) => e.stopPropagation()}
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="drawer-heading"
-                >
-                  <button 
-                    className="close-drawer-btn" 
-                    onClick={() => setActiveDetailsId(null)}
-                    aria-label="Terminate inspection drawer interface overlay"
-                  >
-                    <X size={20} />
-                  </button>
-
-                  <header className="drawer-header">
-                    <span className="drawer-pre-title">Technical Parameter Specifications</span>
-                    <h2 id="drawer-heading">{selectedService.title}</h2>
-                    <p>{selectedService.description}</p>
-                  </header>
-
-                  <div className="drawer-body">
-                    <section className="drawer-block">
-                      <div className="block-title-wrapper">
-                        <Cpu size={16} className="block-icon" />
-                        <h3>{selectedService.details.techLabel}</h3>
-                      </div>
-                      <div className="tech-pills-container">
-                        {selectedService.details.technologies.map((tech, i) => (
-                          <span key={i} className="tech-pill">{tech}</span>
-                        ))}
-                      </div>
-                    </section>
-
-                    <section className="drawer-block">
-                      <div className="block-title-wrapper">
-                        <KanbanSquare size={16} className="block-icon" />
-                        <h3>Operational Lifecycle Roadmap</h3>
-                      </div>
-                      <ol className="pipeline-steps-list">
-                        {selectedService.details.process.map((step, i) => (
-                          <li key={i}>
-                            <span className="step-number">0{i + 1}</span>
-                            <span className="step-name">{step}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    </section>
-
-                    <section className="drawer-block">
-                      <div className="block-title-wrapper">
-                        <PackageOpen size={16} className="block-icon" />
-                        <h3>Project Target Deliverables</h3>
-                      </div>
-                      <ul className="deliverables-checklist">
-                        {selectedService.details.deliverables.map((item, i) => (
-                          <li key={i}>
-                            <span className="bullet-dot" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  </div>
-
-                  <footer className="drawer-footer">
-                    <Link to="/contact" className="cta-button primary full-width-cta">
-                      Initialize Consultation Process
-                    </Link>
-                  </footer>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* Action Callouts */}
           <motion.div
@@ -437,7 +269,6 @@ const PRICING_PLANS = [
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.4 }}
             >
-              {/* Gradient border frame */}
               <div className="absolute -inset-[3px] bg-gradient-to-r from-purple-500 via-pink-500 to-amber-500 rounded-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
               
               <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-purple-900/40">
@@ -484,7 +315,6 @@ const PRICING_PLANS = [
                 We combine creative design thinking with enterprise-grade engineering to deliver digital experiences that drive measurable business growth and lasting impact.
               </motion.p>
 
-              {/* Stats glassmorphism card */}
               <motion.div
                 className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-4 sm:p-5 mb-6 sm:mb-8"
                 initial={{ opacity: 0, y: 20 }}
