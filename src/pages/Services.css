@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Design System Variables & Page Base
-   ========================================================================== */
+
 :root {
   --primary-accent: #132e69;       /* Corporate Blue */
   --primary-accent-hover: #1d4ed8;
@@ -15,34 +13,42 @@
 }
 
 .services-page-wrapper {
-  background-color:rgb(255, 243, 255);
+  background: linear-gradient(
+    180deg,
+    #f3efe9 0%,
+    #e7d8c5 40%,
+    #c9893f 100%
+  );
+
   color: var(--text-main);
-  min-height: 100vh;
-  padding: 6rem 1.5rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+   min-height: 100vh;
+  padding: 7rem 1.5rem 5rem;
   overflow-x: hidden;
 }
+@media (max-width:768px){
 
-.services-page-wrapper .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  .services-page-wrapper{
+    padding-top:120px;
+  }
+
 }
-
-/* ==========================================================================
-   Header Typography
-   ========================================================================== */
+.services-page-wrapper .container {
+    width: 100%;
+    max-width: 1500px;   
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 .services-header {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 5rem auto;
+  max-width: 600px;
+  margin: 0 auto 55px;
 }
-
 .section-title {
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
-  margin-bottom: 1.25rem;
-  line-height: 1.15;
+  color: #111827;
+  margin-bottom: 12px;
 }
 
 .gradient-text {
@@ -51,66 +57,95 @@
 }
 
 .section-subtitle {
-  font-size: 1.2rem;
+  font-size: 13px;
   line-height: 1.6;
-  color: var(--text-muted);
+  color: #6b7280;
 }
 
-/* ==========================================================================
-   Grid & Core Architecture Cards
-   ========================================================================== */
 .services-grid {
+  max-width: 1120px;
+  margin: 0 auto;
+
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 2rem;
-  margin-bottom: 6rem;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 16px;
+}
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .service-card {
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  box-shadow: var(--card-shadow);
+  min-height: 260px;
+  height: auto;
+
+  padding: 18px;
+  border-radius: 12px;
+
   display: flex;
   flex-direction: column;
-  height: 100%;
-}
+  justify-content: space-between;
 
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #eadcff 50%,
+    #a855f7 100%
+  );
+}
 .service-card-top {
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
-}
+  flex-direction: column;
+  align-items: flex-start;
 
+  gap: 14px;
+  margin-bottom: 12px;
+}
 .service-icon-container {
-  background-color: #eff6ff;
-  color: var(--primary-accent);
-  padding: 0.75rem;
-  border-radius: var(--radius-md);
+  width: 38px;
+  height: 38px;
+
+  background: #111827;
+  color: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border-radius: 10px;
+}
+
+.lucide-service-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.lucide-service-icon {
+  width: 15px;
+  height: 15px;
 }
 
 .service-card-title {
-  font-size: 1.4rem;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: #111827;
 }
 
 .service-description {
-  color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 0.975rem;
-  margin-bottom: 2rem;
-  flex-grow: 1;
-}
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.95);
 
-/* ==========================================================================
-   Card Internal Structures (Highlights & Metrics)
-   ========================================================================== */
+  margin-bottom: auto;
+}
 .service-highlights {
   margin-bottom: 2.25rem;
   border-top: 1px solid var(--border-light);
@@ -147,60 +182,65 @@
   flex-shrink: 0;
 }
 
-/* Actions Bar */
 .service-card-actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 16px;   /* buttons ke beech gap */
   margin-top: auto;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
 }
 
+
 .service-explore-btn {
-  background-color: #f1f5f9;
+  background: #ffffff;
+  color: #1e293b;
   border: none;
-  color: #334155;
-  padding: 0.625rem 1.25rem;
-  border-radius: 8px;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 15px;
   font-weight: 600;
-  font-size: 0.9rem;
   cursor: pointer;
-  transition: var(--transition-smooth);
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
 }
 
 .service-explore-btn:hover {
-  background-color: #e2e8f0;
-  color: var(--text-main);
+  transform: translateY(-2px);
+  background: #f8fafc;
 }
 
 .service-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: black;
-  border: #0f172a ;
-  text-decoration: none;
-  background: #9C6A1A;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: var(--transition-smooth);
-}
+  justify-content: center;
+  gap: 8px;
 
+  background: purple;
+  color: white;
+  text-decoration: none;
+
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
 .service-link:hover {
-  color: rgb(231, 118, 231)
+  background: #7d5413;
+  color: white;
+  transform: translateY(-2px);
 }
 
 .service-link svg {
-  transition: transform 0.2s ease;
+  transition: 0.3s;
 }
 
 .service-link:hover svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
-
-/* ==========================================================================
-   Architecture Flyout Panel (Drawer Modal)
-   ========================================================================== */
 .inspection-backdrop {
   position: fixed;
   top: 0;
@@ -384,11 +424,8 @@
   text-align: center;
   box-sizing: border-box;
 }
-
-/* ==========================================================================
-   Closing Callout Sections & Reusable Button Modules
-   ========================================================================== */
 .services-cta {
+   margin-top: 80px;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   color: #ffffff;
   padding: 4.5rem 2rem;
@@ -452,10 +489,6 @@
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.25);
 }
-
-/* ==========================================================================
-   Media Queries & Responsive Refinements
-   ========================================================================== */
 @media (max-width: 768px) {
   .services-page-wrapper {
     padding: 4rem 1rem;
@@ -489,4 +522,490 @@
   .cta-button {
     width: 100%;
   }
+}
+
+.services-pricing-section {
+  margin-top: 90px;
+  padding: 80px 0;
+  background: radial-gradient(circle at top, rgba(239, 246, 255, 0.5) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border-radius: 32px;
+  box-sizing: border-box;
+}
+
+.services-pricing-heading {
+  text-align: center;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.services-pricing-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+.services-pricing-heading h2 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.services-pricing-heading p {
+  color: #4b5563;
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+/* Billing Toggle Switch */
+.billing-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.billing-toggle-wrapper {
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 100px;
+  display: inline-flex;
+}
+
+.billing-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.billing-toggle-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.save-badge {
+  background: #f5f3ff;
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+/* Pricing Grid */
+.services-pricing-grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Pricing Card */
+.services-pricing-card {
+  width: 100%;
+  background: #ffffff;
+  background-image: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #ffffff 65%,
+    #f3e8ff 90%,
+    #e0c3fc 100%
+  );
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+}
+
+.services-pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.06);
+}
+
+/* Middle Card / Popular Plan Highlight */
+.services-pricing-card.services-popular-plan {
+  border: 2px solid #2563eb;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.08);
+}
+
+.services-pricing-card.services-popular-plan:hover {
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.12);
+}
+
+/* Card Header */
+.services-pricing-card-header {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-title-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.services-pricing-card h2 {
+  color: #0f172a;
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.plan-subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.services-pricing-card hr {
+  border: none;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 24px 0;
+  width: 100%;
+}
+
+/* Features List */
+.plan-features {
+  flex: 1;
+  margin: 0 0 32px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.plan-features li .check-icon {
+  color: #ffffff !important;
+  fill: #0f172a !important;
+  flex-shrink: 0;
+}
+
+/* CTA Button */
+.plan-cta-btn {
+  margin-top: auto;
+  height: 52px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: #8b5cf6;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25);
+}
+
+.plan-cta-btn:hover {
+  background: #7c3aed;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px);
+}
+
+.plan-cta-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.plan-cta-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .services-pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-pricing-section {
+    margin-top: 60px;
+    padding: 40px 0;
+  }
+  
+  .services-pricing-heading h2 {
+    font-size: 32px;
+  }
+
+  .services-pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .services-pricing-card {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 30px 24px;
+    background-image: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #ffffff 75%,
+      #fceee0 93%,
+      #e8b682 100%
+    );
+  }
+}
+
+.learn-more-btn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* Pricing Card */
+.services-pricing-card {
+  width: 100%;
+  background: #ffffff;
+  background-image: linear-gradient(
+    to bottom,
+    #ffffff 0%,
+    #ffffff 65%,
+    #f3e8ff 90%,
+    #e0c3fc 100%
+  );
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
+}
+
+.services-pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.06);
+}
+
+/* Middle Card / Popular Plan Highlight */
+.services-pricing-card.services-popular-plan {
+  border: 2px solid #2563eb;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(37, 99, 235, 0.08);
+}
+
+.services-pricing-card.services-popular-plan:hover {
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.12);
+}
+
+/* Card Header */
+.services-pricing-card-header {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.plan-title-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.services-pricing-card h2 {
+  color: #0f172a;
+  font-size: 40px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.plan-subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.services-pricing-card hr {
+  border: none;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 24px 0;
+  width: 100%;
+}
+
+/* Features List */
+.plan-features {
+  flex: 1;
+  margin: 0 0 32px 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.plan-features li .check-icon {
+  color: #ffffff !important;
+  fill: #0f172a !important;
+  flex-shrink: 0;
+}
+
+/* CTA Button */
+.plan-cta-btn {
+  margin-top: auto;
+  height: 52px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background: #8b5cf6;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.25);
+}
+
+.plan-cta-btn:hover {
+  background: #7c3aed;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+  transform: translateY(-1px);
+}
+
+.plan-cta-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.plan-cta-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .services-pricing-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-pricing-section {
+    margin-top: 60px;
+    padding: 40px 0;
+  }
+  
+  .services-pricing-heading h2 {
+    font-size: 32px;
+  }
+
+  .services-pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .services-pricing-card {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 30px 24px;
+    background-image: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #ffffff 75%,
+      #fceee0 93%,
+      #e8b682 100%
+    );
+  }
+}
+
+.learn-more-btn {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111827;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }

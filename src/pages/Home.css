@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Variables & Theme Setup (Glassmorphic Neo-Brutalism)
-   ========================================================================== */
+
 :root {
 
   --bg-card: rgba(255, 255, 255, 0.03);
@@ -551,7 +549,12 @@ background: linear-gradient(
    6. Portfolio / Projects Showcase
    ========================================================================== */
 .projects-section {
-  background-color: black;
+  background-color: #ffffff;
+}
+
+.projects-section h2,
+.projects-section p {
+  color: #000000;
 }
 
 .projects-grid {
@@ -680,9 +683,6 @@ background: linear-gradient(
   margin: 0 auto 48px auto;
 }
 
-/* ==========================================================================
-   9. Responsive Design Media Queries
-   ========================================================================== */
 @media (max-width: 968px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -730,3 +730,4 @@ background: linear-gradient(
     font-size: 2.25rem;
   }
 }
+

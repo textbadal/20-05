@@ -1,6 +1,4 @@
-/* About.css */
 
-/* --- Design Tokens & Variables --- */
 :root {
   --primary-color: #0f172a;       /* Slate 900 */
   --secondary-color: #1e293b;     /* Slate 800 */
@@ -210,6 +208,9 @@ h1, h2, h3 {
   overflow: hidden;
   cursor: pointer;
   transition: .35s ease;
+  background-color: #000000;
+  border-radius: 12px;
+  padding: 40px;
 }
 
 /* LEFT PURPLE STRIP */
@@ -277,13 +278,13 @@ h1, h2, h3 {
 
 .mission-card h3, .vision-card h3 {
   font-size: 1.5rem;
-  color: var(--primary-color);
+  color: #ffffff;
   margin-bottom: 16px;
   font-weight: 600;
 }
 
 .mission-card p, .vision-card p {
-  color: var(--text-muted);
+  color: #e2e8f0;
   margin: 0;
 }
 
@@ -371,7 +372,6 @@ h1, h2, h3 {
   font-size: 0.98rem;
 }
 
-/* --- Team / Leadership Section --- */
 .team-section {
   padding: 100px 0;
   background-color: var(--bg-light);
@@ -379,7 +379,7 @@ h1, h2, h3 {
 
 .team-grid {
   display: grid;
-  /* Dynamically displays 2 balanced cards centered across layout width */
+  
   grid-template-columns: repeat(2, minmax(0, 350px));
   justify-content: center;
   gap: 40px;
@@ -402,7 +402,7 @@ h1, h2, h3 {
 .team-image-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 110%; /* Establishes cohesive image aspect ratio container */
+  padding-top: 110%;
   overflow: hidden;
   background-color: var(--secondary-color);
 }
@@ -413,7 +413,7 @@ h1, h2, h3 {
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Auto crops and fixes mismatched custom file sizes */
+  object-fit: cover;
   transition: var(--transition-smooth);
 }
 
@@ -470,7 +470,6 @@ h1, h2, h3 {
   margin: 0;
 }
 
-/* --- Call To Action (CTA) --- */
 .about-cta {
   padding: 100px 0;
   background: #ffffff;
@@ -480,7 +479,7 @@ h1, h2, h3 {
 .cta-wrapper {
   max-width: 750px;
   margin: 0 auto;
-  background: var(--bg-light);
+  background: #8b5cf6;
   border: 1px solid var(--border-color);
   padding: 60px 40px;
   border-radius: var(--radius-lg);
@@ -488,7 +487,7 @@ h1, h2, h3 {
 
 .cta-wrapper h2 {
   font-size: 2.5rem;
-  color: var(--primary-color);
+  color: #000000;
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 16px;
@@ -496,8 +495,14 @@ h1, h2, h3 {
 
 .cta-wrapper p {
   font-size: 1.1rem;
-  color: var(--text-muted);
+  color: #ffffff;
   margin-bottom: 32px;
+}
+
+.btn-brown {
+  background-color: #8B4513 !important;
+  color: #ffffff !important;
+  border-color: #8B4513 !important;
 }
 
 .btn-primary.heavy {
@@ -604,6 +609,9 @@ h1, h2, h3 {
   overflow: hidden;
   cursor: pointer;
   transition: 0.4s;
+  background-color: #000000;
+  border-radius: 12px;
+  padding: 40px;
 }
 
 .mission-card::before,
@@ -664,3 +672,4 @@ h1, h2, h3 {
 .active-mission .icon {
   color: white;
 }
+

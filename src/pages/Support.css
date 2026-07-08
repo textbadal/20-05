@@ -1,11 +1,23 @@
 .support-container {
-    padding: 60px 20px;
-    max-width: 1000px;
-    margin: auto;
-    background: rgb(252, 227, 252);
-    color: #333;
-    line-height: 1.6;
+  padding: 120px 20px 60px;
+  max-width: 1000px;
+  margin: auto;
+  background: rgb(252, 227, 252);
+  color: #333;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .support-container {
+    padding: 100px 15px 40px;
   }
+  .support-hero h1 {
+    font-size: 2.2rem;
+  }
+  .support-hero p {
+    font-size: 1rem;
+  }
+}
   
   .support-hero {
     text-align: center;

@@ -22,6 +22,9 @@ import Terms from "./pages/Terms";
 import Support from "./pages/Support";
 import Pricing from "./pages/Pricing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import Blog from "./pages/Blog";
+import CaseStudies from "./pages/CaseStudies";
+import ServiceDetail from "./pages/ServiceDetail";
 
 import WebDevelopment from "./pages/services/WebDevelopment";
 import UiUxDesign from "./pages/services/UiUxDesign";
@@ -59,6 +62,9 @@ function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/service/:id" element={<ServiceDetail />} />
 
           <Route
             path="/services/web-development"

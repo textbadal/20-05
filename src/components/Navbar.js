@@ -50,13 +50,13 @@ export default function Navbar() {
           : "bg-white border-black/10"
       }`}
     >
-      <div className="max-w-[1200px] mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
         {/* Logo Section */}
         <Link to="/" className="flex items-center z-[1010] group">
           <img
             src="/Averiqo Technologies logo.jpeg"
             alt="Averiqo Technologies"
-            className="h-[60px] w-auto object-contain rounded-lg transition-transform duration-200 group-hover:scale-105"
+            className="h-[45px] md:h-[60px] w-auto object-contain rounded-lg transition-transform duration-200 group-hover:scale-105"
           />
         </Link>
 
@@ -90,7 +90,7 @@ export default function Navbar() {
 
         {/* Hamburger Mobile Menu Toggle */}
         <button
-          className="lg:hidden flex flex-col justify-between w-[26px] h-[18px] bg-transparent border-none cursor-pointer p-0 z-[1010]"
+          className="lg:hidden flex flex-col justify-between w-[28px] h-[20px] shrink-0 bg-transparent border-none cursor-pointer p-0 z-[1010]"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle Navigation Menu"
         >

@@ -1,12 +1,10 @@
-/* ==========================================================================
-   Projects Context Layout Variables
-   ========================================================================== */
+
 :root {
   --proj-bg: #0b0f19;
-  --proj-surface: #131926;
-  --proj-surface-hover: #1c2536;
-  --proj-text: #ffffff;
-  --proj-muted: #94a3b8;
+  --proj-surface: #ffffff;
+  --proj-surface-hover: #f1f5f9;
+  --proj-text: #000000;
+  --proj-muted: #4b5563;
   --proj-accent: #38bdf8;
   --proj-gradient: linear-gradient(135deg, #7238f8 0%, #bf81f8 100%);
   --proj-border: rgba(255, 255, 255, 0.06);
@@ -15,7 +13,7 @@
 }
 
 .projects-page-wrapper {
-  background-color: var(--proj-bg);
+  background-color: rgb(252, 232, 252);
   color: var(--proj-text);
   min-height: 100vh;
   padding: 100px 0;
@@ -29,9 +27,6 @@
   box-sizing: border-box;
 }
 
-/* ==========================================================================
-   Header Section Elements
-   ========================================================================== */
 .projects-header {
   text-align: center;
   max-width: 650px;
@@ -58,9 +53,6 @@
   line-height: 1.6;
 }
 
-/* ==========================================================================
-   Dynamic Navigation Filter Buttons
-   ========================================================================== */
 .category-filters {
   display: flex;
   justify-content: center;
@@ -95,10 +87,6 @@
   box-shadow: 0 8px 20px rgba(156, 106, 26, 0.3);
   font-weight: 700;
 }
-
-/* ==========================================================================
-   Dynamic Grid & Card Architecture
-   ========================================================================== */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -214,9 +202,7 @@
   transform: translate(2px, -2px);
 }
 
-/* ==========================================================================
-   Responsive Scaling Configurations
-   ========================================================================== */
+
 @media (max-width: 1024px) {
   .projects-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
