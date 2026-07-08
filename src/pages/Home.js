@@ -134,58 +134,112 @@ const [activeProject, setActiveProject] = useState(0);
        
 
 
-       {/* HERO SECTION */}
-<section className="hero-section" aria-label="Introduction">
+       {/* ================= HERO SECTION ================= */}
+<section className="hero-section" aria-label="Hero">
   <div className="container hero-grid">
+
+    {/* LEFT CONTENT */}
     <motion.div
       className="hero-content"
       initial={{ opacity: 0, x: -40 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 0.8 }}
     >
-     
+      <span className="hero-badge">
+        🚀 Trusted Digital Solutions Agency
+      </span>
 
       <h1>
-        Build Your Business. <br />
+        Build a Strong
+        <br />
         <span className="gradient-text">
-          Build Your Career.
+          Digital Presence.
         </span>
       </h1>
 
       <p>
-        Averiqo Technologies helps businesses grow through modern IT
-        solutions while providing students with industry-focused
-        internships to gain real-world experience and build successful
-        careers.
+        We help businesses grow with professional websites,
+        digital marketing, UI/UX design, and technology solutions
+        that deliver real results.
       </p>
 
       <div className="hero-buttons">
-        <Link to="/services" className="btn-primary">
-          Our Services
+        <Link to="/contact" className="btn-primary">
+          Get Free Consultation
           <FaArrowRight className="btn-icon-right" />
         </Link>
 
-        <Link to="/internships" className="btn-secondary">
-          Apply for Internship
+        <Link to="/projects" className="btn-secondary">
+          View Portfolio
         </Link>
       </div>
+
+      
     </motion.div>
+
+    {/* RIGHT COMMAND CENTER */}
 
     <motion.div
-      className="hero-image-wrapper"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+      className="command-center"
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
     >
-      <img
-        src="/hero-image.png"
-        alt="Averiqo Technologies Services and Internship Programs"
-        loading="eager"
-      />
+
+      <h3>How can we help you today?</h3>
+
+      <Link to="/services/web-development" className="command-item">
+        <div className="command-left">
+          <FaGlobe className="command-icon" />
+          <div>
+            <h4>I need a Website</h4>
+            <p>Business • Portfolio • Ecommerce</p>
+          </div>
+        </div>
+
+        <FaArrowRight />
+      </Link>
+
+      <Link to="/services/digital-marketing" className="command-item">
+        <div className="command-left">
+          <FaBullhorn className="command-icon" />
+          <div>
+            <h4>I want More Customers</h4>
+            <p>SEO • Meta Ads • Google Ads</p>
+          </div>
+        </div>
+
+        <FaArrowRight />
+      </Link>
+
+      <Link to="/services/ui-ux-design" className="command-item">
+        <div className="command-left">
+          <FaPalette className="command-icon" />
+          <div>
+            <h4>I need UI/UX Design</h4>
+            <p>Modern User Experiences</p>
+          </div>
+        </div>
+
+        <FaArrowRight />
+      </Link>
+
+      <Link to="/services/business-consulting" className="command-item">
+        <div className="command-left">
+          <FaChartLine className="command-icon" />
+          <div>
+            <h4>I need Business Consulting</h4>
+            <p>Strategy & Digital Growth</p>
+          </div>
+        </div>
+
+        <FaArrowRight />
+      </Link>
+
     </motion.div>
+
   </div>
 </section>
-
         {/* SERVICES SECTION */}
         <section className="services-section" aria-labelledby="services-heading">
           <div className="container">

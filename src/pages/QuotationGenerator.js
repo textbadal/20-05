@@ -1,383 +1,413 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { 
-  Code, 
-  Layers, 
-  TrendingUp, 
-  Briefcase, 
-  Smartphone, 
-  Cloud, 
-  ArrowRight, 
-  CheckCircle2, 
-  X, 
-  Cpu, 
-  KanbanSquare, 
-  PackageOpen 
-} from 'lucide-react';
-import './Services.css';
+import React, { useState, useEffect } from 'react';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
-// 1. Centralized Services Configuration Schema
-const SERVICE_CATEGORIES = [
-  {
-    id: "web-development",
-    Icon: Code,
-    title: "Web Development",
-    description: "Full-spectrum, enterprise-grade web solutions from raw concept execution to automated global deployment.",
-    highlights: [
-      "Custom headless CMS builds",
-      "Robust architectural E-commerce solutions",
-      "High-performance Progressive Web Apps",
-      "Secure third-party API integrations",
-      "Server-side optimization layers"
-    ],
-    details: {
-      process: ["Discovery & Architecture Planning", "High-Fidelity UI/UX Design", "Component-Driven Development", "Comprehensive Automated Testing", "CI/CD Pipeline Deployment"],
-      techLabel: "Core Stack",
-      technologies: ["React", "Next.js", "Node.js", "GraphQL", "Shopify", "TypeScript"],
-      deliverables: ["Fully fluid, responsive infrastructure", "Secure administrative dash frameworks", "Semantic SEO indexing hierarchy", "Native system performance analytics"]
-    }
-  },
-  {
-    id: "ui-ux-design",
-    Icon: Layers,
-    title: "UI/UX Design",
-    description: "Human-centered user experiences engineered directly to enhance user task-completion models and conversions.",
-    highlights: [
-      "Quantitative user research & tracking",
-      "Complex information blueprinting",
-      "Highly interactive system prototypes",
-      "Design systems & token setups",
-      "Strict WCAG accessibility auditing"
-    ],
-    details: {
-      process: ["User Context Interviews", "Competitive UX Matrix Audits", "Low-Fi Layout Wireframing", "High-Fidelity Interactive Mockups", "Live Usability Testing Sprints"],
-      techLabel: "Tool Suite",
-      technologies: ["Figma", "Adobe Creative Suite", "Tokens Studio", "Principle", "Webflow"],
-      deliverables: ["Validated behavioral personas", "Interactive user flows maps", "Global centralized style guides", "Atomic design system code handoffs"]
-    }
-  },
-  {
-    id: "digital-marketing",
-    Icon: TrendingUp,
-    title: "Digital Marketing",
-    description: "Data-driven growth hacking methodologies engineered to maximize client retention matrices and programmatic ROI.",
-    highlights: [
-      "Technical & semantic SEO optimization",
-      "PPC target acquisition campaign management",
-      "Social engagement conversion strategies",
-      "Inbound content engine tracking",
-      "A/B multivariate conversion rate optimizations"
-    ],
-    details: {
-      process: ["Market Segment Research", "Omnichannel Growth Strategy", "Campaign Structural Execution", "Real-time Attribution Tracking", "Continuous Funnel Optimization"],
-      techLabel: "Channels mastered",
-      technologies: ["Google Analytics 4", "Meta Ads Manager", "LinkedIn Ads", "Klaviyo Lifecycle Engine", "Semrush Systems"],
-      deliverables: ["Deep competitor intelligence grids", "High-intent keyword matrix maps", "Dynamic content engine calendars", "Granular performance revenue sheets"]
-    }
-  },
-  {
-    id: "business-consulting",
-    Icon: Briefcase,
-    title: "Business Consulting",
-    description: "Strategic engineering consultation designed to update legacy models into high-yield automated business operations.",
-    highlights: [
-      "End-to-end digital business scaling",
-      "Competitive product market positioning",
-      "Agile product strategy design",
-      "Operational pipeline process refinement",
-      "Strategic technical architectural layout"
-    ],
-    details: {
-      process: ["Organizational Audit", "Gap Matrix Disjoint Analysis", "Operational Architecture Drafting", "Deployment Planning Sprints", "Change-Management Operations"],
-      techLabel: "Core Specializations",
-      technologies: ["SaaS Scaling Models", "Startup Seed Acceleration", "Enterprise System Refinement", "Workflow Automation Planning", "Corporate Data Analytics Matrix"],
-      deliverables: ["SWOT market viability reports", "Financial project justification cases", "System implementation roadmap track", "Enterprise KPI tracking protocols"]
-    }
-  },
-  {
-    id: "mobile-development",
-    Icon: Smartphone,
-    title: "Mobile Development",
-    description: "Cross-platform mobile apps matching zero-latency native performance metrics with fluid interactive layouts.",
-    highlights: [
-      "Native iOS & Android compilation",
-      "Universal codebase React Native builds",
-      "App store optimization optimizations",
-      "Transactional dynamic push engines",
-      "Asynchronous local database offline support"
-    ],
-    details: {
-      process: ["Requirement Structural Mapping", "Interactive Layout Prototyping", "Native Pipeline Code Construction", "Automated Device Matrix QA Testing", "App/Play Store Deployment Sprints"],
-      techLabel: "Ecosystem Stack",
-      technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Firebase Web Services"],
-      deliverables: ["Assembled mobile application builds", "Cloud system dashboard hooks", "RESTful/GraphQL API networks", "Integrated event tracing frameworks"]
-    }
-  },
-  {
-    id: "cloud-solutions",
-    Icon: Cloud,
-    title: "Cloud Solutions",
-    description: "Elastic cloud infrastructure setups built for continuous availability configurations and automated microservices.",
-    highlights: [
-      "Zero-downtime legacy systems migration",
-      "Highly scalable serverless processing layers",
-      "Automated GitOps continuous pipeline execution",
-      "Secure container cluster orchestration",
-      "Granular continuous resource spend tuning"
-    ],
-    details: {
-      process: ["System Load Profiling", "Elastic Microservices Architecture", "Migration Pipeline Sequencing", "Infrastructure Implementation Sprints", "Real-time Telemetry Deployments"],
-      techLabel: "Infrastructure Environments",
-      technologies: ["AWS", "Microsoft Azure", "Google Cloud Engine", "Docker Containers", "Kubernetes Clusters"],
-      deliverables: ["Architectural cloud framework plans", "Declarative Infrastructure as Code (IaC)", "Automated GitOps production pipelines", "Hardened infrastructure security policies"]
-    }
-  }
-];
+export default function QuotationGenerator() {
+  // State for Client & Company Metadata (Indian Context)
+  const [clientDetails, setClientDetails] = useState({
+    companyName: '',
+    contactPerson: '',
+    address: '',
+    clientGSTIN: '',
+    yourGSTIN: '27AAAAA0000A1Z5', // Replace with Averiqo's actual GSTIN
+    yourPAN: 'ABCDE1234F',         // Replace with your actual PAN
+    placeOfSupply: 'Same State',   // 'Same State' (CGST+SGST) or 'Other State' (IGST)
+    taxRate: '18',                 // Standard tech service tax rate in India is 18%
+    validityDays: '30',
+  });
 
-const Services = () => {
-  // Stateful view controller for deeper technical inspection
-  const [activeDetailsId, setActiveDetailsId] = useState(null);
+  // Bank Details for Indian payment workflows
+  const [bankDetails] = useState({
+    bankName: 'HDFC Bank Ltd',
+    accountNo: '50200012345678',
+    ifscCode: 'HDFC0000123',
+    branch: 'Mumbai Main Branch'
+  });
 
-  const selectedService = SERVICE_CATEGORIES.find(s => s.id === activeDetailsId);
+  // State for Dynamic Table Rows including SAC/HSN
+  const [lineItems, setLineItems] = useState([
+    { id: 1, description: '', sacCode: '998314', quantity: 1, unitPrice: 0 },
+  ]);
 
-  // Animation Variant Configurations
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
+  // Financial Summary States
+  const [financials, setFinancials] = useState({
+    subtotal: 0,
+    cgst: 0,
+    sgst: 0,
+    igst: 0,
+    grandTotal: 0,
+  });
+
+  // Recalculate GST allocation based on Location Matrix
+  useEffect(() => {
+    const subtotal = lineItems.reduce((acc, item) => {
+      const qty = parseFloat(item.quantity) || 0;
+      const price = parseFloat(item.unitPrice) || 0;
+      return acc + qty * price;
+    }, 0);
+
+    const totalTaxRate = parseFloat(clientDetails.taxRate) || 0;
+    const totalTaxAmount = subtotal * (totalTaxRate / 100);
+
+    let cgst = 0, sgst = 0, igst = 0;
+
+    if (clientDetails.placeOfSupply === 'Same State') {
+      cgst = totalTaxAmount / 2;
+      sgst = totalTaxAmount / 2;
+    } else {
+      igst = totalTaxAmount;
+    }
+
+    const grandTotal = subtotal + totalTaxAmount;
+    setFinancials({ subtotal, cgst, sgst, igst, grandTotal });
+  }, [lineItems, clientDetails.taxRate, clientDetails.placeOfSupply]);
+
+  const handleClientChange = (e) => {
+    const { name, value } = e.target;
+    setClientDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleItemChange = (id, field, value) => {
+    setLineItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, [field]: value } : item
+      )
+    );
+  };
+
+  const addRow = () => {
+    setLineItems((prev) => [
+      ...prev,
+      { id: Date.now(), description: '', sacCode: '998314', quantity: 1, unitPrice: 0 },
+    ]);
+  };
+
+  const removeRow = (id) => {
+    if (lineItems.length > 1) {
+      setLineItems((prev) => prev.filter((item) => item.id !== id));
+    } else {
+      alert('Your quotation must have at least one line item.');
     }
   };
 
-  const staggerContainer = {
-    visible: { transition: { staggerChildren: 0.08 } }
-  };
+  // Indian Styled PDF Generator Engine
+  const exportToPDF = () => {
+    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+    const today = new Date().toLocaleDateString('en-IN');
+    const quoteNum = `AQ-2026-${Math.floor(1000 + Math.random() * 9000)}`;
 
-  // Safe window parsing for deterministic structured schema builds
-  const safeOrigin = typeof window !== 'undefined' ? window.location.origin : 'https://averiqo.com';
+    // Top Header Banner
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, 210, 40, 'F');
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Enterprise Technology Implementation and Software Engineering Solutions",
-    "provider": {
-      "@type": "Organization",
-      "name": "Averiqo Technologies",
-      "url": safeOrigin
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Professional Enterprise Services Suite",
-      "itemListElement": SERVICE_CATEGORIES.map((service, index) => ({
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": service.title,
-          "description": service.description
-        },
-        "position": index + 1
-      }))
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.text('AVERIQO TECHNOLOGIES', 15, 22);
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`GSTIN: ${clientDetails.yourGSTIN} | PAN: ${clientDetails.yourPAN}`, 15, 30);
+
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('TAX QUOTATION', 155, 25);
+
+    // Metadata Blocks
+    doc.setTextColor(51, 65, 85);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Quotation From:', 15, 52);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Averiqo Technologies Corp.', 15, 58);
+    doc.text('Contact: billing@averiqo.com', 15, 64);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('Line To / Client Details:', 90, 52);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`${clientDetails.companyName || 'Valued Client'}`, 90, 58);
+    doc.text(`Attn: ${clientDetails.contactPerson || 'N/A'}`, 90, 64);
+    doc.text(`Address: ${clientDetails.address || 'N/A'}`, 90, 70);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Client GSTIN: ${clientDetails.clientGSTIN || 'URP (Unregistered Person)'}`, 90, 76);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('Quote Details:', 160, 52);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Ref No: ${quoteNum}`, 160, 58);
+    doc.text(`Date: ${today}`, 160, 64);
+    doc.text(`Place of Supply: ${clientDetails.placeOfSupply}`, 160, 70);
+
+    // Format Body Matrix with HSN/SAC
+    const tableBody = lineItems.map((item, index) => [
+      item.description || `Service ${index + 1}`,
+      item.sacCode,
+      item.quantity,
+      `Rs. ${parseFloat(item.unitPrice).toFixed(2)}`,
+      `Rs. ${(item.quantity * item.unitPrice).toFixed(2)}`,
+    ]);
+
+    autoTable(doc, {
+      startY: 85,
+      head: [['Description / Scope of Work', 'SAC/HSN', 'Qty', 'Unit Rate', 'Total Value']],
+      body: tableBody,
+      headStyles: { fillColor: [30, 41, 59], textColor: [255, 255, 255] },
+      alternateRowStyles: { fillColor: [248, 250, 252] },
+      margin: { left: 15, right: 15 },
+    });
+
+    let currentY = doc.lastAutoTable.finalY + 12;
+
+    // Left Section: Print Bank transfer coordinates
+    doc.setFont('helvetica', 'bold');
+    doc.text('Electronic Bank Remittance Details:', 15, currentY);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Beneficiary: Averiqo Technologies`, 15, currentY + 6);
+    doc.text(`Bank Name: ${bankDetails.bankName}`, 15, currentY + 11);
+    doc.text(`A/C No: ${bankDetails.accountNo}`, 15, currentY + 16);
+    doc.text(`IFSC Code: ${bankDetails.ifscCode}`, 15, currentY + 21);
+
+    // Right Section: Standardized Indian Tax accounting breakdown table
+    doc.text(`Subtotal:`, 130, currentY);
+    doc.text(`Rs. ${financials.subtotal.toFixed(2)}`, 195, currentY, { align: 'right' });
+
+    if (clientDetails.placeOfSupply === 'Same State') {
+      currentY += 6;
+      doc.text(`CGST (${parseFloat(clientDetails.taxRate) / 2}%):`, 130, currentY);
+      doc.text(`Rs. ${financials.cgst.toFixed(2)}`, 195, currentY, { align: 'right' });
+      
+      currentY += 6;
+      doc.text(`SGST (${parseFloat(clientDetails.taxRate) / 2}%):`, 130, currentY);
+      doc.text(`Rs. ${financials.sgst.toFixed(2)}`, 195, currentY, { align: 'right' });
+    } else {
+      currentY += 6;
+      doc.text(`IGST (${clientDetails.taxRate}%):`, 130, currentY);
+      doc.text(`Rs. ${financials.igst.toFixed(2)}`, 195, currentY, { align: 'right' });
     }
+
+    currentY += 8;
+    doc.setLineWidth(0.4);
+    doc.line(125, currentY - 4, 195, currentY - 4);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text(`Grand Total (INR):`, 130, currentY);
+    doc.text(`Rs. ${financials.grandTotal.toFixed(2)}`, 195, currentY, { align: 'right' });
+
+    // Legal Footer
+    currentY += 20;
+    doc.setLineWidth(0.2);
+    doc.setDrawColor(200, 200, 200);
+    doc.line(15, currentY, 195, currentY);
+
+    currentY += 6;
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8.5);
+    doc.text(`Terms: Quote valid for ${clientDetails.validityDays} days. Subject to realization of advance amounts. Disputes subject to local jurisdiction.`, 15, currentY);
+
+    const filename = `Averiqo_Quote_${(clientDetails.companyName || 'Client').replace(/\s+/g, '_')}.pdf`;
+    doc.save(filename);
   };
 
   return (
-    <main className="services-page-wrapper">
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData)}
-      </script>
-
-      <section className="services-section" id="services" aria-labelledby="main-services-heading">
-        <div className="container">
-          
-          {/* Section Hero Banner */}
-          <motion.header 
-            className="services-header"
-            initial="hidden"
-            whileInView="visible"
-            variants={fadeInUp}
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <h1 id="main-services-heading" className="section-title">
-              Engineered <span className="gradient-text">Digital Ecosystems</span>
-            </h1>
-            <p className="section-subtitle">
-              We engineer scalable, enterprise-ready software frameworks and growth metrics tailored for unique business optimization vectors.
-            </p>
-          </motion.header>
-
-          {/* Cards Interface */}
-          <motion.div
-            className="services-grid"
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {SERVICE_CATEGORIES.map(({ id, Icon, title, description, highlights }) => (
-              <motion.article
-                className={`service-card ${activeDetailsId === id ? 'active-card-view' : ''}`}
-                key={id}
-                variants={fadeInUp}
-                whileHover={{ y: -8, boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)" }}
-              >
-                <div className="service-card-top">
-                  <div className="service-icon-container">
-                    <Icon className="lucide-service-icon" size={26} aria-hidden="true" />
-                  </div>
-                  <h2 className="service-card-title">{title}</h2>
-                </div>
-
-                <p className="service-description">{description}</p>
-                
-                <div className="service-highlights">
-                  <h3 className="sub-section-title">Operational Core Focus:</h3>
-                  <ul>
-                    {highlights.map((highlight, i) => (
-                      <li key={i}>
-                        <CheckCircle2 className="highlight-check" size={14} aria-hidden="true" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="service-card-actions">
-                  <button 
-                    onClick={() => setActiveDetailsId(id)}
-                    className="service-explore-btn"
-                    aria-expanded={activeDetailsId === id}
-                    aria-label={`View interactive specification parameters for ${title}`}
-                  >
-                    Inspect Architecture
-                  </button>
-                  
-                  <Link 
-                    to={`/services/${id}`}
-                    className="service-link"
-                    aria-label={`Maps to dedicated tracking directory page for ${title}`}
-                  >
-                    <span>Full Specification</span>
-                    <ArrowRight size={14} />
-                  </Link>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-
-          {/* Dynamic contextual inspection modal overlay drawer */}
-          <AnimatePresence>
-            {activeDetailsId && selectedService && (
-              <motion.div 
-                className="inspection-backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setActiveDetailsId(null)}
-              >
-                <motion.div 
-                  className="inspection-drawer"
-                  initial={{ x: "100%" }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "100%" }}
-                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  onClick={(e) => e.stopPropagation()}
-                  role="dialog"
-                  aria-modal="true"
-                  aria-labelledby="drawer-heading"
-                >
-                  <button 
-                    className="close-drawer-btn" 
-                    onClick={() => setActiveDetailsId(null)}
-                    aria-label="Terminate inspection drawer interface overlay"
-                  >
-                    <X size={20} />
-                  </button>
-
-                  <header className="drawer-header">
-                    <span className="drawer-pre-title">Technical Parameter Specifications</span>
-                    <h2 id="drawer-heading">{selectedService.title}</h2>
-                    <p>{selectedService.description}</p>
-                  </header>
-
-                  <div className="drawer-body">
-                    <section className="drawer-block">
-                      <div className="block-title-wrapper">
-                        <Cpu size={16} className="block-icon" />
-                        <h3>{selectedService.details.techLabel}</h3>
-                      </div>
-                      <div className="tech-pills-container">
-                        {selectedService.details.technologies.map((tech, i) => (
-                          <span key={i} className="tech-pill">{tech}</span>
-                        ))}
-                      </div>
-                    </section>
-
-                    <section className="drawer-block">
-                      <div className="block-title-wrapper">
-                        <KanbanSquare size={16} className="block-icon" />
-                        <h3>Operational Lifecycle Roadmap</h3>
-                      </div>
-                      <ol className="pipeline-steps-list">
-                        {selectedService.details.process.map((step, i) => (
-                          <li key={i}>
-                            <span className="step-number">0{i + 1}</span>
-                            <span className="step-name">{step}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    </section>
-
-                    <section className="drawer-block">
-                      <div className="block-title-wrapper">
-                        <PackageOpen size={16} className="block-icon" />
-                        <h3>Project Target Deliverables</h3>
-                      </div>
-                      <ul className="deliverables-checklist">
-                        {selectedService.details.deliverables.map((item, i) => (
-                          <li key={i}>
-                            <span className="bullet-dot" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </section>
-                  </div>
-
-                  <footer className="drawer-footer">
-                    <Link to="/contact" className="cta-button primary full-width-cta">
-                      Initialize Consultation Process
-                    </Link>
-                  </footer>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Action Callouts */}
-          <motion.div
-            className="services-cta"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            <h2 className="cta-heading">Require custom operational configurations?</h2>
-            <p>We specialized in isolated workflow adjustments built directly around complex micro-service operational targets.</p>
-            <div className="cta-buttons">
-              <Link to="/contact" className="cta-button primary" aria-label="Book a free consultation session with our solution architects">
-                Initialize Free Consultation
-              </Link>
-              <Link to="/case-studies" className="cta-button secondary" aria-label="Review system tracking implementation study cases">
-                Read Verified Case Studies
-              </Link>
-            </div>
-          </motion.div>
+    <div className="bg-slate-50 min-h-screen text-slate-800 font-sans">
+      <header className="bg-slate-900 text-white p-4 shadow-md">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <h1 className="text-xl font-bold tracking-wide">AVERIQO TECHNOLOGIES</h1>
+          <span className="bg-emerald-600 text-xs px-3 py-1 rounded-full uppercase font-semibold">
+            India Billing Desk
+          </span>
         </div>
-      </section>
-    </main>
-  );
-};
+      </header>
 
-export default Services;
+      <main className="max-w-7xl mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-6">
+          {/* Client Block */}
+          <div className="bg-white p-6 rounded-xl shadow-xs border border-slate-200">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 pb-2 border-b border-slate-100">
+              1. Client Information & Statutory Details
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-600 mb-1">Company / Corporate Identity</label>
+                <input
+                  type="text"
+                  name="companyName"
+                  value={clientDetails.companyName}
+                  onChange={handleClientChange}
+                  placeholder="e.g., Reliance Digital"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-600 mb-1">Contact Person Name</label>
+                <input
+                  type="text"
+                  name="contactPerson"
+                  value={clientDetails.contactPerson}
+                  onChange={handleClientChange}
+                  placeholder="e.g., Amit Sharma"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-600 mb-1">Client GSTIN</label>
+                <input
+                  type="text"
+                  name="clientGSTIN"
+                  value={clientDetails.clientGSTIN}
+                  onChange={handleClientChange}
+                  placeholder="27XXXXXXXXXXX1Z"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md uppercase focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-600 mb-1">Place of Supply (GST Routing)</label>
+                <select
+                  name="placeOfSupply"
+                  value={clientDetails.placeOfSupply}
+                  onChange={handleClientChange}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md bg-white focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="Same State">Intrastate (CGST + SGST)</option>
+                  <option value="Other State">Interstate (IGST)</option>
+                </select>
+              </div>
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-slate-600 mb-1">Billing Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={clientDetails.address}
+                  onChange={handleClientChange}
+                  placeholder="e.g., Bandra Kurla Complex, Mumbai, MH"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-md focus:outline-hidden focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Line Items Block */}
+          <div className="bg-white p-6 rounded-xl shadow-xs border border-slate-200">
+            <h2 className="text-lg font-semibold text-slate-900 mb-4 pb-2 border-b border-slate-100">
+              2. Deliverables Matrix
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-200 text-sm text-slate-500">
+                    <th className="pb-2 w-5/12">Description</th>
+                    <th className="pb-2 w-2/12 px-2">SAC/HSN</th>
+                    <th className="pb-2 w-1/12 px-2">Qty</th>
+                    <th className="pb-2 w-3/12 px-2">Rate (₹)</th>
+                    <th className="pb-2 w-1/12 text-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lineItems.map((item) => (
+                    <tr key={item.id} className="border-b border-slate-100 last:border-0">
+                      <td className="py-3">
+                        <input
+                          type="text"
+                          value={item.description}
+                          onChange={(e) => handleItemChange(item.id, 'description', e.target.value)}
+                          placeholder="e.g., E-commerce Architecture Integration"
+                          className="w-full px-2 py-1 border border-slate-200 rounded-md"
+                        />
+                      </td>
+                      <td className="py-3 px-2">
+                        <input
+                          type="text"
+                          value={item.sacCode}
+                          onChange={(e) => handleItemChange(item.id, 'sacCode', e.target.value)}
+                          className="w-full px-2 py-1 border border-slate-200 rounded-md text-center"
+                        />
+                      </td>
+                      <td className="py-3 px-2">
+                        <input
+                          type="number"
+                          value={item.quantity}
+                          min="1"
+                          onChange={(e) => handleItemChange(item.id, 'quantity', parseInt(e.target.value) || 0)}
+                          className="w-full px-2 py-1 border border-slate-200 rounded-md"
+                        />
+                      </td>
+                      <td className="py-3 px-2">
+                        <input
+                          type="number"
+                          value={item.unitPrice}
+                          min="0"
+                          step="1"
+                          onChange={(e) => handleItemChange(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
+                          className="w-full px-2 py-1 border border-slate-200 rounded-md"
+                        />
+                      </td>
+                      <td className="py-3 text-center">
+                        <button
+                          onClick={() => removeRow(item.id)}
+                          className="text-red-500 hover:text-red-700 font-bold text-lg cursor-pointer"
+                        >
+                          &times;
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <button
+              onClick={addRow}
+              className="mt-4 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition cursor-pointer"
+            >
+              + Add Line Item
+            </button>
+          </div>
+        </div>
+
+        {/* Right Side Totals View */}
+        <div>
+          <div className="bg-slate-900 text-white p-6 rounded-xl shadow-lg sticky top-6">
+            <h2 className="text-lg font-semibold border-b border-slate-800 pb-3 mb-4">GST Invoice Ledger</h2>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-400">Taxable Value:</span>
+                <span>₹{financials.subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              </div>
+              
+              {clientDetails.placeOfSupply === 'Same State' ? (
+                <>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">CGST ({parseFloat(clientDetails.taxRate) / 2}%):</span>
+                    <span>₹{financials.cgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">SGST ({parseFloat(clientDetails.taxRate) / 2}%):</span>
+                    <span>₹{financials.sgst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                  </div>
+                </>
+              ) : (
+                <div className="flex justify-between">
+                  <span className="text-slate-400">IGST ({clientDetails.taxRate}%):</span>
+                  <span>₹{financials.igst.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                </div>
+              )}
+
+              <div className="flex justify-between text-base font-bold pt-3 border-t border-slate-800">
+                <span>Total Amount (INR):</span>
+                <span className="text-emerald-400">₹{financials.grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <button
+                onClick={exportToPDF}
+                className="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg transition shadow-md cursor-pointer block text-center"
+              >
+                📥 Download GST Quotation
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
