@@ -109,6 +109,17 @@ const CertificateVerification = () => {
       signature: "Shivam Singh",
       verificationUrl: "https://averiqotech.com/verify/AT-2713",
     },
+    "AT-2714": {
+      id: "AT-2714",
+      studentName: "Patel Meghaben Jiteshkumar",
+      course: "Frontend Development Internship",
+      issueDate: "2026-07-17",
+      duration: "15 days",
+      grade: "A+",
+      issuer: "Averiqo Technologies",
+      signature: "Shivam Singh",
+      verificationUrl: "https://averiqotech.com/verify/AT-2714",
+    },
   };
 
   const handleVerify = (c) => {
