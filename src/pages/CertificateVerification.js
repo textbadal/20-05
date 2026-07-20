@@ -112,7 +112,7 @@ const CertificateVerification = () => {
     "AT-2714": {
       id: "AT-2714",
       studentName: "Patel Meghaben Jiteshkumar",
-      course: "Frontend Development Internship",
+      course: "Robotics",
       issueDate: "2026-07-17",
       duration: "15 days",
       grade: "A+",
