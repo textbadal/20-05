@@ -136,25 +136,18 @@ const InternshipRegistration = () => {
 
 <header className="internship-hero">
 
-  <div className="hero-badge">
-    🚀 Applications Open for {COHORT_YEAR}
-  </div>
-
+ 
   <h1>
-    Launch Your Career with
-    <span className="gradient-text"> Averiqo Technologies</span>
+   
+    <span className="gradient-text"> Internship Registration</span>
   </h1>
 
-  <p>
-    Work on real industry projects, learn from experienced mentors,
-    build your portfolio, and receive a verified internship certificate
-    to boost your career.
-  </p>
+ 
 
   <div className="hero-actions">
     <CTAButton
       href={FORM_URL}
-      text="Apply Now"
+      text="Register Now for Internship"
       variant="primary"
     />
 

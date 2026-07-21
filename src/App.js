@@ -24,6 +24,7 @@ import Pricing from "./pages/Pricing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Blog from "./pages/Blog";
 import CaseStudies from "./pages/CaseStudies";
+import Payment from "./pages/Payment";
 import ServiceDetail from "./pages/ServiceDetail";
 
 import WebDevelopment from "./pages/services/WebDevelopment";
@@ -64,6 +65,7 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/case-studies" element={<CaseStudies />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/service/:id" element={<ServiceDetail />} />
 
           <Route

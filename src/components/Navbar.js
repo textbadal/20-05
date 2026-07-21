@@ -14,6 +14,7 @@ export default function Navbar() {
     { path: "/services", label: "Services" },
     { path: "/case-studies", label: "Case Studies" },
      { path: "/internship-registration", label: "Internships" },
+     { path: "/payment", label: "Payment" },
     { path: "/contact", label: "Contact" },
   ];
 
