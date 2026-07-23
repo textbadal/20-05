@@ -1,0 +1,439 @@
+/* src/components/Payment.css */
+
+/* ==================== RESET & BASE ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.payment-page-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background Elements */
+.payment-page-wrapper::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  top: -100px;
+  right: -100px;
+  animation: float 20s ease-in-out infinite;
+}
+
+.payment-page-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  bottom: -80px;
+  left: -80px;
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* ==================== MAIN CARD ==================== */
+.payment-card {
+  background: #ffffff;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 24px;
+  padding: 40px 35px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.6s ease-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== LOGO ==================== */
+.payment-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 4px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.payment-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* ==================== TITLE ==================== */
+.payment-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.payment-subtitle {
+  font-size: 16px;
+  color: #718096;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* ==================== QR CODE ==================== */
+.qr-wrapper {
+  margin: 30px 0;
+  padding: 20px;
+  background: #f7fafc;
+  border-radius: 16px;
+  border: 2px dashed #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.qr-wrapper:hover {
+  border-color: #667eea;
+  background: #faf5ff;
+}
+
+.qr-code {
+  width: 280px;
+  max-width: 100%;
+  border: 8px solid #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.qr-code:hover {
+  transform: scale(1.02);
+}
+
+/* ==================== PAYMENT APPS ==================== */
+.payment-apps {
+  background: linear-gradient(135deg, #f7fafc, #edf2f7);
+  border-radius: 12px;
+  padding: 20px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.payment-apps:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+}
+
+.payment-apps-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+.payment-apps-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.payment-app-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #2d3748;
+  transition: all 0.3s ease;
+}
+
+.payment-app-item:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.payment-app-item .app-icon {
+  font-size: 18px;
+}
+
+/* ==================== INSTRUCTIONS ==================== */
+.instructions {
+  text-align: left;
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.instructions:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+}
+
+.instructions-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instructions-title::before {
+  content: '📋';
+  font-size: 18px;
+}
+
+.instructions-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  color: #4a5568;
+  font-size: 14px;
+  line-height: 1.6;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.instructions-list li:last-child {
+  border-bottom: none;
+}
+
+.instructions-list li::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.instructions-list li:nth-child(1)::before { content: '1'; }
+.instructions-list li:nth-child(2)::before { content: '2'; }
+.instructions-list li:nth-child(3)::before { content: '3'; }
+.instructions-list li:nth-child(4)::before { content: '4'; }
+.instructions-list li:nth-child(5)::before { content: '5'; }
+
+/* ==================== WHATSAPP BUTTON ==================== */
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #25D366;
+  color: #fff;
+  padding: 16px 35px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.whatsapp-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.whatsapp-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.whatsapp-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-btn:active {
+  transform: translateY(0);
+}
+
+.whatsapp-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+/* ==================== FOOTER ==================== */
+.payment-footer {
+  margin-top: 25px;
+  color: #a0aec0;
+  font-size: 14px;
+}
+
+.payment-footer strong {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.razorpay-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: #f7fafc;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #4a5568;
+  margin-top: 8px;
+}
+
+.razorpay-badge .shield {
+  color: #48bb78;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 640px) {
+  .payment-card {
+    padding: 30px 20px;
+  }
+
+  .payment-title {
+    font-size: 24px;
+  }
+
+  .payment-subtitle {
+    font-size: 14px;
+  }
+
+  .qr-code {
+    width: 220px;
+  }
+
+  .whatsapp-btn {
+    padding: 14px 25px;
+    font-size: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .payment-apps-list {
+    gap: 8px;
+  }
+
+  .payment-app-item {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+
+  .instructions-list li {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .payment-card {
+    padding: 20px 15px;
+  }
+
+  .payment-title {
+    font-size: 20px;
+  }
+
+  .qr-code {
+    width: 180px;
+  }
+
+  .payment-apps-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .payment-app-item {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ==================== SCROLLBAR ==================== */
+.payment-page-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.payment-page-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.payment-page-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.payment-page-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

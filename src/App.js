@@ -5,8 +5,7 @@ import { HelmetProvider } from "react-helmet-async";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
-import ScrollToTop from "./components/ScrollToTop";
-import LiveChat from "./components/LiveChat";
+
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -38,7 +37,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
-        <ScrollToTop />
+      
 
         <Navbar />
 
@@ -91,7 +90,7 @@ function App() {
           />
         </Routes>
 
-        <LiveChat />
+        
         <WhatsAppButton />
         <Footer />
       </Router>
